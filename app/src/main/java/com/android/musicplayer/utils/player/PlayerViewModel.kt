@@ -19,7 +19,7 @@ class PlayerViewModel : ViewModel() {
     val queue = MutableLiveData<QueueEntity>()
     val shuffle = MutableLiveData<Boolean>()
     val repeat = MutableLiveData<Boolean>()
-    private var mNavigator: OnMusicPlayerActionCallback? = null
+    private var mNavigator: OnPlayerActionCallback? = null
 
     val song: ASong?
         get() = playerdata.value
@@ -55,7 +55,7 @@ class PlayerViewModel : ViewModel() {
         this.repeat.value = queue.isRepeat
     }
 
-    fun setPlayer(onAudioPlayerActionCallback: OnMusicPlayerActionCallback) {
+    fun setPlayer(onAudioPlayerActionCallback: OnPlayerActionCallback) {
         this.mNavigator = onAudioPlayerActionCallback
     }
 

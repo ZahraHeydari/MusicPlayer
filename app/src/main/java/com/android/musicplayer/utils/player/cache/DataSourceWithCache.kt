@@ -19,11 +19,9 @@ class DataSourceWithCache private constructor(
     private var simpleCache: SimpleCache? = null
 
     fun buildDataSourceFactory(context: Context, cache: Boolean): DataSource.Factory {
-
         Log.d(TAG, "buildDataSourceFactory: ")
-
         if (!cache) {
-            Log.d(TAG, "buildDataSourceFactory: NO CACH")
+            Log.d(TAG, "buildDataSourceFactory: NO CACHE")
 
             val dataSourceFactory = DefaultDataSourceFactory(
                 context,
@@ -34,11 +32,8 @@ class DataSourceWithCache private constructor(
                 context, BANDWIDTH_METER,
                 dataSourceFactory
             )
-
         } else {
-
-            Log.d(TAG, "buildDataSourceFactory: USE CACH")
-
+            Log.d(TAG, "buildDataSourceFactory: USE CACHE")
             return DataSource.Factory {
                 Log.d(TAG, "buildDataSourceFactory: createDataSource")
 
@@ -86,8 +81,8 @@ class DataSourceWithCache private constructor(
     companion object {
         private val TAG = DataSourceWithCache::class.java.simpleName
 
-        private val MAX_CACHE_SIZE = 100 * 1024 * 1024
-        private val MIN_CACHE_FILE_SIZE = 10 * 1024 * 1024
+        private const val MAX_CACHE_SIZE = 100 * 1024 * 1024
+        private const val MIN_CACHE_FILE_SIZE = 10 * 1024 * 1024
         private var INSTANCE: DataSourceWithCache? = null
 
         fun createDataSource(

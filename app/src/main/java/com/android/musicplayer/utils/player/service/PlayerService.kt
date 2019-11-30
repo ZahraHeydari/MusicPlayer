@@ -201,9 +201,9 @@ class PlayerService : Service(), OnMediaControllerCallback {
 
     companion object {
 
-        val ACTION_CMD = "app.ACTION_CMD"
-        val CMD_NAME = "CMD_NAME"
-        val CMD_STOP_CASTING = "CMD_STOP_CASTING"
-        val CMD_PAUSE = "CMD_PAUSE"
+        const val ACTION_CMD = "app.ACTION_CMD"
+        const val CMD_NAME = "CMD_NAME"
+        const val CMD_STOP_CASTING = "CMD_STOP_CASTING"
+        const val CMD_PAUSE = "CMD_PAUSE"
     }
 }

@@ -13,7 +13,7 @@ import com.android.musicplayer.utils.player.service.OnPlayerServiceListener
 import com.android.musicplayer.utils.player.service.PlayerService
 import kotlin.collections.ArrayList
 
-open class BaseSongPlayerActivity : AppCompatActivity(), OnMusicPlayerActionCallback,
+open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
     OnPlayerServiceListener {
 
     private val TAG = BaseSongPlayerActivity::class.java.name

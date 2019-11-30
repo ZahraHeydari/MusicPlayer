@@ -311,15 +311,15 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
     companion object {
 
         private val isSupportExpand = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
-        private val ACTION_PAUSE = "app.pause"
-        private val ACTION_PLAY = "app.play"
-        private val ACTION_PREV = "app.prev"
-        private val ACTION_NEXT = "app.next"
-        private val ACTION_STOP = "app.stop"
-        private val ACTION_STOP_CASTING = "app.stop_cast"
-        private val CHANNEL_ID = "app.MUSIC_CHANNEL_ID"
-        private val NOTIFICATION_ID = 412
-        private val REQUEST_CODE = 100
+        private const val ACTION_PAUSE = "app.pause"
+        private const val ACTION_PLAY = "app.play"
+        private const val ACTION_PREV = "app.prev"
+        private const val ACTION_NEXT = "app.next"
+        private const val ACTION_STOP = "app.stop"
+        private const val ACTION_STOP_CASTING = "app.stop_cast"
+        private const val CHANNEL_ID = "app.MUSIC_CHANNEL_ID"
+        private const val NOTIFICATION_ID = 412
+        private const val REQUEST_CODE = 100
     }
 }
 

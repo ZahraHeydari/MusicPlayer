@@ -4,6 +4,13 @@ package com.android.musicplayer.utils.player.controller
 import com.android.musicplayer.data.model.Song
 import java.util.ArrayList
 
+/**
+ * To return the result of [MediaController]
+ *
+ * and also to make an interaction between [PlayerService] & [MediaController]
+ *
+ * @author ZARA
+ * */
 interface OnMediaControllerCallback {
 
     fun onSongChanged()

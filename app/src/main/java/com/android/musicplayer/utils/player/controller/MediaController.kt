@@ -6,7 +6,7 @@ import com.android.musicplayer.utils.player.ASong
 import com.android.musicplayer.utils.player.exo.OnExoPlayerManagerCallback
 import com.android.musicplayer.utils.player.queue.QueueEntity
 import com.android.musicplayer.utils.player.queue.QueueManager
-import com.android.musicplayer.utils.player.queue.QueueManagerCallback
+import com.android.musicplayer.utils.player.queue.OnQueueManagerCallback
 import java.util.HashSet
 
 class MediaController(
@@ -17,7 +17,7 @@ class MediaController(
     private val TAG = MediaController::class.java.name
     private val mMediaControllersCallbacksHashSet = HashSet<OnMediaControllerCallback>()
     private var queueManager: QueueManager? = null
-    private var mQueueManagerCallback: QueueManagerCallback? = null
+    private var mQueueManagerCallback: OnQueueManagerCallback? = null
 
 
     init {

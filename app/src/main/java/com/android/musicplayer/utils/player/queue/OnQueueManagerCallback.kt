@@ -7,7 +7,7 @@ package com.android.musicplayer.utils.player.queue
  * @author Zara
  *
  * */
-interface QueueManagerCallback {
+interface OnQueueManagerCallback {
 
     fun onQueueUpdated(newQueue: QueueEntity)
 }

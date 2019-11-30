@@ -7,7 +7,7 @@ import com.android.musicplayer.data.model.Song
  *
  * @author Zara
  * */
-interface OnMusicPlayerActionCallback {
+interface OnPlayerActionCallback {
 
 
     fun play(songList: MutableList<ASong>)
