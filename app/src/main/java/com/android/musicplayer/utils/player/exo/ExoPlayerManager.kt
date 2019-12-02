@@ -8,10 +8,11 @@ import android.media.AudioManager
 import android.net.Uri
 import android.net.wifi.WifiManager
 import android.os.Handler
+import android.os.Looper
 import android.os.Message
 import android.text.format.DateUtils
 import android.util.Log
-import com.android.musicplayer.utils.player.ASong
+import com.android.musicplayer.utils.player.model.ASong
 import com.android.musicplayer.utils.player.cache.DataSourceWithCache
 import com.android.musicplayer.utils.player.logger.PlayerEventLogger
 import com.android.musicplayer.utils.player.service.PlayerService
@@ -28,8 +29,13 @@ import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
-import com.android.musicplayer.utils.player.PlaybackState
 
+/**
+ * This class is responsible for managing the player(actions, state, ...) using [ExoPlayer]
+ *
+ *
+ * @author ZARA
+ * */
 class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
 
 
@@ -72,7 +78,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
             }
         }
     }
-    private val mUpdateProgressHandler = object : Handler() {
+    private val mUpdateProgressHandler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             val duration = mExoPlayer?.duration ?: 0
             val position = mExoPlayer?.currentPosition ?: 0

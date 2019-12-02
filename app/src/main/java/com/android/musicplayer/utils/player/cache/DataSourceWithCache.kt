@@ -19,7 +19,6 @@ class DataSourceWithCache private constructor(
     private var simpleCache: SimpleCache? = null
 
     fun buildDataSourceFactory(context: Context, cache: Boolean): DataSource.Factory {
-        Log.d(TAG, "buildDataSourceFactory: ")
         if (!cache) {
             Log.d(TAG, "buildDataSourceFactory: NO CACHE")
 
@@ -33,7 +32,6 @@ class DataSourceWithCache private constructor(
                 dataSourceFactory
             )
         } else {
-            Log.d(TAG, "buildDataSourceFactory: USE CACHE")
             return DataSource.Factory {
                 Log.d(TAG, "buildDataSourceFactory: createDataSource")
 
@@ -50,7 +48,6 @@ class DataSourceWithCache private constructor(
         Log.d(TAG, "createDataSource: cacheDir: $cacheDir")
 
         if (simpleCache == null) {
-            Log.d(TAG, "createDataSource: Create new oe of SimpleCache")
             simpleCache = SimpleCache(cacheDir, evictor)
         }
 
@@ -68,7 +65,6 @@ class DataSourceWithCache private constructor(
         context: Context,
         bandwidthMeter: DefaultBandwidthMeter
     ): DefaultDataSourceFactory {
-        Log.d(TAG, "buildDataSourceFactory: buildCachedHttpDataSourceFactory")
 
         val dataSourceFactory = DefaultDataSourceFactory(
             context,

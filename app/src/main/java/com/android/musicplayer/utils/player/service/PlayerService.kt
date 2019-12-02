@@ -7,7 +7,7 @@ import android.os.Binder
 import android.os.IBinder
 import android.util.Log
 import com.android.musicplayer.data.model.Song
-import com.android.musicplayer.utils.player.ASong
+import com.android.musicplayer.utils.player.model.ASong
 import com.android.musicplayer.utils.player.controller.MediaController
 import com.android.musicplayer.utils.player.controller.OnMediaControllerCallback
 import com.android.musicplayer.utils.player.exo.ExoPlayerManager
@@ -15,7 +15,6 @@ import com.android.musicplayer.utils.player.notification.MediaNotificationManage
 import java.util.*
 
 class PlayerService : Service(), OnMediaControllerCallback {
-
 
     private val TAG = PlayerService::class.java.name
     private var mMediaController: MediaController? = null
@@ -65,7 +64,7 @@ class PlayerService : Service(), OnMediaControllerCallback {
         return mMediaController?.getCurrentSong()
     }
 
-    fun getCurrentSongList():ArrayList<ASong>?{
+    fun getCurrentSongList(): ArrayList<ASong>? {
         return mMediaController?.getCurrentSongList()
     }
 
@@ -176,11 +175,9 @@ class PlayerService : Service(), OnMediaControllerCallback {
     override fun onPlaybackStateUpdated() {
         if (mMediaController?.getSongPlayingState() == PlaybackState.STATE_STOPPED ||
             mMediaController?.getSongPlayingState() == PlaybackState.STATE_NONE
-        ) {
-            mNotificationManager?.stopNotification()
-        } else {
-            mNotificationManager?.startNotification()
-        }
+        ) mNotificationManager?.stopNotification()
+        else mNotificationManager?.startNotification()
+
     }
 
     inner class LocalBinder : Binder() {
@@ -194,9 +191,7 @@ class PlayerService : Service(), OnMediaControllerCallback {
         Log.d(TAG, "onDestroy() called")
         unregisterAllControllerCallback()
         this.mMediaController?.stop()
-        mListener?.let { nonNullListener ->
-            mListener = null
-        }
+        mListener = null
     }
 
     companion object {

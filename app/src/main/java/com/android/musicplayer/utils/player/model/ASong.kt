@@ -1,4 +1,4 @@
-package com.android.musicplayer.utils.player
+package com.android.musicplayer.utils.player.model
 
 
 abstract class ASong {
@@ -71,19 +71,19 @@ abstract class ASong {
         val song = o as ASong?
 
         if (this.getSongId() != this.getSongId()) return false
-        if (if (this.getName() != null) this.getName() != song!!.getName() else song!!.getName() != null)
+        if (if (this.getName() != null) this.getName() != song?.getName() else song?.getName() != null)
             return false
-        if (if (this.getFeatureAvatar() != null) this.getFeatureAvatar() != song.getFeatureAvatar() else song.getFeatureAvatar() != null)
+        if (if (this.getFeatureAvatar() != null) this.getFeatureAvatar() != song?.getFeatureAvatar() else song?.getFeatureAvatar() != null)
             return false
-        return if (this.getSingerName() != null) this.getSingerName() == song.getSingerName() else song.getSingerName() == null
+        return if (this.getSingerName() != null) this.getSingerName() == song?.getSingerName() else song?.getSingerName() == null
     }
 
     override fun hashCode(): Int {
         var result = getSongId() xor getSongId().ushr(32)
-        result = 31 * result + if (getName() != null) getName()!!.hashCode() else 0
+        result = 31 * result + if (getName() != null) getName().hashCode() else 0
         result =
-            31 * result + if (getFeatureAvatar() != null) getFeatureAvatar()!!.hashCode() else 0
-        result = 31 * result + if (getSingerName() != null) getSingerName()!!.hashCode() else 0
+            31 * result + if (getFeatureAvatar() != null) getFeatureAvatar().hashCode() else 0
+        result = 31 * result + if (getSingerName() != null) getSingerName().hashCode() else 0
         return result
     }
 

@@ -2,13 +2,18 @@ package com.android.musicplayer.utils.player.controller
 
 import android.os.Handler
 import android.util.Log
-import com.android.musicplayer.utils.player.ASong
+import com.android.musicplayer.utils.player.model.ASong
 import com.android.musicplayer.utils.player.exo.OnExoPlayerManagerCallback
 import com.android.musicplayer.utils.player.queue.QueueEntity
 import com.android.musicplayer.utils.player.queue.QueueManager
 import com.android.musicplayer.utils.player.queue.OnQueueManagerCallback
 import java.util.HashSet
 
+/**
+ * This class is used to interact with [ExoPlayerManager] & [QueueManager]
+ *
+ * @author ZARA
+ * */
 class MediaController(
     private val onExoPlayerManagerCallback: OnExoPlayerManagerCallback,
     private val mediaControllerCallback: OnMediaControllerCallback

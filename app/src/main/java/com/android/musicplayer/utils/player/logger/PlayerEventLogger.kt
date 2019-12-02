@@ -19,65 +19,61 @@ import com.google.android.exoplayer2.video.VideoRendererEventListener
 import java.io.IOException
 import java.text.NumberFormat
 import java.util.*
+import kotlin.math.min
 
 class PlayerEventLogger(private val trackSelector: MappingTrackSelector) : ExoPlayer.EventListener,
     AudioRendererEventListener, VideoRendererEventListener, AdaptiveMediaSourceEventListener,
     ExtractorMediaSource.EventListener, DefaultDrmSessionManager.EventListener,
     MetadataRenderer.Output {
-    private val window: Timeline.Window
-    private val period: Timeline.Period
-    private val startTimeMs: Long
+    private val window: Timeline.Window = Timeline.Window()
+    private val period: Timeline.Period = Timeline.Period()
+    private val startTimeMs: Long = SystemClock.elapsedRealtime()
 
     private val sessionTimeString: String
         get() = getTimeString(SystemClock.elapsedRealtime() - startTimeMs)
 
-    init {
-        window = Timeline.Window()
-        period = Timeline.Period()
-        startTimeMs = SystemClock.elapsedRealtime()
-    }
-
-    // MetadataRenderer.Output
 
     override fun onLoadingChanged(isLoading: Boolean) {
         Log.d(TAG, "loading [$isLoading]")
+        // Do nothing.
     }
-
-    // AudioRendererEventListener
 
     override fun onPlayerStateChanged(playWhenReady: Boolean, state: Int) {
         Log.d(
-            TAG, "state [" + sessionTimeString + ", " + playWhenReady + ", "
-                    + getStateString(state) + "]"
+            TAG,
+            "state [" + sessionTimeString + ", " + playWhenReady + ", " + getStateString(state) + "]"
         )
+        // Do nothing.
     }
 
     override fun onRepeatModeChanged(repeatMode: Int) {
         Log.d(TAG, "onRepeatModeChanged() called with: repeatMode = [$repeatMode]")
+        // Do nothing.
     }
 
     override fun onShuffleModeEnabledChanged(shuffleModeEnabled: Boolean) {
-
+        // Do nothing.
     }
-
 
     override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters?) {
         Log.d(
             TAG,
             "onPlaybackParametersChanged() called with: playbackParameters = [$playbackParameters]"
         )
+        // Do nothing.
     }
 
     override fun onSeekProcessed() {
-
+        // Do nothing.
     }
 
     override fun onPlayerError(e: ExoPlaybackException?) {
         Log.e(TAG, "playerFailed [$sessionTimeString]", e)
+        // Do nothing.
     }
 
     override fun onPositionDiscontinuity(reason: Int) {
-
+        // Do nothing.
     }
 
     override fun onTimelineChanged(timeline: Timeline?, manifest: Any?, reason: Int) {
@@ -87,34 +83,25 @@ class PlayerEventLogger(private val trackSelector: MappingTrackSelector) : ExoPl
         val periodCount = timeline.periodCount
         val windowCount = timeline.windowCount
         Log.d(TAG, "sourceInfo [periodCount=$periodCount, windowCount=$windowCount")
-        for (i in 0 until Math.min(periodCount, MAX_TIMELINE_ITEM_LINES)) {
+        for (i in 0 until min(periodCount, MAX_TIMELINE_ITEM_LINES)) {
             timeline.getPeriod(i, period)
             Log.d(TAG, "  " + "period [" + getTimeString(period.durationMs) + "]")
         }
         if (periodCount > MAX_TIMELINE_ITEM_LINES) {
-            Log.d(TAG, "  ...")
+            // Do nothing.
         }
-        for (i in 0 until Math.min(windowCount, MAX_TIMELINE_ITEM_LINES)) {
+        for (i in 0 until min(windowCount, MAX_TIMELINE_ITEM_LINES)) {
             timeline.getWindow(i, window)
-            Log.d(
-                TAG, "  " + "window [" + getTimeString(window.durationMs) + ", "
-                        + window.isSeekable + ", " + window.isDynamic + "]"
-            )
         }
         if (windowCount > MAX_TIMELINE_ITEM_LINES) {
-            Log.d(TAG, "  ...")
+            // Do nothing.
         }
-        Log.d(TAG, "]")
     }
 
     override fun onTracksChanged(ignored: TrackGroupArray?, trackSelections: TrackSelectionArray?) {
         val mappedTrackInfo = trackSelector.currentMappedTrackInfo
-        if (mappedTrackInfo == null) {
-            Log.d(TAG, "Tracks []")
+            ?: // Do nothing.
             return
-        }
-        Log.d(TAG, "Tracks [")
-        // Log tracks associated to renderers.
         for (rendererIndex in 0 until mappedTrackInfo.length) {
             val rendererTrackGroups = mappedTrackInfo.getTrackGroups(rendererIndex)
             val trackSelection = trackSelections!!.get(rendererIndex)
@@ -137,29 +124,23 @@ class PlayerEventLogger(private val trackSelector: MappingTrackSelector) : ExoPl
                             )
                         )
                         Log.d(
-                            TAG, "      " + status + " Track:" + trackIndex + ", "
-                                    + Format.toLogString(trackGroup.getFormat(trackIndex))
-                                    + ", supported=" + formatSupport
+                            TAG, "  Status: $status Track: $trackIndex " +
+                                    "${Format.toLogString(trackGroup.getFormat(trackIndex))} supported: $formatSupport"
                         )
                     }
-                    Log.d(TAG, "    ]")
                 }
-                // Log metadata for at most one of the tracks selected for the renderer.
+
                 if (trackSelection != null) {
                     for (selectionIndex in 0 until trackSelection.length()) {
                         val metadata = trackSelection.getFormat(selectionIndex).metadata
                         if (metadata != null) {
-                            Log.d(TAG, "    Metadata [")
-                            printMetadata(metadata, "      ")
-                            Log.d(TAG, "    ]")
                             break
                         }
                     }
                 }
-                Log.d(TAG, "  ]")
             }
         }
-        // Log tracks not associated with a renderer.
+
         val unassociatedTrackGroups = mappedTrackInfo.unassociatedTrackGroups
         if (unassociatedTrackGroups.length > 0) {
             Log.d(TAG, "  Renderer:None [")
@@ -172,32 +153,29 @@ class PlayerEventLogger(private val trackSelector: MappingTrackSelector) : ExoPl
                         RendererCapabilities.FORMAT_UNSUPPORTED_TYPE
                     )
                     Log.d(
-                        TAG, "      " + status + " Track:" + trackIndex + ", "
-                                + Format.toLogString(trackGroup.getFormat(trackIndex))
-                                + ", supported=" + formatSupport
+                        TAG, "  Status: $status Track: $trackIndex " +
+                                "${Format.toLogString(trackGroup.getFormat(trackIndex))} supported: $formatSupport"
                     )
                 }
-                Log.d(TAG, "    ]")
             }
-            Log.d(TAG, "  ]")
         }
-        Log.d(TAG, "]")
     }
 
     override fun onMetadata(metadata: Metadata) {
         Log.d(TAG, "onMetadata [")
         printMetadata(metadata, "  ")
-        Log.d(TAG, "]")
+        // Do nothing.
     }
 
-    // VideoRendererEventListener
 
     override fun onAudioEnabled(counters: DecoderCounters) {
         Log.d(TAG, "audioEnabled [$sessionTimeString]")
+        // Do nothing.
     }
 
     override fun onAudioSessionId(audioSessionId: Int) {
         Log.d(TAG, "audioSessionId [$audioSessionId]")
+        // Do nothing.
     }
 
     override fun onAudioDecoderInitialized(
@@ -205,13 +183,12 @@ class PlayerEventLogger(private val trackSelector: MappingTrackSelector) : ExoPl
         initializationDurationMs: Long
     ) {
         Log.d(TAG, "audioDecoderInitialized [$sessionTimeString, $decoderName]")
+        // Do nothing.
     }
 
     override fun onAudioInputFormatChanged(format: Format) {
-        Log.d(
-            TAG, "audioFormatChanged [" + sessionTimeString + ", " + Format.toLogString(format)
-                    + "]"
-        )
+        Log.d(TAG, "audioFormatChanged: $sessionTimeString ${Format.toLogString(format)}")
+        // Do nothing.
     }
 
     override fun onAudioSinkUnderrun(
@@ -219,18 +196,19 @@ class PlayerEventLogger(private val trackSelector: MappingTrackSelector) : ExoPl
         bufferSizeMs: Long,
         elapsedSinceLastFeedMs: Long
     ) {
-
+        // Do nothing.
     }
 
     override fun onAudioDisabled(counters: DecoderCounters) {
         Log.d(TAG, "audioDisabled [$sessionTimeString]")
+        // Do nothing.
     }
 
     override fun onVideoEnabled(counters: DecoderCounters) {
         Log.d(TAG, "videoEnabled [$sessionTimeString]")
+        // Do nothing.
     }
 
-    // DefaultDrmSessionManager.EventListener
 
     override fun onVideoDecoderInitialized(
         decoderName: String,
@@ -238,24 +216,23 @@ class PlayerEventLogger(private val trackSelector: MappingTrackSelector) : ExoPl
         initializationDurationMs: Long
     ) {
         Log.d(TAG, "videoDecoderInitialized [$sessionTimeString, $decoderName]")
+        // Do nothing.
     }
 
     override fun onVideoInputFormatChanged(format: Format) {
-        Log.d(
-            TAG, "videoFormatChanged [" + sessionTimeString + ", " + Format.toLogString(format)
-                    + "]"
-        )
+        Log.d(TAG, "videoFormatChanged: $sessionTimeString ${Format.toLogString(format)}")
+        // Do nothing.
     }
 
     override fun onVideoDisabled(counters: DecoderCounters) {
         Log.d(TAG, "videoDisabled [$sessionTimeString]")
+        // Do nothing.
     }
 
     override fun onDroppedFrames(count: Int, elapsed: Long) {
         Log.d(TAG, "droppedFrames [$sessionTimeString, $count]")
+        // Do nothing.
     }
-
-    // ExtractorMediaSource.EventListener
 
     override fun onVideoSizeChanged(
         width: Int, height: Int, unappliedRotationDegrees: Int,
@@ -263,8 +240,6 @@ class PlayerEventLogger(private val trackSelector: MappingTrackSelector) : ExoPl
     ) {
         // Do nothing.
     }
-
-    // AdaptiveMediaSourceEventListener
 
     override fun onRenderedFirstFrame(surface: Surface?) {
         // Do nothing.
@@ -297,43 +272,41 @@ class PlayerEventLogger(private val trackSelector: MappingTrackSelector) : ExoPl
 
     private fun printMetadata(metadata: Metadata, prefix: String) {
         for (i in 0 until metadata.length()) {
-            val entry = metadata.get(i)
-            if (entry is TextInformationFrame) {
-                Log.d(
+            when (val entry = metadata.get(i)) {
+                is TextInformationFrame -> Log.d(
                     TAG, prefix + String.format(
                         "%s: value=%s", entry.id,
                         entry.value
                     )
                 )
-            } else if (entry is UrlLinkFrame) {
-                Log.d(TAG, prefix + String.format("%s: url=%s", entry.id, entry.url))
-            } else if (entry is PrivFrame) {
-                Log.d(TAG, prefix + String.format("%s: owner=%s", entry.id, entry.owner))
-            } else if (entry is GeobFrame) {
-                Log.d(
+                is UrlLinkFrame -> Log.d(
+                    TAG,
+                    prefix + String.format("%s: url=%s", entry.id, entry.url)
+                )
+                is PrivFrame -> Log.d(
+                    TAG,
+                    prefix + String.format("%s: owner=%s", entry.id, entry.owner)
+                )
+                is GeobFrame -> Log.d(
                     TAG, prefix + String.format(
                         "%s: mimeType=%s, filename=%s, description=%s",
                         entry.id, entry.mimeType, entry.filename, entry.description
                     )
                 )
-            } else if (entry is ApicFrame) {
-                Log.d(
+                is ApicFrame -> Log.d(
                     TAG, prefix + String.format(
                         "%s: mimeType=%s, description=%s",
                         entry.id, entry.mimeType, entry.description
                     )
                 )
-            } else if (entry is CommentFrame) {
-                Log.d(
+                is CommentFrame -> Log.d(
                     TAG, prefix + String.format(
                         "%s: language=%s, description=%s", entry.id,
                         entry.language, entry.description
                     )
                 )
-            } else if (entry is Id3Frame) {
-                Log.d(TAG, prefix + String.format("%s", entry.id))
-            } else if (entry is EventMessage) {
-                Log.d(
+                is Id3Frame -> Log.d(TAG, prefix + String.format("%s", entry.id))
+                is EventMessage -> Log.d(
                     TAG, prefix + String.format(
                         "EMSG: scheme=%s, id=%d, value=%s",
                         entry.schemeIdUri, entry.id, entry.value
@@ -344,11 +317,11 @@ class PlayerEventLogger(private val trackSelector: MappingTrackSelector) : ExoPl
     }
 
     override fun onMediaPeriodCreated(windowIndex: Int, mediaPeriodId: MediaSource.MediaPeriodId) {
-
+        //Nothing to do yet
     }
 
     override fun onMediaPeriodReleased(windowIndex: Int, mediaPeriodId: MediaSource.MediaPeriodId) {
-
+        //Nothing to do yet
     }
 
     override fun onLoadStarted(
@@ -356,7 +329,7 @@ class PlayerEventLogger(private val trackSelector: MappingTrackSelector) : ExoPl
         loadEventInfo: MediaSourceEventListener.LoadEventInfo,
         mediaLoadData: MediaSourceEventListener.MediaLoadData
     ) {
-
+        //Nothing to do yet
     }
 
     override fun onLoadCompleted(
@@ -364,7 +337,7 @@ class PlayerEventLogger(private val trackSelector: MappingTrackSelector) : ExoPl
         loadEventInfo: MediaSourceEventListener.LoadEventInfo,
         mediaLoadData: MediaSourceEventListener.MediaLoadData
     ) {
-
+        //Nothing to do yet
     }
 
     override fun onLoadCanceled(
@@ -372,7 +345,7 @@ class PlayerEventLogger(private val trackSelector: MappingTrackSelector) : ExoPl
         loadEventInfo: MediaSourceEventListener.LoadEventInfo,
         mediaLoadData: MediaSourceEventListener.MediaLoadData
     ) {
-
+        //Nothing to do yet
     }
 
     override fun onLoadError(
@@ -382,11 +355,11 @@ class PlayerEventLogger(private val trackSelector: MappingTrackSelector) : ExoPl
         error: IOException,
         wasCanceled: Boolean
     ) {
-
+        //Nothing to do yet
     }
 
     override fun onReadingStarted(windowIndex: Int, mediaPeriodId: MediaSource.MediaPeriodId) {
-
+        //Nothing to do yet
     }
 
     override fun onUpstreamDiscarded(
@@ -394,30 +367,28 @@ class PlayerEventLogger(private val trackSelector: MappingTrackSelector) : ExoPl
         mediaPeriodId: MediaSource.MediaPeriodId,
         mediaLoadData: MediaSourceEventListener.MediaLoadData
     ) {
-
+        //Nothing to do yet
     }
 
     override fun onDownstreamFormatChanged(
         windowIndex: Int, mediaPeriodId: MediaSource.MediaPeriodId?,
         mediaLoadData: MediaSourceEventListener.MediaLoadData
     ) {
-
+        //Nothing to do yet
     }
 
     companion object {
 
-        private val TAG = "EventLogger"
-        private val MAX_TIMELINE_ITEM_LINES = 3
-        private val TIME_FORMAT: NumberFormat
+        private val TAG = PlayerEventLogger::class.java.name
+        private const val MAX_TIMELINE_ITEM_LINES = 3
+        private val TIME_FORMAT: NumberFormat = NumberFormat.getInstance(Locale.US)
 
         init {
-            TIME_FORMAT = NumberFormat.getInstance(Locale.US)
             TIME_FORMAT.minimumFractionDigits = 2
             TIME_FORMAT.maximumFractionDigits = 2
             TIME_FORMAT.isGroupingUsed = false
         }
 
-        // ExoPlayer.EventListener
 
         private fun getTimeString(timeMs: Long): String {
             return if (timeMs == C.TIME_UNSET) "?" else TIME_FORMAT.format((timeMs / 1000f).toDouble())

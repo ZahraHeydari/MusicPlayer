@@ -10,7 +10,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.RemoteException
@@ -23,11 +22,16 @@ import coil.Coil
 import coil.api.load
 import com.android.musicplayer.R
 import com.android.musicplayer.data.model.Song
-import com.android.musicplayer.utils.player.PlaybackState
-import com.android.musicplayer.utils.player.ResourceHelper
+import com.android.musicplayer.utils.player.exo.PlaybackState
+import com.android.musicplayer.utils.player.helper.ResourceHelper
 import com.android.musicplayer.utils.player.service.PlayerService
 import com.android.musicplayer.presentation.songplayer.SongPlayerActivity
 
+/**
+ * This class is responsible for managing Notification
+ *
+ * @author ZARA
+ * */
 class MediaNotificationManager @Throws(RemoteException::class)
 constructor(private val mService: PlayerService) : BroadcastReceiver() {
 
@@ -218,7 +222,6 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
     private fun showPlayIcon() {
         mCollapsedRemoteViews.setViewVisibility(R.id.notification_pause_image_view, View.GONE)
         mCollapsedRemoteViews.setViewVisibility(R.id.notification_play_image_view, View.VISIBLE)
-
         mExpandedRemoteViews.setViewVisibility(R.id.notification_pause_image_view, View.GONE)
         mExpandedRemoteViews.setViewVisibility(R.id.notification_play_image_view, View.VISIBLE)
     }

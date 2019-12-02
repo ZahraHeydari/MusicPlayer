@@ -1,6 +1,6 @@
 package com.android.musicplayer.utils.player.queue
 
-import com.android.musicplayer.utils.player.ASong
+import com.android.musicplayer.utils.player.model.ASong
 import java.util.*
 
 object QueueHelper {

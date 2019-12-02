@@ -1,8 +1,14 @@
 package com.android.musicplayer.utils.player.queue
 
-import com.android.musicplayer.utils.player.ASong
+import com.android.musicplayer.utils.player.model.ASong
 import kotlin.math.max
 
+/**
+ * This class is used to manage the queue of playlist
+ * (normal list, shuffle list, repetition, ...)
+ *
+ * @author ZARA
+ **/
 class QueueManager(private val mListener: SongUpdateListener) {
 
     private var queue: QueueEntity? = null
@@ -65,17 +71,6 @@ class QueueManager(private val mListener: SongUpdateListener) {
         }
     }
 
-    /*fun setRandomIndex() {
-        //setCurrentQueueIndex(QueueHelper.getRandomIndex(queue?.getShuffleOrNormalList()))
-    }*/
-
-    /*fun setCurrentQueueFromSong(song: ASong?) {
-        song?.let { nonNullSong ->
-            val queueEntity = QueueEntity()
-            queueEntity.getShuffleOrNormalList().add(nonNullSong)
-            setCurrentQueue(queueEntity)
-        }
-    }*/
 
     fun setCurrentQueue(
         newQueue: MutableList<ASong>,

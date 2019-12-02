@@ -3,7 +3,7 @@ package com.android.musicplayer.data.model
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.android.musicplayer.utils.player.ASong
+import com.android.musicplayer.utils.player.model.ASong
 import com.android.musicplayer.utils.player.exo.ExoPlayerManager.Companion.AUDIO_TYPE
 import kotlinx.android.parcel.Parcelize
 

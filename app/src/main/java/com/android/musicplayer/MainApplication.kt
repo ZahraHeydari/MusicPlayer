@@ -12,7 +12,6 @@ import org.koin.core.context.startKoin
 
 class MainApplication : Application() {
 
-
     override fun onCreate() {
         super.onCreate()
         MultiDex.install(this)
@@ -29,6 +28,5 @@ class MainApplication : Application() {
         super.attachBaseContext(base)
         MultiDex.install(this)
     }
-
 
 }

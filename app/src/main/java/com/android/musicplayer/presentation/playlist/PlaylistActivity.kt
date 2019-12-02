@@ -1,4 +1,4 @@
-package com.android.musicplayer.presentation
+package com.android.musicplayer.presentation.playlist
 
 import android.Manifest
 import android.content.Intent
@@ -16,23 +16,21 @@ import androidx.lifecycle.Observer
 import com.android.musicplayer.R
 import com.android.musicplayer.data.model.Song
 import com.android.musicplayer.presentation.songplayer.SongPlayerActivity
-import com.android.musicplayer.presentation.playlist.OnPlaylistAdapterListener
-import com.android.musicplayer.presentation.playlist.PlaylistAdapter
-import com.android.musicplayer.presentation.playlist.PlaylistViewModel
 import com.android.musicplayer.utils.player.BaseSongPlayerActivity
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_playlist.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
+class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
+
 
     private var adapter: PlaylistAdapter? = null
     private val viewModel: PlaylistViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_playlist)
         setSupportActionBar(toolbar)
 
         adapter = PlaylistAdapter(this)
@@ -61,7 +59,7 @@ class MainActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == AppCompatActivity.RESULT_OK && requestCode == PICK_AUDIO_KEY) {
+        if (resultCode == RESULT_OK && requestCode == PICK_AUDIO_KEY) {
             data?.data?.let {
                 addSong(it)
             }
@@ -181,10 +179,7 @@ class MainActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
     }
 
 
-    override fun playSong(
-        song: Song,
-        songs: ArrayList<Song>
-    ) {
+    override fun playSong(song: Song, songs: ArrayList<Song>) {
         SongPlayerActivity.start(this, song, songs)
     }
 

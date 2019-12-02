@@ -1,6 +1,6 @@
 package com.android.musicplayer.utils.player.service
 
-import com.android.musicplayer.utils.player.ASong
+import com.android.musicplayer.utils.player.model.ASong
 
 /**
  * To make an interaction between [PlayerService]

@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".presentation.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:context=".presentation.playlist.PlaylistActivity"
+    tools:showIn="@layout/activity_playlist">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/playlist_recycler_view"

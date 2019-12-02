@@ -1,4 +1,4 @@
-package com.android.musicplayer.utils.player
+package com.android.musicplayer.utils.player.exo
 
 class PlaybackState(state: Int) {
 

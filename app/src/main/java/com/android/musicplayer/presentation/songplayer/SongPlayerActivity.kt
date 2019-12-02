@@ -11,7 +11,7 @@ import coil.api.load
 import coil.transform.CircleCropTransformation
 import com.android.musicplayer.R
 import com.android.musicplayer.data.model.Song
-import com.android.musicplayer.utils.player.ASong
+import com.android.musicplayer.utils.player.model.ASong
 import com.android.musicplayer.utils.player.BaseSongPlayerActivity
 import kotlinx.android.synthetic.main.activity_song_player.*
 import java.io.File

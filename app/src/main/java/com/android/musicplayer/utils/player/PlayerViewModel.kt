@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.musicplayer.utils.player.queue.QueueEntity
 import com.android.musicplayer.utils.AppConstants
+import com.android.musicplayer.utils.player.model.ASong
 
 class PlayerViewModel : ViewModel() {
 
@@ -47,7 +48,6 @@ class PlayerViewModel : ViewModel() {
         repeat.value = repeat.value
         this.queue.value?.isRepeat = repeat.value ?: false
     }
-
 
     fun setQueue(queue: QueueEntity) {
         this.queue.value = queue

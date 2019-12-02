@@ -1,51 +1,30 @@
 package com.android.musicplayer.utils.player.exo
 
-import com.android.musicplayer.utils.player.ASong
+import com.android.musicplayer.utils.player.model.ASong
 import java.util.ArrayList
 
 /**
  * To make an interaction between [ExoPlayerManager]
  * & [MediaController]
  *
+ * and to return result from [ExoPlayerManager]
+ *
  * @author Zara
  * */
 interface OnExoPlayerManagerCallback {
 
-    /**
-     * Get the current [PlaybackState.getState]
-     */
-    /**
-     * Set the latest playback state
-     */
     fun getState(): Int
 
-    /**
-     * @return boolean indicating whether the player is playing or is supposed to be
-     * playing when we gain audio focus.
-     */
     fun isPlaying(): Boolean
 
-    /**
-     * @return pos if currently playing an item
-     */
     fun getCurrentStreamPosition(): Long
-
 
     fun getCurrentSong(): ASong?
 
-    /**
-     * Start/setup the playback.
-     */
     fun start()
 
-    /**
-     * Stop the playback
-     */
     fun stop()
 
-    /**
-     * Queries the underlying stream and update the internal last known stream position.
-     */
     fun updateLastKnownStreamPosition()
 
     fun play(item: ASong)
@@ -55,6 +34,11 @@ interface OnExoPlayerManagerCallback {
     fun seekTo(position: Long)
 
 
+    /**
+     * This class gives the information about current song
+     * (position, state of completion, when it`s changed, ...)
+     *
+     * */
     interface OnSongStateCallback {
 
         fun onCompletion()

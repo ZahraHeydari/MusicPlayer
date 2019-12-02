@@ -1,6 +1,7 @@
 package com.android.musicplayer.utils.player
 
 import com.android.musicplayer.data.model.Song
+import com.android.musicplayer.utils.player.model.ASong
 
 /**
  * This class make an interaction [PlayerViewModel] & [BaseSongPlayerActivity]

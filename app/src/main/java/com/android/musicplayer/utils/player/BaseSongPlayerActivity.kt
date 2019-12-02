@@ -8,6 +8,7 @@ import android.os.IBinder
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.android.musicplayer.data.model.Song
+import com.android.musicplayer.utils.player.model.ASong
 import com.android.musicplayer.utils.player.service.OnPlayServiceConnectionCallback
 import com.android.musicplayer.utils.player.service.OnPlayerServiceListener
 import com.android.musicplayer.utils.player.service.PlayerService
