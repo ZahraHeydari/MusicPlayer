@@ -10,7 +10,6 @@ import android.net.wifi.WifiManager
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
-import android.text.format.DateUtils
 import android.util.Log
 import com.android.musicplayer.utils.player.model.ASong
 import com.android.musicplayer.utils.player.cache.DataSourceWithCache
@@ -78,16 +77,18 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
             }
         }
     }
+
     private val mUpdateProgressHandler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             val duration = mExoPlayer?.duration ?: 0
             val position = mExoPlayer?.currentPosition ?: 0
             onUpdateProgress(position, duration)
-            sendEmptyMessageDelayed(0, DateUtils.SECOND_IN_MILLIS)
+            sendEmptyMessageDelayed(0, UPDATE_PROGRESS_DELAY)
         }
     }
+
     // Whether to return STATE_NONE or STATE_STOPPED when mExoPlayer is null;
-    private var mExoPlayerNullIsStopped = false
+    private var mExoPlayerIsStopped = false
     private val mOnAudioFocusChangeListener =
         AudioManager.OnAudioFocusChangeListener { focusChange ->
             Log.d(TAG, "onAudioFocusChange. focusChange= $focusChange")
@@ -100,7 +101,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
                     // Lost audio focus, but will gain it back (shortly), so note whether
                     // playback should resume
                     mCurrentAudioFocusState = AUDIO_NO_FOCUS_NO_DUCK
-                    mPlayOnFocusGain = mExoPlayer != null && mExoPlayer!!.playWhenReady
+                    mPlayOnFocusGain = mExoPlayer != null && mExoPlayer?.playWhenReady ?: false
                 }
                 AudioManager.AUDIOFOCUS_LOSS ->
                     // Lost audio focus, probably "permanently"
@@ -120,6 +121,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
     }
 
     private fun onUpdateProgress(position: Long, duration: Long) {
+        Log.i(TAG, "onUpdateProgress: position: $position duration: $duration")
         mExoSongStateCallback?.setCurrentPosition(position, duration)
     }
 
@@ -133,9 +135,9 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
         releaseResources(true)
     }
 
-    override fun getState(): Int {
+    override fun getCurrentSongState(): Int {
         if (mExoPlayer == null) {
-            return if (mExoPlayerNullIsStopped) {
+            return if (mExoPlayerIsStopped) {
                 mCurrentSong?.setPlay(false)
                 PlaybackState.STATE_STOPPED
             } else {
@@ -166,14 +168,12 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
                 mCurrentSong?.setPlay(false)
                 return PlaybackState.STATE_PAUSED
             }
-
             else -> {
                 mCurrentSong?.setPlay(false)
                 return PlaybackState.STATE_NONE
             }
         }
     }
-
 
     override fun isPlaying(): Boolean {
         return mPlayOnFocusGain || mExoPlayer != null && mExoPlayer?.playWhenReady == true
@@ -187,16 +187,15 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
         // Nothing to do. Position maintained by ExoPlayer.
     }
 
-    override fun play(item: ASong) {
-        //Log.d(TAG, "LocalPlayBack play() called with: item = [$item]")
+    override fun play(aSong: ASong) {
         mPlayOnFocusGain = true
         tryToGetAudioFocus()
         registerAudioNoisyReceiver()
-        val songId = item.getSongId()
-        var songHasChanged = true
+        val songId = aSong.getSongId()
+        val songHasChanged: Boolean
         songHasChanged = songId != mCurrentSong?.getSongId()
         //if (songHasChanged) {
-        mCurrentSong = item
+        mCurrentSong = aSong
         // }
 
         if (songHasChanged || mExoPlayer == null) {
@@ -212,8 +211,8 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
             }
 
             // Android "O" makes much greater use of AudioAttributes, especially
-            // with regards to AudioFocus. All of UAMP's tracks are music, but
-            // if your content includes spoken word such as audiobooks or podcasts
+            // with regards to AudioFocus. All of tracks are music, but
+            // if your content includes spoken word such as audio books or pod casts
             // then the content type should be set to CONTENT_TYPE_SPEECH for those
             // tracks.
             val audioAttributes = AudioAttributes.Builder()
@@ -287,7 +286,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
     }
 
     override fun seekTo(position: Long) {
-        Log.d(TAG, "seekTo called with $position")
+        Log.d(TAG, "seekTo called with: $position")
         registerAudioNoisyReceiver()
         mExoPlayer?.seekTo(position)
     }
@@ -336,12 +335,12 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
         } else {
             registerAudioNoisyReceiver()
 
-            if (mCurrentAudioFocusState == AUDIO_NO_FOCUS_CAN_DUCK) {
-                // We're permitted to play, but only if we 'duck', ie: play softly
+            if (mCurrentAudioFocusState == AUDIO_NO_FOCUS_CAN_DUCK)
+            // We're permitted to play, but only if we 'duck', ie: play softly
                 mExoPlayer?.volume = VOLUME_DUCK
-            } else {
+            else
                 mExoPlayer?.volume = VOLUME_NORMAL
-            }
+
 
             // If we were playing when we lost focus, we need to resume playing.
             if (mPlayOnFocusGain) {
@@ -365,7 +364,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
             mExoPlayer?.release()
             mExoPlayer?.removeListener(mEventListener)
             mExoPlayer = null
-            mExoPlayerNullIsStopped = true
+            mExoPlayerIsStopped = true
             mPlayOnFocusGain = false
         }
 
@@ -409,9 +408,9 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
         override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
             when (playbackState) {
                 Player.STATE_IDLE, Player.STATE_BUFFERING, Player.STATE_READY -> {
-                    mUpdateProgressHandler.removeMessages(0)
+                    //mUpdateProgressHandler.removeMessages(0)
                     mUpdateProgressHandler.sendEmptyMessage(0)
-                    mExoSongStateCallback?.onPlaybackStatusChanged(getState())
+                    mExoSongStateCallback?.onPlaybackStatusChanged(getCurrentSongState())
                 }
                 Player.STATE_ENDED -> {
                     // The media player finished playing the current song.
@@ -455,5 +454,6 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
 
     companion object {
         const val AUDIO_TYPE = 3
+        const val UPDATE_PROGRESS_DELAY = 500L
     }
 }

@@ -17,7 +17,7 @@ interface OnPlayerActionCallback {
 
     fun playOnCurrentQueue(song: ASong)
 
-    fun play(songList: MutableList<ASong>, song: ASong)
+    fun play(songList: MutableList<ASong>?, song: ASong)
 
     fun pause()
 
@@ -30,4 +30,5 @@ interface OnPlayerActionCallback {
     fun seekTo(position: Long?)
 
     fun addToQueue(songList: ArrayList<Song>)
+
 }

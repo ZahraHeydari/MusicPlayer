@@ -1,5 +1,6 @@
 package com.android.musicplayer.utils.player
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.musicplayer.utils.player.queue.QueueEntity
@@ -8,6 +9,7 @@ import com.android.musicplayer.utils.player.model.ASong
 
 class PlayerViewModel : ViewModel() {
 
+    private val TAG = PlayerViewModel::class.java.name
     val playerdata = MutableLiveData<ASong>()
     val isVisible = MutableLiveData<Boolean>()
     val isBuffering = MutableLiveData<Boolean>()
@@ -31,11 +33,11 @@ class PlayerViewModel : ViewModel() {
     }
 
     fun setData(song: ASong?) {
-        if (song == null || song == playerdata.value) return
+        if (song == playerdata.value) return
         this.playerdata.value = song
-        songPositionText.value = AppConstants.formatMillis(0)
+        songPositionText.value = AppConstants.formatTimeInMillisToString(0)
         songPosition.value = 0
-        songDurationText.value = AppConstants.formatMillis(0)
+        songDurationText.value = AppConstants.formatTimeInMillisToString(0)
         songDuration.value = 0
     }
 
@@ -116,14 +118,15 @@ class PlayerViewModel : ViewModel() {
     }
 
     fun seekTo(position: Long) {
-        songPositionText.value = AppConstants.formatMillis(position)
+        songPositionText.value = AppConstants.formatTimeInMillisToString(position)
         songPosition.value = position.toInt()
         mNavigator?.seekTo(position)
     }
 
     fun stop() {
         songPosition.value = 0
-        songPositionText.value = AppConstants.formatMillis(songPosition.value?.toLong() ?: 0)
+        songPositionText.value =
+            AppConstants.formatTimeInMillisToString(songPosition.value?.toLong() ?: 0)
         isPlay.value = false
         this.playerdata.value?.setPlay(false)
         mNavigator?.stop()
@@ -136,15 +139,20 @@ class PlayerViewModel : ViewModel() {
     }
 
     fun setChangePosition(currentPosition: Long, duration: Long) {
+        Log.i(TAG, "currentPosition: $currentPosition >>>>> duration: $duration")
         if (currentPosition > duration) return
-        songPositionText.value = AppConstants.formatMillis(currentPosition)
+        songPositionText.value = AppConstants.formatTimeInMillisToString(currentPosition)
         songPosition.value = currentPosition.toInt()
-        val durationText = AppConstants.formatMillis(duration)
 
+        val durationText = AppConstants.formatTimeInMillisToString(duration)
         if (!songDurationText.value.equals(durationText)) {
             songDurationText.value = durationText
             songDuration.value = duration.toInt()
         }
+    }
+
+    fun onComplete() {
+        songPositionText.value = songDurationText.value
     }
 
 }

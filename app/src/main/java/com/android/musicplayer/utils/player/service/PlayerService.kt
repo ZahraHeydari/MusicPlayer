@@ -4,6 +4,7 @@ import android.app.Service
 import android.content.Intent
 import android.media.session.PlaybackState
 import android.os.Binder
+import android.os.Handler
 import android.os.IBinder
 import android.util.Log
 import com.android.musicplayer.data.model.Song
@@ -13,6 +14,7 @@ import com.android.musicplayer.utils.player.controller.OnMediaControllerCallback
 import com.android.musicplayer.utils.player.exo.ExoPlayerManager
 import com.android.musicplayer.utils.player.notification.MediaNotificationManager
 import java.util.*
+import kotlin.collections.ArrayList
 
 class PlayerService : Service(), OnMediaControllerCallback {
 
@@ -21,6 +23,7 @@ class PlayerService : Service(), OnMediaControllerCallback {
     private var mNotificationManager: MediaNotificationManager? = null
     private val mMediaControllerCallbackHashSet = HashSet<OnMediaControllerCallback>()
     private var mListener: OnPlayerServiceListener? = null
+
 
     override fun onCreate() {
         val exoPlayerManager = ExoPlayerManager(this)
@@ -96,6 +99,7 @@ class PlayerService : Service(), OnMediaControllerCallback {
                 mListener?.setVisibilityData(true)
                 mListener?.setPlay(false)
             }
+
             else -> {
                 mListener?.setBufferingData(false)
                 mListener?.setVisibilityData(false)
@@ -117,11 +121,7 @@ class PlayerService : Service(), OnMediaControllerCallback {
     }
 
     override fun addToQueue(songList: ArrayList<Song>) {
-        val arrayList = ArrayList<ASong>()
-        songList.forEach {
-            arrayList.add(it)
-        }
-        mMediaController?.addToCurrentQueue(arrayList)
+        mMediaController?.addToCurrentQueue(songList as ArrayList<ASong>)
     }
 
     fun play(songList: MutableList<ASong>, song: ASong) {
@@ -136,7 +136,6 @@ class PlayerService : Service(), OnMediaControllerCallback {
 
     fun stop() {
         mMediaController?.stop()
-        mNotificationManager?.updateNotification()
     }
 
     override fun setDuration(duration: Long, position: Long) {
@@ -167,6 +166,11 @@ class PlayerService : Service(), OnMediaControllerCallback {
         mNotificationManager?.startNotification()
     }
 
+    override fun onSongComplete() {
+        mNotificationManager?.updateNotification()
+        mListener?.onSongEnded()
+    }
+
     override fun onPlaybackStop() {
         mNotificationManager?.stopNotification()
 
@@ -190,7 +194,7 @@ class PlayerService : Service(), OnMediaControllerCallback {
         super.onDestroy()
         Log.d(TAG, "onDestroy() called")
         unregisterAllControllerCallback()
-        this.mMediaController?.stop()
+        mMediaController?.stop()
         mListener = null
     }
 

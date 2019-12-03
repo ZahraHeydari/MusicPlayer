@@ -13,7 +13,7 @@ import java.util.ArrayList
  * */
 interface OnExoPlayerManagerCallback {
 
-    fun getState(): Int
+    fun getCurrentSongState(): Int
 
     fun isPlaying(): Boolean
 
@@ -27,7 +27,7 @@ interface OnExoPlayerManagerCallback {
 
     fun updateLastKnownStreamPosition()
 
-    fun play(item: ASong)
+    fun play(aSong: ASong)
 
     fun pause()
 

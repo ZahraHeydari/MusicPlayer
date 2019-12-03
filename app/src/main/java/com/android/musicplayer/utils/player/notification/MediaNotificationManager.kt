@@ -280,10 +280,7 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
 
     private fun setRemoteViewsListeners(remoteViews: RemoteViews) {
         try {
-            remoteViews.setOnClickPendingIntent(
-                R.id.notification_skip_back_image_view,
-                mPreviousIntent
-            )
+            remoteViews.setOnClickPendingIntent(R.id.notification_skip_back_image_view, mPreviousIntent)
             remoteViews.setOnClickPendingIntent(R.id.notification_clear_image_view, mStopIntent)
             remoteViews.setOnClickPendingIntent(R.id.notification_pause_image_view, mPauseIntent)
             remoteViews.setOnClickPendingIntent(R.id.notification_skip_next_image_view, mNextIntent)

@@ -20,4 +20,6 @@ interface OnPlayerServiceListener {
 
     fun setPlay(isPlay: Boolean)
 
+    fun onSongEnded()
+
 }

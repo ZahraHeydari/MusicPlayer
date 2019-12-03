@@ -31,4 +31,6 @@ interface OnMediaControllerCallback {
 
     fun getSongPlayingState(): Int
 
+    fun onSongComplete()
+
 }

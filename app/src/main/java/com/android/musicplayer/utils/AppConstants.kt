@@ -3,15 +3,16 @@ package com.android.musicplayer.utils
 import java.io.UnsupportedEncodingException
 import java.nio.charset.Charset
 import java.util.concurrent.TimeUnit
+import kotlin.math.abs
 
 object AppConstants {
 
-    fun formatMillis(timeInMillis: Long): String {
+    fun formatTimeInMillisToString(timeInMillis: Long): String {
         var timeInMillis = timeInMillis
         var sign = ""
         if (timeInMillis < 0) {
             sign = "-"
-            timeInMillis = Math.abs(timeInMillis)
+            timeInMillis = abs(timeInMillis)
         }
 
         val minutes = timeInMillis / TimeUnit.MINUTES.toMillis(1)

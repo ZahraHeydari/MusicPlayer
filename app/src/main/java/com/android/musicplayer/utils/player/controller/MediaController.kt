@@ -66,7 +66,7 @@ class MediaController(
     }
 
     fun getSongPlayingState(): Int {
-        return onExoPlayerManagerCallback.getState()
+        return onExoPlayerManagerCallback.getCurrentSongState()
     }
 
     fun play(song: ASong) {
@@ -165,6 +165,7 @@ class MediaController(
             )
         }
         this.onExoPlayerManagerCallback.stop()
+        mediaControllerCallback.onSongComplete()
     }
 
     override fun onPlaybackStatusChanged(state: Int) {

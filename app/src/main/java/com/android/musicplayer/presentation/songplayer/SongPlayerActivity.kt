@@ -11,12 +11,15 @@ import coil.api.load
 import coil.transform.CircleCropTransformation
 import com.android.musicplayer.R
 import com.android.musicplayer.data.model.Song
-import com.android.musicplayer.utils.player.model.ASong
 import com.android.musicplayer.utils.player.BaseSongPlayerActivity
+import com.android.musicplayer.utils.player.model.ASong
 import kotlinx.android.synthetic.main.activity_song_player.*
 import java.io.File
 
 class SongPlayerActivity : BaseSongPlayerActivity() {
+
+    private var mSong: Song? = null
+    private var mSongList: MutableList<ASong>? = null
 
 
     private val TAG = SongPlayerActivity::class.java.name
@@ -26,13 +29,15 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
         setContentView(R.layout.activity_song_player)
 
         if (intent?.extras?.containsKey(SONG_LIST_KEY) == true) {
-            val songList = intent?.extras?.get(SONG_LIST_KEY) as ArrayList<ASong>
-            Log.i(TAG, "song list: $songList")
+            mSongList = intent?.extras?.get(SONG_LIST_KEY) as ArrayList<ASong>
+            Log.i(TAG, "song list: $mSongList")
 
             if (intent?.extras?.containsKey(Song::class.java.name) == true) {
-                val song = intent?.extras?.get(Song::class.java.name) as Song
-                play(songList, song)
-                loadInitialData(song.title, song.artist, song.clipArt)
+                mSong = intent?.extras?.get(Song::class.java.name) as Song
+                mSong?.let {
+                    play(mSongList, it)
+                }
+                loadInitialData(mSong?.title, mSong?.artist, mSong?.clipArt)
             }
         }
 

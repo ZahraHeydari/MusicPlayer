@@ -18,7 +18,7 @@ and consists of the music player for playing (online/offline) songs.
 
 <br>
 <p align="center">
-  <img src="https://github.com/ZahraHeydari/MusicPlayer/blob/master/diagram.png" width="500"/>
+  <img src="https://github.com/ZahraHeydari/MusicPlayer/blob/master/diagram.png" width="600"/>
 </p>
 <br>
 

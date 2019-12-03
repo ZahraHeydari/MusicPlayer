@@ -4,24 +4,38 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.os.Handler
 import android.os.IBinder
-import android.util.Log
+import android.os.Looper
+import android.os.Message
 import androidx.appcompat.app.AppCompatActivity
 import com.android.musicplayer.data.model.Song
 import com.android.musicplayer.utils.player.model.ASong
-import com.android.musicplayer.utils.player.service.OnPlayServiceConnectionCallback
 import com.android.musicplayer.utils.player.service.OnPlayerServiceListener
 import com.android.musicplayer.utils.player.service.PlayerService
-import kotlin.collections.ArrayList
+
 
 open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
     OnPlayerServiceListener {
 
+
     private val TAG = BaseSongPlayerActivity::class.java.name
     private var mService: PlayerService? = null
     private var mBound = false
-    private var onPlayerServiceConnectionCallback: OnPlayServiceConnectionCallback? = null
     val playerViewModel: PlayerViewModel = PlayerViewModel()
+    private var mSong: ASong? = null
+    private var mSongList: MutableList<ASong>? = null
+    private var msg = 0
+
+    private val mHandler = object : Handler(Looper.getMainLooper()) {
+        override fun handleMessage(msg: Message) {
+            when (msg.what) {
+                ACTION_PLAY_SONG_IN_LIST -> mSong?.let { play(mSongList, it) }
+                ACTION_PLAY_LIST -> mSongList?.let { play(it) }
+                ACTION_PLAY_SONG -> mSong?.let { play(it) }
+            }
+        }
+    }
 
     /**
      * Defines callbacks for service binding, passed to bindService()
@@ -33,8 +47,8 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
             val binder = service as PlayerService.LocalBinder
             mService = binder.service
             mBound = true
-            onPlayerServiceConnectionCallback?.onServiceConnected()
-            addPlayerServiceListener()
+            mHandler.sendEmptyMessage(msg)
+            mService?.addListener(this@BaseSongPlayerActivity)
         }
 
         override fun onServiceDisconnected(classname: ComponentName) {
@@ -42,23 +56,13 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
         }
     }
 
-    private fun addPlayerServiceListener() {
-        mService?.addListener(this)
-    }
-
-    private fun registerConnectionCallback(callback: OnPlayServiceConnectionCallback) {
-        onPlayerServiceConnectionCallback = callback
-        onPlayerServiceConnectionCallback?.onServiceConnected()
-    }
-
-
     override fun onStart() {
         super.onStart()
         playerViewModel.setPlayer(this)
         // Bind to PlayerService
         val intent = Intent(this, PlayerService::class.java)
         startService(intent)
-        bindService(intent, mConnection, Context.BIND_AUTO_CREATE)
+        if (!mBound) bindService(intent, mConnection, Context.BIND_AUTO_CREATE)
     }
 
     override fun setBufferingData(isBuffering: Boolean) {
@@ -72,7 +76,6 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
     override fun onDestroy() {
         // Unbind from the service
         if (mBound) {
-            onPlayerServiceConnectionCallback?.onServiceDisconnected()
             unbindService(mConnection)
             mBound = false
         }
@@ -80,10 +83,14 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
     }
 
     override fun play(songList: MutableList<ASong>) {
+        msg = ACTION_PLAY_LIST
+        mSongList = songList
         mService?.playSongs(songList)
     }
 
     override fun play(song: ASong) {
+        msg = ACTION_PLAY_SONG
+        mSong = song
         mService?.play(song)
     }
 
@@ -103,16 +110,16 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
         playerViewModel.setChangePosition(position, duration)
     }
 
-    override fun play(songList: MutableList<ASong>, song: ASong) {
-        registerConnectionCallback(object : OnPlayServiceConnectionCallback {
-            override fun onServiceConnected() {
-                mService?.play(songList, song)
-            }
+    override fun onSongEnded() {
+        playerViewModel.onComplete()
+    }
 
-            override fun onServiceDisconnected() {
-                Log.i(TAG, "onServiceDisconnected()")
-            }
-        })
+    override fun play(songList: MutableList<ASong>?, song: ASong) {
+        msg = ACTION_PLAY_SONG_IN_LIST
+        mSong = song
+        mSongList = songList
+        if (songList.isNullOrEmpty()) play(song)
+        else mService?.play(songList, song)
     }
 
     override fun playOnCurrentQueue(song: ASong) {
@@ -141,4 +148,17 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
         }
     }
 
+    companion object {
+
+        private const val ACTION_PLAY_SONG = 1
+        private const val ACTION_PLAY_LIST = 2
+        private const val ACTION_PLAY_SONG_IN_LIST = 3
+        private const val ACTION_ADD_TO_QUEUE = 4
+        private const val ACTION_PAUSE = 5
+        private const val ACTION_STOP = 6
+        private const val ACTION_SKIP_TO_NEXT = 7
+        private const val ACTION_SKIP_TO_PREVIOUS = 8
+        private const val ACTION_SEEK_TO = 9
+        private const val ACTION_PLAY_ON_CURRENT_QUEUE = 10
+    }
 }

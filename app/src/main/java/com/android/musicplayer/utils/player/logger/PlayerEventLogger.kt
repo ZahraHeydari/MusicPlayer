@@ -104,7 +104,7 @@ class PlayerEventLogger(private val trackSelector: MappingTrackSelector) : ExoPl
             return
         for (rendererIndex in 0 until mappedTrackInfo.length) {
             val rendererTrackGroups = mappedTrackInfo.getTrackGroups(rendererIndex)
-            val trackSelection = trackSelections!!.get(rendererIndex)
+            val trackSelection = trackSelections?.get(rendererIndex)
             if (rendererTrackGroups.length > 0) {
                 Log.d(TAG, "  Renderer:$rendererIndex [")
                 for (groupIndex in 0 until rendererTrackGroups.length) {
