@@ -31,36 +31,46 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
         if (intent?.extras?.containsKey(SONG_LIST_KEY) == true) {
             mSongList = intent?.extras?.get(SONG_LIST_KEY) as ArrayList<ASong>
             Log.i(TAG, "song list: $mSongList")
-
-            if (intent?.extras?.containsKey(Song::class.java.name) == true) {
-                mSong = intent?.extras?.get(Song::class.java.name) as Song
-                mSong?.let {
-                    play(mSongList, it)
-                }
-                loadInitialData(mSong?.title, mSong?.artist, mSong?.clipArt)
-            }
         }
 
-        playerViewModel.songDurationText.observe(this, Observer<String> { t ->
+        if (intent?.extras?.containsKey(Song::class.java.name) == true) {
+            mSong = intent?.extras?.get(Song::class.java.name) as Song
+        }
+
+        mSong?.let {
+            play(mSongList, it)
+        }
+
+        loadInitialData(mSong?.title, mSong?.artist, mSong?.clipArt)
+
+        playerViewModel.songDurationTextData.observe(this, Observer<String> { t ->
             song_player_total_time_text_view.text = t
         })
 
-        playerViewModel.songDuration.observe(this, Observer {
+        playerViewModel.songDurationData.observe(this, Observer {
             song_player_progress_seek_bar.max = it
         })
 
-        playerViewModel.songPositionText.observe(this,
+        playerViewModel.songPositionTextData.observe(this,
             Observer<String> { t -> song_player_passed_time_text_view.text = t })
 
-        playerViewModel.songPosition.observe(this, Observer {
+        playerViewModel.songPositionData.observe(this, Observer {
             song_player_progress_seek_bar.progress = it
         })
 
-        playerViewModel.isPlay.observe(this, Observer {
+        playerViewModel.isRepeatData.observe(this, Observer {
+            song_player_repeat_image_view.setImageResource(if (it) R.drawable.ic_repeat_one_color_primary_vector else R.drawable.ic_repeat_one_black_vector)
+        })
+
+        playerViewModel.isShuffleData.observe(this, Observer {
+            song_player_shuffle_image_view.setImageResource(if (it) R.drawable.ic_shuffle_color_primary_vector else R.drawable.ic_shuffle_black_vector)
+        })
+
+        playerViewModel.isPlayData.observe(this, Observer {
             song_player_toggle_image_view.setImageResource(if (it) R.drawable.ic_pause_vector else R.drawable.ic_play_vector)
         })
 
-        playerViewModel.playerdata.observe(this, Observer {
+        playerViewModel.playerData.observe(this, Observer {
             loadInitialData(it?.getName(), it?.getSingerName(), it?.getFeatureAvatar())
         })
 
@@ -74,6 +84,14 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
 
         song_player_toggle_image_view.setOnClickListener {
             playerViewModel.play()
+        }
+
+        song_player_shuffle_image_view.setOnClickListener {
+            playerViewModel.shuffle()
+        }
+
+        song_player_repeat_image_view.setOnClickListener {
+            playerViewModel.repeat()
         }
 
         song_player_progress_seek_bar.setOnSeekBarChangeListener(object :

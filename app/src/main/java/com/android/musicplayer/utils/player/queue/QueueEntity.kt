@@ -1,11 +1,13 @@
 package com.android.musicplayer.utils.player.queue
 
+import android.util.Log
 import com.android.musicplayer.utils.player.model.ASong
 import java.util.*
 import kotlin.collections.ArrayList
 
 class QueueEntity {
 
+    private val TAG = QueueEntity::class.java.name
     private var list: MutableList<ASong> = ArrayList()
     private var shuffleList: MutableList<ASong> = ArrayList()
     var isShuffle = false
@@ -15,28 +17,22 @@ class QueueEntity {
         return if (isShuffle) shuffleList else list
     }
 
-    fun getList(): List<ASong> {
-        return list
-    }
-
-    fun getShuffleList(): List<ASong> {
-        return shuffleList
-    }
-
     fun setList(list: MutableList<ASong>): QueueEntity {
         this.list = list
+        Log.i(TAG,"setList list: $list")
+        list.shuffle()
         this.shuffleList = ArrayList(list)
-        shuffleList.shuffle()
+        Log.i(TAG,"setList shuffle list: $shuffleList")
         return this
     }
 
     fun addItems(songList: List<ASong>) {
         this.list.addAll(songList)
-        Collections.shuffle(songList)
+        songList.shuffled()
         this.shuffleList.addAll(songList)
     }
 
-    fun addItem(song: ASong){
+    fun addItem(song: ASong) {
         this.list.add(song)
         this.shuffleList.add(song)
     }

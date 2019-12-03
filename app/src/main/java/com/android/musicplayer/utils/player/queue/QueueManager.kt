@@ -29,6 +29,10 @@ class QueueManager(private val mListener: SongUpdateListener) {
         return if (queue == null) 0 else queue?.getShuffleOrNormalList()?.size ?: 0
     }
 
+    fun setRepeat(isRepeat: Boolean) {
+        queue?.isRepeat = isRepeat
+    }
+
     fun isRepeat(): Boolean {
         return queue?.isRepeat ?: false
     }
@@ -44,7 +48,10 @@ class QueueManager(private val mListener: SongUpdateListener) {
 
     fun setCurrentQueueItem(song: ASong?): Boolean {
         if (song == null) return false
-        val index = QueueHelper.getSongIndexOnQueue(queue?.getShuffleOrNormalList() as ArrayList<ASong>, song)
+        val index = QueueHelper.getSongIndexOnQueue(
+            queue?.getShuffleOrNormalList() as ArrayList<ASong>,
+            song
+        )
         setCurrentQueueIndex(index)
         return index >= 0
     }
@@ -124,6 +131,10 @@ class QueueManager(private val mListener: SongUpdateListener) {
 
     fun getCurrentSongList(): ArrayList<ASong> {
         return queue?.getShuffleOrNormalList() as ArrayList<ASong>
+    }
+
+    fun setShuffle(isShuffle: Boolean) {
+        queue?.isShuffle = isShuffle
     }
 
     interface SongUpdateListener {

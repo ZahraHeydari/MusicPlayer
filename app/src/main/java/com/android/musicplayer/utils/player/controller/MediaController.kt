@@ -42,6 +42,7 @@ class MediaController(
             }
 
             override fun onQueueUpdated(newQueue: QueueEntity) {
+
                 mQueueManagerCallback?.onQueueUpdated(newQueue)
             }
         })
@@ -81,6 +82,14 @@ class MediaController(
 
     fun playSongs(songList: MutableList<ASong>) {
         queueManager?.setCurrentQueue(songList)
+    }
+
+    override fun shuffle(isShuffle: Boolean) {
+        queueManager?.setShuffle(isShuffle)
+    }
+
+    override fun repeat(isRepeat: Boolean) {
+        queueManager?.setRepeat(isRepeat)
     }
 
     fun play(queueEntity: QueueEntity, song: ASong) {

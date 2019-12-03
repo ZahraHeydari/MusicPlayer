@@ -31,4 +31,8 @@ interface OnPlayerActionCallback {
 
     fun addToQueue(songList: ArrayList<Song>)
 
+    fun shuffle(isShuffle: Boolean)
+
+    fun onRepeat(isRepeat: Boolean)
+
 }

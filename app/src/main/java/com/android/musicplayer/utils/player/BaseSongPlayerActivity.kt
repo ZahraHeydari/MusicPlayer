@@ -98,6 +98,14 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
         mService?.addToQueue(songList)
     }
 
+    override fun shuffle(isShuffle: Boolean) {
+        mService?.shuffle(isShuffle)
+    }
+
+    override fun onRepeat(isRepeat: Boolean) {
+        mService?.onRepeat(isRepeat)
+    }
+
     override fun updateSongData(song: ASong?) {
         playerViewModel.setData(song)
     }

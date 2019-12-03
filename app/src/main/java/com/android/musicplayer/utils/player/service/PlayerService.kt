@@ -4,7 +4,6 @@ import android.app.Service
 import android.content.Intent
 import android.media.session.PlaybackState
 import android.os.Binder
-import android.os.Handler
 import android.os.IBinder
 import android.util.Log
 import com.android.musicplayer.data.model.Song
@@ -110,6 +109,14 @@ class PlayerService : Service(), OnMediaControllerCallback {
 
     fun playSongs(songList: MutableList<ASong>) {
         mMediaController?.playSongs(songList)
+    }
+
+    override fun shuffle(isShuffle: Boolean) {
+        mMediaController?.shuffle(isShuffle)
+    }
+
+    override fun onRepeat(isRepeat: Boolean) {
+        mMediaController?.repeat(isRepeat)
     }
 
     fun play(song: ASong) {

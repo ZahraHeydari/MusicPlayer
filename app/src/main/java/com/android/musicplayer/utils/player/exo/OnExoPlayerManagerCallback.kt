@@ -53,6 +53,10 @@ interface OnExoPlayerManagerCallback {
 
         fun getCurrentSongList(): ArrayList<ASong>?
 
+        fun shuffle(isShuffle: Boolean)
+
+        fun repeat(isRepeat: Boolean)
+
     }
 
     fun setCallback(callback: OnSongStateCallback)

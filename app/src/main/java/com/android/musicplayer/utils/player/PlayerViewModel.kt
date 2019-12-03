@@ -3,58 +3,53 @@ package com.android.musicplayer.utils.player
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.android.musicplayer.utils.player.queue.QueueEntity
 import com.android.musicplayer.utils.AppConstants
 import com.android.musicplayer.utils.player.model.ASong
 
 class PlayerViewModel : ViewModel() {
 
     private val TAG = PlayerViewModel::class.java.name
-    val playerdata = MutableLiveData<ASong>()
-    val isVisible = MutableLiveData<Boolean>()
-    val isBuffering = MutableLiveData<Boolean>()
-    val isPlay = MutableLiveData<Boolean>()
-    val playingPercent = MutableLiveData<Int>()
-    val songDurationText = MutableLiveData<String>()
-    val songPositionText = MutableLiveData<String>()
-    val songDuration = MutableLiveData<Int>()
-    val songPosition = MutableLiveData<Int>()
-    val queue = MutableLiveData<QueueEntity>()
-    val shuffle = MutableLiveData<Boolean>()
-    val repeat = MutableLiveData<Boolean>()
+    val playerData = MutableLiveData<ASong>()
+    val isVisibleData = MutableLiveData<Boolean>()
+    val isBufferingData = MutableLiveData<Boolean>()
+    val isPlayData = MutableLiveData<Boolean>()
+    val playingPercentData = MutableLiveData<Int>()
+    val songDurationTextData = MutableLiveData<String>()
+    val songPositionTextData = MutableLiveData<String>()
+    val songDurationData = MutableLiveData<Int>()
+    val songPositionData = MutableLiveData<Int>()
+    val isShuffleData = MutableLiveData<Boolean>()
+    val isRepeatData = MutableLiveData<Boolean>()
     private var mNavigator: OnPlayerActionCallback? = null
 
     val song: ASong?
-        get() = playerdata.value
+        get() = playerData.value
 
     init {
-        isPlay.value = false
-        isVisible.value = false
+        isPlayData.value = false
+        isRepeatData.value = false
+        isVisibleData.value = false
     }
 
     fun setData(song: ASong?) {
-        if (song == playerdata.value) return
-        this.playerdata.value = song
-        songPositionText.value = AppConstants.formatTimeInMillisToString(0)
-        songPosition.value = 0
-        songDurationText.value = AppConstants.formatTimeInMillisToString(0)
-        songDuration.value = 0
+        if (song == playerData.value) return
+        this.playerData.value = song
+        this.isRepeatData.value = false
+        mNavigator?.onRepeat(false)
+        songPositionTextData.value = AppConstants.formatTimeInMillisToString(0)
+        songPositionData.value = 0
+        songDurationTextData.value = AppConstants.formatTimeInMillisToString(0)
+        songDurationData.value = 0
     }
 
     fun shuffle() {
-        shuffle.value = shuffle.value
-        this.queue.value?.isShuffle = shuffle.value ?: false
+        isShuffleData.value = isShuffleData.value != true
+        mNavigator?.shuffle(isShuffleData.value ?: false)
     }
 
     fun repeat() {
-        repeat.value = repeat.value
-        this.queue.value?.isRepeat = repeat.value ?: false
-    }
-
-    fun setQueue(queue: QueueEntity) {
-        this.queue.value = queue
-        this.shuffle.value = queue.isShuffle
-        this.repeat.value = queue.isRepeat
+        isRepeatData.value = isRepeatData.value != true
+        mNavigator?.onRepeat(isRepeatData.value ?: false)
     }
 
     fun setPlayer(onAudioPlayerActionCallback: OnPlayerActionCallback) {
@@ -62,30 +57,30 @@ class PlayerViewModel : ViewModel() {
     }
 
     fun setPlay(play: Boolean) {
-        isPlay.value = play
+        isPlayData.value = play
     }
 
     fun setVisibility(isVisible: Boolean) {
-        this.isVisible.value = isVisible
+        this.isVisibleData.value = isVisible
     }
 
     fun setBuffering(isBuffering: Boolean) {
-        this.isBuffering.value = isBuffering
+        this.isBufferingData.value = isBuffering
     }
 
     fun play() {
-        if (isPlay.value == true) {
+        if (isPlayData.value == true) {
             mNavigator?.pause()
         } else {
-            playerdata.value?.let {
+            playerData.value?.let {
                 mNavigator?.playOnCurrentQueue(it)
             }
         }
     }
 
     fun pause() {
-        this.playerdata.value?.setPlay(false)
-        isPlay.value = false
+        this.playerData.value?.setPlay(false)
+        isPlayData.value = false
         mNavigator?.pause()
     }
 
@@ -118,41 +113,41 @@ class PlayerViewModel : ViewModel() {
     }
 
     fun seekTo(position: Long) {
-        songPositionText.value = AppConstants.formatTimeInMillisToString(position)
-        songPosition.value = position.toInt()
+        songPositionTextData.value = AppConstants.formatTimeInMillisToString(position)
+        songPositionData.value = position.toInt()
         mNavigator?.seekTo(position)
     }
 
     fun stop() {
-        songPosition.value = 0
-        songPositionText.value =
-            AppConstants.formatTimeInMillisToString(songPosition.value?.toLong() ?: 0)
-        isPlay.value = false
-        this.playerdata.value?.setPlay(false)
+        songPositionData.value = 0
+        songPositionTextData.value =
+            AppConstants.formatTimeInMillisToString(songPositionData.value?.toLong() ?: 0)
+        isPlayData.value = false
+        this.playerData.value?.setPlay(false)
         mNavigator?.stop()
-        isVisible.value = false
+        isVisibleData.value = false
     }
 
     fun setPlayingPercent(playingPercent: Int) {
-        if (this.playingPercent.value == 100) return
-        this.playingPercent.value = playingPercent
+        if (this.playingPercentData.value == 100) return
+        this.playingPercentData.value = playingPercent
     }
 
     fun setChangePosition(currentPosition: Long, duration: Long) {
         Log.i(TAG, "currentPosition: $currentPosition >>>>> duration: $duration")
         if (currentPosition > duration) return
-        songPositionText.value = AppConstants.formatTimeInMillisToString(currentPosition)
-        songPosition.value = currentPosition.toInt()
+        songPositionTextData.value = AppConstants.formatTimeInMillisToString(currentPosition)
+        songPositionData.value = currentPosition.toInt()
 
         val durationText = AppConstants.formatTimeInMillisToString(duration)
-        if (!songDurationText.value.equals(durationText)) {
-            songDurationText.value = durationText
-            songDuration.value = duration.toInt()
+        if (!songDurationTextData.value.equals(durationText)) {
+            songDurationTextData.value = durationText
+            songDurationData.value = duration.toInt()
         }
     }
 
     fun onComplete() {
-        songPositionText.value = songDurationText.value
+        songPositionTextData.value = songDurationTextData.value
     }
 
 }
