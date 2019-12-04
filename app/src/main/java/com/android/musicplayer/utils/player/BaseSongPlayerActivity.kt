@@ -99,7 +99,11 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
     }
 
     override fun shuffle(isShuffle: Boolean) {
-        mService?.shuffle(isShuffle)
+        mService?.onShuffle(isShuffle)
+    }
+
+    override fun repeatAll(isRepeatAll: Boolean) {
+        mService?.onRepeatAll(isRepeatAll)
     }
 
     override fun onRepeat(isRepeat: Boolean) {

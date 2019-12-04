@@ -35,4 +35,6 @@ interface OnPlayerActionCallback {
 
     fun onRepeat(isRepeat: Boolean)
 
+    fun repeatAll(isRepeatAll: Boolean)
+
 }

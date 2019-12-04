@@ -5,7 +5,7 @@ import kotlin.math.max
 
 /**
  * This class is used to manage the queue of playlist
- * (normal list, shuffle list, repetition, ...)
+ * (normal list, onShuffle list, repetition, ...)
  *
  * @author ZARA
  **/
@@ -37,6 +37,10 @@ class QueueManager(private val mListener: SongUpdateListener) {
         return queue?.isRepeat ?: false
     }
 
+    fun isRepeatAll(): Boolean {
+        return queue?.isRepeatAll ?: false
+    }
+
 
     private fun setCurrentQueueIndex(index: Int) {
         if (index >= 0 && index < queue?.getShuffleOrNormalList()?.size ?: 0) {
@@ -64,7 +68,7 @@ class QueueManager(private val mListener: SongUpdateListener) {
         var index = mCurrentIndex + amount
         if (index < 0) {
             // skip backwards before the first song will keep you on the first song
-            index = 0
+            index = if (isRepeatAll()) queue?.getShuffleOrNormalList()?.size ?: 0 else 0
         } else {
             // skip forwards when in last song will cycle back to start of the queue
             index %= queue?.getShuffleOrNormalList()?.size ?: 0
@@ -135,6 +139,10 @@ class QueueManager(private val mListener: SongUpdateListener) {
 
     fun setShuffle(isShuffle: Boolean) {
         queue?.isShuffle = isShuffle
+    }
+
+    fun setRepeatAll(isRepeatAll: Boolean) {
+        queue?.isRepeatAll = isRepeatAll
     }
 
     interface SongUpdateListener {

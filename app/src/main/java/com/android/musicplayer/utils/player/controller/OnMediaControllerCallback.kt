@@ -33,8 +33,10 @@ interface OnMediaControllerCallback {
 
     fun onSongComplete()
 
-    fun shuffle(isShuffle: Boolean)
+    fun onShuffle(isShuffle: Boolean)
 
     fun onRepeat(isRepeat: Boolean)
+
+    fun onRepeatAll(repeatAll: Boolean)
 
 }

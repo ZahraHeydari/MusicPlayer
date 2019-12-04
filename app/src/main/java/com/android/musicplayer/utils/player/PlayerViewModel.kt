@@ -19,6 +19,7 @@ class PlayerViewModel : ViewModel() {
     val songDurationData = MutableLiveData<Int>()
     val songPositionData = MutableLiveData<Int>()
     val isShuffleData = MutableLiveData<Boolean>()
+    val isRepeatAllData = MutableLiveData<Boolean>()
     val isRepeatData = MutableLiveData<Boolean>()
     private var mNavigator: OnPlayerActionCallback? = null
 
@@ -45,6 +46,11 @@ class PlayerViewModel : ViewModel() {
     fun shuffle() {
         isShuffleData.value = isShuffleData.value != true
         mNavigator?.shuffle(isShuffleData.value ?: false)
+    }
+
+    fun repeatAll() {
+        isRepeatAllData.value = isRepeatAllData.value != true
+        mNavigator?.repeatAll(isRepeatAllData.value ?: false)
     }
 
     fun repeat() {

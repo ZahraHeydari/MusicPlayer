@@ -111,8 +111,12 @@ class PlayerService : Service(), OnMediaControllerCallback {
         mMediaController?.playSongs(songList)
     }
 
-    override fun shuffle(isShuffle: Boolean) {
+    override fun onShuffle(isShuffle: Boolean) {
         mMediaController?.shuffle(isShuffle)
+    }
+
+    override fun onRepeatAll(repeatAll: Boolean) {
+        mMediaController?.repeatAll(repeatAll)
     }
 
     override fun onRepeat(isRepeat: Boolean) {

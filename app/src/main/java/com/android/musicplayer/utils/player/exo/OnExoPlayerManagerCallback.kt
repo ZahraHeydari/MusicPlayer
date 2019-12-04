@@ -57,6 +57,8 @@ interface OnExoPlayerManagerCallback {
 
         fun repeat(isRepeat: Boolean)
 
+        fun repeatAll(isRepeatAll: Boolean)
+
     }
 
     fun setCallback(callback: OnSongStateCallback)

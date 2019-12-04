@@ -12,6 +12,7 @@ class QueueEntity {
     private var shuffleList: MutableList<ASong> = ArrayList()
     var isShuffle = false
     var isRepeat = false
+    var isRepeatAll = false
 
     fun getShuffleOrNormalList(): MutableList<ASong> {
         return if (isShuffle) shuffleList else list
@@ -19,10 +20,9 @@ class QueueEntity {
 
     fun setList(list: MutableList<ASong>): QueueEntity {
         this.list = list
-        Log.i(TAG,"setList list: $list")
         list.shuffle()
         this.shuffleList = ArrayList(list)
-        Log.i(TAG,"setList shuffle list: $shuffleList")
+        Log.i(TAG,"setList onShuffle list: $shuffleList")
         return this
     }
 

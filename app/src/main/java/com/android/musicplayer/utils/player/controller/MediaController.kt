@@ -88,6 +88,10 @@ class MediaController(
         queueManager?.setShuffle(isShuffle)
     }
 
+    override fun repeatAll(isRepeatAll: Boolean) {
+        queueManager?.setRepeatAll(isRepeatAll)
+    }
+
     override fun repeat(isRepeat: Boolean) {
         queueManager?.setRepeat(isRepeat)
     }
@@ -144,7 +148,6 @@ class MediaController(
         this.queueManager?.skipQueuePosition(-1)
     }
 
-
     fun addToCurrentQueue(songList: ArrayList<ASong>) {
         Log.i(TAG, "addToQueue songList: $songList")
         queueManager?.addToQueue(songList)
@@ -164,6 +167,11 @@ class MediaController(
 
         if (this.queueManager?.hasQueueNext() == true) {
             this.queueManager?.skipQueuePosition(1)
+            return
+        }
+
+        if (this.queueManager?.isRepeatAll() == true) {
+            this.queueManager?.skipQueuePosition(-1)
             return
         }
 
