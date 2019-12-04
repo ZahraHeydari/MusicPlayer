@@ -1,11 +1,15 @@
 package com.android.musicplayer.presentation.playlist
 
 import android.Manifest
+import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.nfc.Tag
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import androidx.annotation.NonNull
@@ -21,10 +25,12 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_playlist.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.io.File
 
 class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
 
 
+    private val TAG = PlaylistActivity::class.java.name
     private var adapter: PlaylistAdapter? = null
     private val viewModel: PlaylistViewModel by viewModel()
 
@@ -82,11 +88,12 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
         )
         while (cursor?.moveToNext() == true) {
             val id = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID))
-            val path = cursor.getString(1)
-            val title = cursor.getString(2)
-            val artist = cursor.getString(3)
-            val albumId = cursor.getString(4)
-            val duration = cursor.getString(5)
+            val path = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA))
+            val title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
+            val artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
+            val albumId = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
+            val duration = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION))
+
             val cursorAlbums = contentResolver?.query(
                 MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
                 arrayOf(MediaStore.Audio.Albums._ID, MediaStore.Audio.Albums.ALBUM_ART),
@@ -111,6 +118,7 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
             viewModel.saveSongData(song)
         }
         cursor?.close()
+
     }
 
 

@@ -1,9 +1,6 @@
 package com.android.musicplayer.utils.player.notification
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -59,27 +56,27 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
 
         val packageName = mService.packageName
         mPauseIntent = PendingIntent.getBroadcast(
-            mService, REQUEST_CODE,
+            mService, NOTIFICATION_REQUEST_CODE,
             Intent(ACTION_PAUSE).setPackage(packageName), PendingIntent.FLAG_CANCEL_CURRENT
         )
         mPlayIntent = PendingIntent.getBroadcast(
-            mService, REQUEST_CODE,
+            mService, NOTIFICATION_REQUEST_CODE,
             Intent(ACTION_PLAY).setPackage(packageName), PendingIntent.FLAG_CANCEL_CURRENT
         )
         mPreviousIntent = PendingIntent.getBroadcast(
-            mService, REQUEST_CODE,
+            mService, NOTIFICATION_REQUEST_CODE,
             Intent(ACTION_PREV).setPackage(packageName), PendingIntent.FLAG_CANCEL_CURRENT
         )
         mNextIntent = PendingIntent.getBroadcast(
-            mService, REQUEST_CODE,
+            mService, NOTIFICATION_REQUEST_CODE,
             Intent(ACTION_NEXT).setPackage(packageName), PendingIntent.FLAG_CANCEL_CURRENT
         )
         mStopIntent = PendingIntent.getBroadcast(
-            mService, REQUEST_CODE,
+            mService, NOTIFICATION_REQUEST_CODE,
             Intent(ACTION_STOP).setPackage(packageName), PendingIntent.FLAG_CANCEL_CURRENT
         )
         mStopCastIntent = PendingIntent.getBroadcast(
-            mService, REQUEST_CODE,
+            mService, NOTIFICATION_REQUEST_CODE,
             Intent(ACTION_STOP_CASTING).setPackage(packageName),
             PendingIntent.FLAG_CANCEL_CURRENT
         )
@@ -149,20 +146,17 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
     }
 
     private fun createContentIntent(): PendingIntent {
-        val openUI = Intent(mService, SongPlayerActivity::class.java)
-        openUI.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        val intent = Intent(mService, SongPlayerActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         mService.getCurrentSong()?.let {
-            openUI.putExtra(Song::class.java.name, it as Song)
+            intent.putExtra(Song::class.java.name, it as Song)
         }
         mService.getCurrentSongList()?.let {
-            openUI.putExtra(SongPlayerActivity.SONG_LIST_KEY, it)
+            intent.putExtra(SongPlayerActivity.SONG_LIST_KEY, it)
         }
-        return PendingIntent.getActivity(
-            mService,
-            REQUEST_CODE,
-            openUI,
-            PendingIntent.FLAG_CANCEL_CURRENT
-        )
+        val stackBuilder = TaskStackBuilder.create(mService)
+        stackBuilder.addNextIntentWithParentStack(intent)
+        return stackBuilder.getPendingIntent(NOTIFICATION_REQUEST_CODE,PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
     private fun createOrUpdateNotification(): Notification? {
@@ -319,7 +313,7 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
         private const val ACTION_STOP_CASTING = "app.stop_cast"
         private const val CHANNEL_ID = "app.MUSIC_CHANNEL_ID"
         private const val NOTIFICATION_ID = 412
-        private const val REQUEST_CODE = 100
+        private const val NOTIFICATION_REQUEST_CODE = 100
     }
 }
 

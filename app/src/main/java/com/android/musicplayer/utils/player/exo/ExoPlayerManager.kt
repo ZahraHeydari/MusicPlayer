@@ -246,7 +246,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
                     )
                 )
                 C.TYPE_OTHER -> mediaSource = ExtractorMediaSource(
-                    Uri.parse(mCurrentSong?.getDownloadPath()),
+                    Uri.parse(mCurrentSong?.getSource()),
                     dataSourceFactory,
                     DefaultExtractorsFactory(),
                     Handler(),
