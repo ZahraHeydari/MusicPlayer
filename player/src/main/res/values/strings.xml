@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Player</string>
+    <string name="notification_channel">APP_Channel_ID</string>
+    <string name="notification_channel_description">Channel ID for APP</string>
+</resources>

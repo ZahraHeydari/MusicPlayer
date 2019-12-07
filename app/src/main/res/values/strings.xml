@@ -4,7 +4,5 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="you_denied_permission">Unfortunately, you denied the storage access permission!</string>
-    <string name="notification_channel">APP_Channel_ID</string>
-    <string name="notification_channel_description">Channel ID for APP</string>
     <string name="remove">Remove</string>
 </resources>

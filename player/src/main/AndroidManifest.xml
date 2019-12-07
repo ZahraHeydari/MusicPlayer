@@ -1,0 +1,15 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.android.player">
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application android:label="@string/app_name">
+
+        <activity android:name=".BaseSongPlayerActivity" />
+
+        <service android:name=".service.PlayerService" />
+
+    </application>
+
+</manifest>

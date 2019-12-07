@@ -11,24 +11,22 @@ import coil.api.load
 import coil.transform.CircleCropTransformation
 import com.android.musicplayer.R
 import com.android.musicplayer.data.model.Song
-import com.android.musicplayer.utils.player.BaseSongPlayerActivity
-import com.android.musicplayer.utils.player.utils.OnSwipeTouchListener
-import com.android.musicplayer.utils.player.model.ASong
+import com.android.player.BaseSongPlayerActivity
+import com.android.player.model.ASong
+import com.android.player.utils.OnSwipeTouchListener
 import kotlinx.android.synthetic.main.activity_song_player.*
 import java.io.File
 
 class SongPlayerActivity : BaseSongPlayerActivity() {
 
+    private val TAG = SongPlayerActivity::class.java.name
     private var mSong: Song? = null
     private var mSongList: MutableList<ASong>? = null
 
 
-    private val TAG = SongPlayerActivity::class.java.name
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_song_player)
-
 
 
         if (intent?.extras?.containsKey(SONG_LIST_KEY) == true) {
@@ -115,8 +113,7 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
 
         })
 
-        song_player_container.setOnTouchListener(object :
-            OnSwipeTouchListener(this@SongPlayerActivity) {
+        song_player_container.setOnTouchListener(object : OnSwipeTouchListener(this@SongPlayerActivity) {
             override fun onSwipeRight() {
                 if (mSongList?.size ?: 0 > 1) skipToPrevious()
 

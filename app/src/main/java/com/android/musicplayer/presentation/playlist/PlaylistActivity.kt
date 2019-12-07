@@ -1,31 +1,25 @@
 package com.android.musicplayer.presentation.playlist
 
 import android.Manifest
-import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.nfc.Tag
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.android.musicplayer.R
 import com.android.musicplayer.data.model.Song
 import com.android.musicplayer.presentation.songplayer.SongPlayerActivity
-import com.android.musicplayer.utils.player.BaseSongPlayerActivity
+import com.android.player.BaseSongPlayerActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_playlist.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.io.File
 
 class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
 

@@ -1,0 +1,21 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="display4">112sp</dimen><!--Black 54%-->
+    <dimen name="display3">56sp</dimen><!--Black 54%-->
+    <dimen name="display2">45sp</dimen><!--Black 54% & leading 48dp-->
+    <dimen name="display1">34sp</dimen><!--Black 54% & leading 40dp-->
+
+    <dimen name="headline">24sp</dimen><!--Black 87% & leading 32dp-->
+    <dimen name="title">20sp</dimen><!--Black 87%-->
+
+    <dimen name="subheading2">16sp</dimen><!--Black 87% & leading 28dp-->
+    <dimen name="subheading1">15sp</dimen><!--Black 87% & leading 24dp-->
+    <dimen name="body2">14sp</dimen><!--Black 87% & leading 24dp-->
+    <dimen name="body1">13sp</dimen><!--Black 87% & leading 20dp-->
+
+    <dimen name="caption">12sp</dimen><!--Black 54%-->
+    <dimen name="button">14sp</dimen>
+
+
+</resources>
