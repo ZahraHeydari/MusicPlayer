@@ -12,6 +12,7 @@ import coil.transform.CircleCropTransformation
 import com.android.musicplayer.R
 import com.android.musicplayer.data.model.Song
 import com.android.musicplayer.utils.player.BaseSongPlayerActivity
+import com.android.musicplayer.utils.player.utils.OnSwipeTouchListener
 import com.android.musicplayer.utils.player.model.ASong
 import kotlinx.android.synthetic.main.activity_song_player.*
 import java.io.File
@@ -28,6 +29,8 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_song_player)
 
+
+
         if (intent?.extras?.containsKey(SONG_LIST_KEY) == true) {
             mSongList = intent?.extras?.get(SONG_LIST_KEY) as ArrayList<ASong>
             Log.i(TAG, "song list: $mSongList")
@@ -42,6 +45,7 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
         }
 
         loadInitialData(mSong?.title, mSong?.artist, mSong?.clipArt)
+
 
         playerViewModel.songDurationTextData.observe(this, Observer<String> { t ->
             song_player_total_time_text_view.text = t
@@ -109,6 +113,18 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
                 playerViewModel.seekTo(song_player_progress_seek_bar.progress.toLong())
             }
 
+        })
+
+        song_player_container.setOnTouchListener(object :
+            OnSwipeTouchListener(this@SongPlayerActivity) {
+            override fun onSwipeRight() {
+                if (mSongList?.size ?: 0 > 1) skipToPrevious()
+
+            }
+
+            override fun onSwipeLeft() {
+                if (mSongList?.size ?: 0 > 1) skipToNext()
+            }
         })
     }
 

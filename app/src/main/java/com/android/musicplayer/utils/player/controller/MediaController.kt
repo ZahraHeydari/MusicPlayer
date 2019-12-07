@@ -28,7 +28,7 @@ class MediaController(
     init {
         this.onExoPlayerManagerCallback.setCallback(this)
 
-        queueManager = QueueManager(object : QueueManager.SongUpdateListener {
+        queueManager = QueueManager(object : QueueManager.OnSongUpdateListener {
             override fun onSongChanged(song: ASong) {
                 play(song)
             }

@@ -9,7 +9,7 @@ import kotlin.math.max
  *
  * @author ZARA
  **/
-class QueueManager(private val mListener: SongUpdateListener) {
+class QueueManager(private val mListener: OnSongUpdateListener) {
 
     private var queue: QueueEntity? = null
     private var mCurrentIndex: Int = 0
@@ -37,9 +37,7 @@ class QueueManager(private val mListener: SongUpdateListener) {
         return queue?.isRepeat ?: false
     }
 
-    fun isRepeatAll(): Boolean {
-        return queue?.isRepeatAll ?: false
-    }
+    fun isRepeatAll(): Boolean = queue?.isRepeatAll ?: false
 
 
     private fun setCurrentQueueIndex(index: Int) {
@@ -60,9 +58,8 @@ class QueueManager(private val mListener: SongUpdateListener) {
         return index >= 0
     }
 
-    fun hasQueueNext(): Boolean {
-        return mCurrentIndex < getCurrentQueueSize() - 1
-    }
+    fun hasQueueNext(): Boolean = mCurrentIndex < getCurrentQueueSize() - 1
+
 
     fun skipQueuePosition(amount: Int): Boolean {
         var index = mCurrentIndex + amount
@@ -145,7 +142,13 @@ class QueueManager(private val mListener: SongUpdateListener) {
         queue?.isRepeatAll = isRepeatAll
     }
 
-    interface SongUpdateListener {
+
+    /**
+     * To make an interaction between [QueueManager] & [MediaController]
+     *
+     * to update the state of playing [Song]
+     * */
+    interface OnSongUpdateListener {
 
         fun onSongChanged(song: ASong)
 
