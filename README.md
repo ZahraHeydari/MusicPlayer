@@ -14,7 +14,7 @@ and consists of the music player for playing (online/offline) songs.
 - ExoPlayer
 
 
-### The flow of player which I implemented:
+### The flow of player module which implemented:
 
 <br>
 <p align="center">
@@ -26,8 +26,17 @@ and consists of the music player for playing (online/offline) songs.
 ### The App Scenario
 
 To add songs from the device, save them in database and display them in a list. And when a list item
-is clicked, the app displays a player page and a player service run. (This player also supports all actions on played song.)
+is clicked, the app displays a player page and a player service run. (This player also supports all actions on played song)
 And if you click long on the song item you will be able to remove it from your stored playlist.
+
+
+### The features of player module:
+
+- The player service run in the background.
+- The notification of playing song will be diplayed at top of screen. (collapse/Expand views)
+- Player actions are in use consists of play/pause, skip to next/previous, repeat one song, repeat all songs,
+shuffle songs,...
+- Supported swiping to left/right side.
 
 
 ### Supported Android Versions
@@ -50,5 +59,20 @@ android versions targeted:
 * 1.0 (11/20/2019)- Initial implementation
 
 
-## Author
-@ZARA
+## License
+
+```
+Copyright (c) 2019 ZARA (https://github.com/ZahraHeydari/).
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
