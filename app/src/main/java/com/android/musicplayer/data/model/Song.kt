@@ -7,6 +7,7 @@ import com.android.player.exo.ExoPlayerManager.Companion.AUDIO_TYPE
 import com.android.player.model.ASong
 import kotlinx.android.parcel.Parcelize
 
+@Suppress("DIFFERENT_NAMES_FOR_THE_SAME_PARAMETER_IN_SUPERTYPES")
 @Entity
 @Parcelize
 data class Song(
@@ -17,6 +18,8 @@ data class Song(
     var clipArt: String?,
     var duartion: String?
 ) : ASong(), Parcelable {
+
+    constructor(id: Int) : this(id, "", "", "", "", "")
 
     override fun getSongId(): Int {
         return id

@@ -2,8 +2,10 @@ package com.android.musicplayer.di.module
 
 import android.app.Application
 import androidx.room.Room
+import com.android.musicplayer.data.repository.PlaylistRepositoryImp
 import com.android.musicplayer.data.source.local.AppDatabase
 import com.android.musicplayer.data.source.local.dao.SongDao
+import com.android.musicplayer.domain.repository.PlaylistRepository
 import org.koin.dsl.module
 
 val DatabaseModule = module {
@@ -29,3 +31,9 @@ internal fun createAppDatabase(application: Application): AppDatabase {
 fun createSongDao(appDatabase: AppDatabase): SongDao {
     return appDatabase.songDao
 }
+
+
+fun createPlaylistRepository(appDatabase: AppDatabase): PlaylistRepository {
+    return PlaylistRepositoryImp(appDatabase)
+}
+

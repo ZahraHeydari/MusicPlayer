@@ -20,7 +20,7 @@ class PlaylistViewModel(
 
     fun saveSongData(song: Song) {
         Log.i(TAG, "Song : $song")
-        saveSongDataUseCase.save(song)
+        saveSongDataUseCase.saveSongItem(song)
 
     }
 
@@ -29,7 +29,7 @@ class PlaylistViewModel(
     }
 
     fun removeItemFromList(song: Song) {
-        deleteSongUseCase.deleteItem(song)
+        deleteSongUseCase.deleteSongItem(song)
         val list = playlistData.value as ArrayList<Song>
         list.remove(song)
         playlistData.value = list

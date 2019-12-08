@@ -10,11 +10,11 @@ class PlaylistRepositoryImp(private val appDatabase: AppDatabase) : PlaylistRepo
         appDatabase.songDao.delete(song)
     }
 
-    override fun getSongs(): List<Song> {
+    override fun getSongs(): List<Song>? {
         return appDatabase.songDao.loadAll()
     }
 
-    override fun saveSongData(song: Song) {
-        appDatabase.songDao.insert(song)
+    override fun saveSongData(song: Song):Long {
+        return appDatabase.songDao.insert(song)
     }
 }

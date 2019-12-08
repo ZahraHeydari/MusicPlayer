@@ -6,7 +6,7 @@ import com.android.musicplayer.domain.repository.PlaylistRepository
 class DeleteSongUseCase(private val playlistRepository: PlaylistRepository) {
 
 
-    fun deleteItem(song: Song) {
+    fun deleteSongItem(song: Song) {
         playlistRepository.delete(song)
     }
 }

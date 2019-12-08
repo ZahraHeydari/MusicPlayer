@@ -6,6 +6,7 @@ buildscript {
     ext.koin_version = "2.0.1"
     ext.koin_architecture_version = "0.8.2"
     ext.arch_version = "1.1.1"
+    ext.mockk_version = "1.9.3"
     repositories {
         google()
         jcenter()

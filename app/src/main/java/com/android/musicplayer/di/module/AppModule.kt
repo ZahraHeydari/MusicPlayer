@@ -1,7 +1,5 @@
 package com.android.musicplayer.di.module
 
-import com.android.musicplayer.data.repository.PlaylistRepositoryImp
-import com.android.musicplayer.data.source.local.AppDatabase
 import com.android.musicplayer.domain.repository.PlaylistRepository
 import com.android.musicplayer.domain.usecase.DeleteSongUseCase
 import com.android.musicplayer.domain.usecase.GetSongsUseCase
@@ -41,9 +39,4 @@ fun createGetSongsUseCase(
     playlistRepository: PlaylistRepository
 ): GetSongsUseCase {
     return GetSongsUseCase(playlistRepository)
-}
-
-
-fun createPlaylistRepository(appDatabase: AppDatabase): PlaylistRepository {
-    return PlaylistRepositoryImp(appDatabase)
 }
