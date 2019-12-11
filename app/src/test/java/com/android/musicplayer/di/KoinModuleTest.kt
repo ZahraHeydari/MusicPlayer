@@ -1,7 +1,5 @@
 package com.android.musicplayer.di
 
-import com.android.musicplayer.di.module.AppModule
-import com.android.musicplayer.di.module.DatabaseModule
 import org.junit.Test
 import org.koin.core.logger.Level
 import org.koin.dsl.koinApplication
@@ -14,7 +12,7 @@ class KoinModuleTest : AutoCloseKoinTest() {
     fun testCoreModule() {
         koinApplication {
             printLogger(Level.DEBUG)
-            modules(listOf(DatabaseModule,AppModule))
+           // modules(listOf(AppModule))
         }.checkModules()
     }
 }

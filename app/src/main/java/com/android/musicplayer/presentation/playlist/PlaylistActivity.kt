@@ -16,6 +16,7 @@ import com.android.musicplayer.R
 import com.android.musicplayer.data.model.Song
 import com.android.musicplayer.presentation.songplayer.SongPlayerActivity
 import com.android.player.BaseSongPlayerActivity
+import com.android.player.model.ASong
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_playlist.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -35,6 +36,7 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
 
         adapter = PlaylistAdapter(this)
         playlist_recycler_view.adapter = adapter
+
 
         fab.setOnClickListener { view ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

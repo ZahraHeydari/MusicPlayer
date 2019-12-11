@@ -1,22 +1,11 @@
 package com.android.musicplayer.data.repository
 
-import com.android.musicplayer.data.model.Song
-import io.mockk.MockKAnnotations
-import io.mockk.every
-import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
-import kotlinx.coroutines.runBlocking
-import org.hamcrest.CoreMatchers
-import org.hamcrest.MatcherAssert
-import org.junit.Before
-import org.junit.Test
 
-import org.junit.Assert.*
 
 class PlaylistRepositoryImpTest {
 
 
-    @MockK
+/*    @MockK
     lateinit var repository: PlaylistRepositoryImp
 
 
@@ -62,6 +51,6 @@ class PlaylistRepositoryImpTest {
                 repository.delete(song)
             }
         }
-    }
+    }*/
 
 }

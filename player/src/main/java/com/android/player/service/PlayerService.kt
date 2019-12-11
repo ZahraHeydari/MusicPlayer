@@ -20,7 +20,7 @@ class PlayerService : Service(), OnMediaControllerCallback {
     private var mMediaController: MediaController? = null
     private var mNotificationManager: MediaNotificationManager? = null
     private val mMediaControllerCallbackHashSet = HashSet<OnMediaControllerCallback>()
-    private var mListener: OnPlayerServiceListener? = null
+    var mListener: OnPlayerServiceListener? = null
 
 
     override fun onCreate() {
@@ -131,7 +131,7 @@ class PlayerService : Service(), OnMediaControllerCallback {
     }
 
     override fun addToQueue(songList: ArrayList<ASong>) {
-        mMediaController?.addToCurrentQueue(songList as ArrayList<ASong>)
+        mMediaController?.addToCurrentQueue(songList)
     }
 
     fun play(songList: MutableList<ASong>, song: ASong) {

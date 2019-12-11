@@ -11,7 +11,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.util.Log
-import com.android.player.cache.DataSourceWithCache
+import com.android.player.BuildConfig
 import com.android.player.logger.PlayerEventLogger
 import com.android.player.model.ASong
 import com.android.player.service.PlayerService
@@ -27,7 +27,10 @@ import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray
+import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import com.google.android.exoplayer2.util.Util
 
 /**
  * This class is responsible for managing the player(actions, state, ...) using [ExoPlayer]
@@ -222,8 +225,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
             mExoPlayer?.audioAttributes = audioAttributes
 
             // Produces DataSource instances through which media data is loaded.
-            val dataSourceFactory = DataSourceWithCache.createDataSource("app", BANDWIDTH_METER)
-                .buildDataSourceFactory(context.applicationContext, true)
+            val dataSourceFactory = buildDataSourceFactory(context)
             // Produces Extractor instances for parsing the media data.
             val extractorsFactory = DefaultExtractorsFactory()
             // The MediaSource represents the media to be played.
@@ -237,30 +239,18 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
                     Uri.parse(source),
                     dataSourceFactory,
                     Handler(),
-                    PlayerEventLogger(
-                        DefaultTrackSelector(
-                            AdaptiveTrackSelection.Factory(
-                                BANDWIDTH_METER
-                            )
-                        )
-                    )
+                    PlayerEventLogger(DefaultTrackSelector(AdaptiveTrackSelection.Factory()))
                 )
                 C.TYPE_OTHER -> mediaSource = ExtractorMediaSource(
                     Uri.parse(mCurrentSong?.getSource()),
                     dataSourceFactory,
                     DefaultExtractorsFactory(),
                     Handler(),
-                    PlayerEventLogger(
-                        DefaultTrackSelector(
-                            AdaptiveTrackSelection.Factory(
-                                BANDWIDTH_METER
-                            )
-                        )
-                    )
+                    PlayerEventLogger(DefaultTrackSelector(AdaptiveTrackSelection.Factory()))
                 )
                 else -> mediaSource = HlsMediaSource(
                     Uri.parse(source), dataSourceFactory, Handler(), PlayerEventLogger(
-                        DefaultTrackSelector(AdaptiveTrackSelection.Factory(BANDWIDTH_METER))
+                        DefaultTrackSelector(AdaptiveTrackSelection.Factory())
                     )
                 )
             }
@@ -275,6 +265,16 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
             mWifiLock?.acquire()
         }
         configurePlayerState()
+    }
+
+
+    private fun buildDataSourceFactory(context: Context): DataSource.Factory {
+        val dataSourceFactory = DefaultDataSourceFactory(
+            context,
+            Util.getUserAgent(context, BuildConfig.APPLICATION_ID),
+            BANDWIDTH_METER
+        )
+        return DefaultDataSourceFactory(context, BANDWIDTH_METER, dataSourceFactory)
     }
 
     override fun pause() {

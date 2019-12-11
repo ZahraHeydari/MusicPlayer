@@ -9,5 +9,5 @@ package com.android.player.queue
  * */
 interface OnQueueManagerCallback {
 
-    fun onQueueUpdated(newQueue: QueueEntity)
+    fun onQueueUpdated(newQueue: QueueModel)
 }

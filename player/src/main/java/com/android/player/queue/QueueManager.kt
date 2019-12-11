@@ -11,12 +11,12 @@ import kotlin.math.max
  **/
 class QueueManager(private val mListener: OnSongUpdateListener) {
 
-    private var queue: QueueEntity? = null
+    private var queue: QueueModel? = null
     private var mCurrentIndex: Int = 0
 
 
     init {
-        queue = QueueEntity()
+        queue = QueueModel()
         mCurrentIndex = 0
     }
 
@@ -85,11 +85,11 @@ class QueueManager(private val mListener: OnSongUpdateListener) {
         newQueue: MutableList<ASong>,
         initialSong: ASong? = null
     ) {
-        setCurrentQueue(QueueEntity().setList(newQueue), initialSong)
+        setCurrentQueue(QueueModel().setList(newQueue), initialSong)
     }
 
     fun setCurrentQueue(
-        newQueue: QueueEntity,
+        newQueue: QueueModel,
         initialSong: ASong?
     ) {
         queue = newQueue
@@ -156,6 +156,6 @@ class QueueManager(private val mListener: OnSongUpdateListener) {
 
         fun onCurrentQueueIndexUpdated(queueIndex: Int)
 
-        fun onQueueUpdated(newQueue: QueueEntity)
+        fun onQueueUpdated(newQueue: QueueModel)
     }
 }

@@ -2,8 +2,8 @@ package com.android.musicplayer.data.model
 
 
 import androidx.room.Room
-import androidx.test.InstrumentationRegistry
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.android.musicplayer.data.source.local.AppDatabase
 import com.android.musicplayer.data.source.local.dao.SongDao
 import org.hamcrest.CoreMatchers.equalTo
@@ -18,12 +18,14 @@ import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
 class SongReadWriteTest {
+
+
     private lateinit var songDao: SongDao
     private lateinit var db: AppDatabase
 
     @Before
     fun createDb() {
-        val context = InstrumentationRegistry.getTargetContext()
+        val context = InstrumentationRegistry.getInstrumentation().context
         db = Room.inMemoryDatabaseBuilder(
             context, AppDatabase::class.java).build()
         songDao = db.songDao

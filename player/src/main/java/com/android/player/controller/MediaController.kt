@@ -5,9 +5,10 @@ import android.util.Log
 import com.android.player.exo.OnExoPlayerManagerCallback
 import com.android.player.model.ASong
 import com.android.player.queue.OnQueueManagerCallback
-import com.android.player.queue.QueueEntity
 import com.android.player.queue.QueueManager
+import com.android.player.queue.QueueModel
 import java.util.*
+
 
 /**
  * This class is used to interact with [ExoPlayerManager] & [QueueManager]
@@ -20,7 +21,7 @@ class MediaController(
 ) : OnExoPlayerManagerCallback.OnSongStateCallback {
 
     private val TAG = MediaController::class.java.name
-    private val mMediaControllersCallbacksHashSet = HashSet<OnMediaControllerCallback>()
+    val mMediaControllersCallbacksHashSet = HashSet<OnMediaControllerCallback>()
     private var queueManager: QueueManager? = null
     private var mQueueManagerCallback: OnQueueManagerCallback? = null
 
@@ -41,7 +42,7 @@ class MediaController(
                 Log.d(TAG, "onCurrentQueueIndexUpdated() called with: queueIndex = [$queueIndex]")
             }
 
-            override fun onQueueUpdated(newQueue: QueueEntity) {
+            override fun onQueueUpdated(newQueue: QueueModel) {
                 mQueueManagerCallback?.onQueueUpdated(newQueue)
             }
         })
@@ -51,6 +52,8 @@ class MediaController(
         onMediaControllerCallback?.let { nonNullCallback ->
             mMediaControllersCallbacksHashSet.add(nonNullCallback)
         }
+
+
         onExoPlayerManagerCallback.getCurrentSong()?.let { nonNullSong ->
             Handler().postDelayed({
                 runOnSongChanged(onMediaControllerCallback)
@@ -95,7 +98,7 @@ class MediaController(
         queueManager?.setRepeat(isRepeat)
     }
 
-    fun play(queueEntity: QueueEntity, song: ASong) {
+    fun play(queueEntity: QueueModel, song: ASong) {
         queueManager?.setCurrentQueue(queueEntity, song)
     }
 
@@ -127,7 +130,7 @@ class MediaController(
     }
 
     override fun getCurrentSongList(): ArrayList<ASong>? {
-        return queueManager?.getCurrentSongList()
+        return queueManager?.getCurrentSongList() as ArrayList<ASong>
     }
 
     override fun getCurrentSong(): ASong? {
@@ -148,7 +151,7 @@ class MediaController(
     }
 
     fun addToCurrentQueue(songList: ArrayList<ASong>) {
-        Log.i(TAG, "addToQueue songList: $songList")
+//        Log.i(TAG, "addToQueue songList: $songList")
         queueManager?.addToQueue(songList)
     }
 
@@ -193,6 +196,7 @@ class MediaController(
         }
         mediaControllerCallback.onPlaybackStateUpdated()
     }
+
 
     override fun onError(error: String) {
         Log.i(TAG, "error: $error")
