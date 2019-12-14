@@ -17,7 +17,7 @@ abstract class ASong {
 
     abstract fun getFeatureAvatar(): String?
 
-    abstract fun getSingerName(): String?
+    abstract fun getArtistName(): String?
 
     abstract fun getCategory(): String
 
@@ -48,14 +48,14 @@ abstract class ASong {
             return false
         if (if (this.getFeatureAvatar() != null) this.getFeatureAvatar() != song?.getFeatureAvatar() else song?.getFeatureAvatar() != null)
             return false
-        return if (this.getSingerName() != null) this.getSingerName() == song?.getSingerName() else song?.getSingerName() == null
+        return if (this.getArtistName() != null) this.getArtistName() == song?.getArtistName() else song?.getArtistName() == null
     }
 
     override fun hashCode(): Int {
         var result = getSongId() xor getSongId().ushr(32)
         result = 31 * result + if (getName() != null) getName().hashCode() else 0
         result = 31 * result + if (getFeatureAvatar() != null) getFeatureAvatar().hashCode() else 0
-        result = 31 * result + if (getSingerName() != null) getSingerName().hashCode() else 0
+        result = 31 * result + if (getArtistName() != null) getArtistName().hashCode() else 0
         return result
     }
 

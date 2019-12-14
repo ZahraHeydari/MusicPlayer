@@ -41,9 +41,6 @@ class QueueManagerTest {
         assertTrue(queueModel.isRepeatAll)
     }
 
-    @Test
-    fun setCurrentQueueItem() {
-    }
 
     @Test
     fun hasQueueNext_firstCallTest() {

@@ -33,7 +33,7 @@ data class Song(
         return clipArt
     }
 
-    override fun getSingerName(): String? {
+    override fun getArtistName(): String? {
         return artist
     }
 

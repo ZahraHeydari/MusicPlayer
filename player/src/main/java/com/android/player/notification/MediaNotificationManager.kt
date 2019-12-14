@@ -17,11 +17,9 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import coil.Coil
 import coil.api.load
-import com.android.player.BaseSongPlayerActivity
 import com.android.player.R
 import com.android.player.exo.PlaybackState
 import com.android.player.helper.ResourceHelper
-import com.android.player.model.ASong
 import com.android.player.service.PlayerService
 
 /**
@@ -40,15 +38,15 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
     private val mNextIntent: PendingIntent
     private val mStopIntent: PendingIntent
     private val mStopCastIntent: PendingIntent
-    private val mNotificationColor: Int =
-        ResourceHelper.getThemeColor(mService, R.attr.colorPrimary, Color.DKGRAY)
-    private var mStarted = false
-    private var mCollapsedRemoteViews: RemoteViews =
-        RemoteViews(mService.packageName, R.layout.player_small_notification)
-    private var mExpandedRemoteViews: RemoteViews =
-        RemoteViews(mService.packageName, R.layout.player_big_notification)
+    //private val mNotificationColor: Int = ResourceHelper.getThemeColor(mService, R.attr.colorPrimary, Color.DKGRAY)
+    var mStarted = false
+    private var mCollapsedRemoteViews: RemoteViews = RemoteViews(getPackageName(), R.layout.player_small_notification)
+    private var mExpandedRemoteViews: RemoteViews = RemoteViews(getPackageName(), R.layout.player_big_notification)
     private var notificationBuilder: NotificationCompat.Builder? = null
 
+    fun getPackageName():String{
+        return mService.packageName
+    }
 
     init {
         mNotificationManager =
@@ -232,7 +230,7 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
         )
         expandedRemoteViews.setTextViewText(
             R.id.notification_singer_name_text_view,
-            mService.getCurrentSong()?.getSingerName()
+            mService.getCurrentSong()?.getArtistName()
         )
 
     }
@@ -252,7 +250,7 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
         )
         collapsedRemoteViews.setTextViewText(
             R.id.notification_singer_name_text_view,
-            mService.getCurrentSong()?.getSingerName()
+            mService.getCurrentSong()?.getArtistName()
         )
     }
 

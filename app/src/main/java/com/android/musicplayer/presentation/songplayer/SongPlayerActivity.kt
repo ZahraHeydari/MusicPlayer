@@ -73,7 +73,7 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
         })
 
         playerViewModel.playerData.observe(this, Observer {
-            loadInitialData(it?.getName(), it?.getSingerName(), it?.getFeatureAvatar())
+            loadInitialData(it?.getName(), it?.getArtistName(), it?.getFeatureAvatar())
         })
 
         song_player_skip_next_image_view.setOnClickListener {

@@ -12,33 +12,27 @@ import com.android.player.exo.ExoPlayerManager
 import com.android.player.model.ASong
 import com.android.player.notification.MediaNotificationManager
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class PlayerService : Service(), OnMediaControllerCallback {
 
     private val TAG = PlayerService::class.java.name
     private var mMediaController: MediaController? = null
-    private var mNotificationManager: MediaNotificationManager? = null
+    var mNotificationManager: MediaNotificationManager? = null
     private val mMediaControllerCallbackHashSet = HashSet<OnMediaControllerCallback>()
     var mListener: OnPlayerServiceListener? = null
-
+    var command: String? = null
 
     override fun onCreate() {
+        super.onCreate()
         val exoPlayerManager = ExoPlayerManager(this)
         mMediaController = MediaController(exoPlayerManager, this)
         mNotificationManager = MediaNotificationManager(this)
         registerMediaControllerCallbacks()
-        super.onCreate()
+
     }
 
     override fun onStartCommand(startIntent: Intent?, flags: Int, startId: Int): Int {
-        startIntent?.let { nonNullIntent ->
-            val action = nonNullIntent.action
-            val command = nonNullIntent.getStringExtra(CMD_NAME)
-            if (ACTION_CMD == action && CMD_PAUSE == command) {
-                mMediaController?.pause()
-            }
-        }
         return START_STICKY
     }
 
@@ -165,6 +159,11 @@ class PlayerService : Service(), OnMediaControllerCallback {
     }
 
     override fun onBind(intent: Intent): IBinder? {
+        val action = intent.action
+        command = intent.getStringExtra(CMD_NAME)
+        if (ACTION_CMD == action && CMD_PAUSE == command) {
+            mMediaController?.pause()
+        }
         return LocalBinder()
     }
 

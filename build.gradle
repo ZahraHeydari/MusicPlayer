@@ -9,6 +9,9 @@ buildscript {
     ext.mockk_version = "1.9.3"
     ext.mokito_kotlin_version = '1.5.0'
     ext.mokito_inline_version = '2.11.0'
+    ext.espresso_core_version = '3.2.0'
+    ext.espresso_contrib_version = '3.2.0'
+    ext.rules_version = '1.3.0-alpha01'
     repositories {
         google()
         jcenter()

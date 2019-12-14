@@ -25,6 +25,8 @@ class PlayerEventLogger(private val trackSelector: MappingTrackSelector) : ExoPl
     AudioRendererEventListener, VideoRendererEventListener, AdaptiveMediaSourceEventListener,
     ExtractorMediaSource.EventListener, DefaultDrmSessionManager.EventListener,
     MetadataRenderer.Output {
+
+
     private val window: Timeline.Window = Timeline.Window()
     private val period: Timeline.Period = Timeline.Period()
     private val startTimeMs: Long = SystemClock.elapsedRealtime()
@@ -87,14 +89,19 @@ class PlayerEventLogger(private val trackSelector: MappingTrackSelector) : ExoPl
             timeline.getPeriod(i, period)
             Log.d(TAG, "  " + "period [" + getTimeString(period.durationMs) + "]")
         }
-        if (periodCount > MAX_TIMELINE_ITEM_LINES) {
-            // Do nothing.
+        // Do nothing.
+        when {
+            periodCount > MAX_TIMELINE_ITEM_LINES -> {
+                // Do nothing.
+            }
         }
         for (i in 0 until min(windowCount, MAX_TIMELINE_ITEM_LINES)) {
             timeline.getWindow(i, window)
         }
-        if (windowCount > MAX_TIMELINE_ITEM_LINES) {
-            // Do nothing.
+        when {
+            windowCount > MAX_TIMELINE_ITEM_LINES -> {
+                // Do nothing.
+            }
         }
     }
 
