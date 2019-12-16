@@ -49,33 +49,31 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
     }
 
     init {
-        mNotificationManager =
-            mService.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        mNotificationManager = mService.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        val packageName = mService.packageName
         mPauseIntent = PendingIntent.getBroadcast(
             mService, NOTIFICATION_REQUEST_CODE,
-            Intent(ACTION_PAUSE).setPackage(packageName), PendingIntent.FLAG_CANCEL_CURRENT
+            Intent(ACTION_PAUSE).setPackage(getPackageName()), PendingIntent.FLAG_CANCEL_CURRENT
         )
         mPlayIntent = PendingIntent.getBroadcast(
             mService, NOTIFICATION_REQUEST_CODE,
-            Intent(ACTION_PLAY).setPackage(packageName), PendingIntent.FLAG_CANCEL_CURRENT
+            Intent(ACTION_PLAY).setPackage(getPackageName()), PendingIntent.FLAG_CANCEL_CURRENT
         )
         mPreviousIntent = PendingIntent.getBroadcast(
             mService, NOTIFICATION_REQUEST_CODE,
-            Intent(ACTION_PREV).setPackage(packageName), PendingIntent.FLAG_CANCEL_CURRENT
+            Intent(ACTION_PREV).setPackage(getPackageName()), PendingIntent.FLAG_CANCEL_CURRENT
         )
         mNextIntent = PendingIntent.getBroadcast(
             mService, NOTIFICATION_REQUEST_CODE,
-            Intent(ACTION_NEXT).setPackage(packageName), PendingIntent.FLAG_CANCEL_CURRENT
+            Intent(ACTION_NEXT).setPackage(getPackageName()), PendingIntent.FLAG_CANCEL_CURRENT
         )
         mStopIntent = PendingIntent.getBroadcast(
             mService, NOTIFICATION_REQUEST_CODE,
-            Intent(ACTION_STOP).setPackage(packageName), PendingIntent.FLAG_CANCEL_CURRENT
+            Intent(ACTION_STOP).setPackage(getPackageName()), PendingIntent.FLAG_CANCEL_CURRENT
         )
         mStopCastIntent = PendingIntent.getBroadcast(
             mService, NOTIFICATION_REQUEST_CODE,
-            Intent(ACTION_STOP_CASTING).setPackage(packageName),
+            Intent(ACTION_STOP_CASTING).setPackage(getPackageName()),
             PendingIntent.FLAG_CANCEL_CURRENT
         )
 
@@ -265,8 +263,8 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
+
 
     /**
      * Creates Notification Channel. This is required in Android O+ to display notifications.
