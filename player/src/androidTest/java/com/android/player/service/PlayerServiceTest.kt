@@ -9,6 +9,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ServiceTestRule
+import com.android.player.exo.OnExoPlayerManagerCallback
 import com.android.player.model.ASong
 import com.android.player.service.PlayerService.LocalBinder
 import org.hamcrest.CoreMatchers.`is`
@@ -28,6 +29,7 @@ class PlayerServiceTest {
     val mServiceRule: ServiceTestRule = ServiceTestRule()
 
     private lateinit var context: Context
+
 
     @Before
     fun setUp() {

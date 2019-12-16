@@ -9,7 +9,7 @@ import kotlin.math.max
  *
  * @author ZARA
  **/
-class QueueManager(private val mListener: OnSongUpdateListener) {
+class QueueManager(private val mListener: OnSongUpdateListener) : OnQueueManagerCallback {
 
     private var queue: QueueModel? = null
     private var mCurrentIndex: Int = 0
@@ -101,7 +101,6 @@ class QueueManager(private val mListener: OnSongUpdateListener) {
             )
         }
         mCurrentIndex = max(index, 0)
-        mListener.onQueueUpdated(newQueue)
         setCurrentQueueIndex(index)
     }
 
@@ -158,4 +157,6 @@ class QueueManager(private val mListener: OnSongUpdateListener) {
 
         fun onQueueUpdated(newQueue: QueueModel)
     }
+
+
 }

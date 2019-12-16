@@ -74,9 +74,9 @@ class QueueModelTest {
 
     @Test
     fun addItemsTest() {
-        val songOne = mock(ASong::class.java)//mock creation
-        val songTwo = mock(ASong::class.java)
-        val songs = arrayListOf<ASong>(songOne, songTwo)
+        val songA = mock(ASong::class.java)//mock creation
+        val songB = mock(ASong::class.java)
+        val songs = arrayListOf<ASong>(songA, songB)
         mockedQueueModel.addItems(songs)
         val result = mockedQueueModel.getShuffleOrNormalList()
         assertEquals(

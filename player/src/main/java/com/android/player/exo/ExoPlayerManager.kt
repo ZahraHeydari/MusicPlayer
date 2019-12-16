@@ -397,8 +397,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
 
         override fun onTracksChanged(
             trackGroups: TrackGroupArray?, trackSelections: TrackSelectionArray?
-        ) {
-            // Nothing to do.
+        ) { // Nothing to do.
         }
 
         override fun onLoadingChanged(isLoading: Boolean) {

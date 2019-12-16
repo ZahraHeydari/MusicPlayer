@@ -44,7 +44,7 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
     private var mExpandedRemoteViews: RemoteViews = RemoteViews(getPackageName(), R.layout.player_big_notification)
     private var notificationBuilder: NotificationCompat.Builder? = null
 
-    fun getPackageName():String{
+    private fun getPackageName():String{
         return mService.packageName
     }
 
