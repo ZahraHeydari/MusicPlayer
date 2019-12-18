@@ -34,8 +34,8 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
             Log.i(TAG, "song list: $mSongList")
         }
 
-        if (intent?.extras?.containsKey(Song::class.java.name) == true) {
-            mSong = intent?.extras?.get(Song::class.java.name) as Song
+        if (intent?.extras?.containsKey(ASong::class.java.name) == true) {
+            mSong = intent?.extras?.get(ASong::class.java.name) as Song
         }
 
         mSong?.let {
@@ -73,7 +73,7 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
         })
 
         playerViewModel.playerData.observe(this, Observer {
-            loadInitialData(it?.getName(), it?.getArtistName(), it?.getFeatureAvatar())
+            loadInitialData(it?.title, it?.artist, it?.clipArt)
         })
 
         song_player_skip_next_image_view.setOnClickListener {
@@ -113,7 +113,8 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
 
         })
 
-        song_player_container.setOnTouchListener(object : OnSwipeTouchListener(this@SongPlayerActivity) {
+        song_player_container.setOnTouchListener(object :
+            OnSwipeTouchListener(this@SongPlayerActivity) {
             override fun onSwipeRight() {
                 if (mSongList?.size ?: 0 > 1) skipToPrevious()
 
@@ -154,11 +155,9 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
 
     companion object {
 
-        const val SONG_LIST_KEY = "SONG_LIST_KEY"
-
         fun start(context: Context, song: Song, songList: ArrayList<Song>) {
             val intent = Intent(context, SongPlayerActivity::class.java)
-            intent.putExtra(Song::class.java.name, song)
+            intent.putExtra(ASong::class.java.name, song)
             intent.putExtra(SONG_LIST_KEY, songList)
             context.startActivity(intent)
         }

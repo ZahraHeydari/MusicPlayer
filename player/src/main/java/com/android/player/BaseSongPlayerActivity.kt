@@ -1,5 +1,6 @@
 package com.android.player
 
+import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -54,6 +55,7 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
             mBound = false
         }
     }
+
 
     override fun onStart() {
         super.onStart()

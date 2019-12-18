@@ -194,16 +194,16 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
         mPlayOnFocusGain = true
         tryToGetAudioFocus()
         registerAudioNoisyReceiver()
-        val songId = aSong.getSongId()
+        val songId = aSong.songId
         val songHasChanged: Boolean
-        songHasChanged = songId != mCurrentSong?.getSongId()
+        songHasChanged = songId != mCurrentSong?.songId
         //if (songHasChanged) {
         mCurrentSong = aSong
         // }
 
         if (songHasChanged || mExoPlayer == null) {
             releaseResources(false) // release everything except the player
-            val source = mCurrentSong?.getSource()
+            val source = mCurrentSong?.source
             if (mExoPlayer == null) {
                 mExoPlayer = ExoPlayerFactory.newSimpleInstance(
                     context.applicationContext,
@@ -234,7 +234,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
             //MediaSource mediaSource = extractorMediaFactory.createMediaSource(Uri.parse(source));
 
             val mediaSource: MediaSource
-            when (mCurrentSong?.getSongType()) {
+            when (mCurrentSong?.songType) {
                 C.TYPE_HLS -> mediaSource = HlsMediaSource(
                     Uri.parse(source),
                     dataSourceFactory,
@@ -242,7 +242,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
                     PlayerEventLogger(DefaultTrackSelector(AdaptiveTrackSelection.Factory()))
                 )
                 C.TYPE_OTHER -> mediaSource = ExtractorMediaSource(
-                    Uri.parse(mCurrentSong?.getSource()),
+                    Uri.parse(mCurrentSong?.source),
                     dataSourceFactory,
                     DefaultExtractorsFactory(),
                     Handler(),

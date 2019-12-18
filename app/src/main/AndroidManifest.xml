@@ -25,7 +25,17 @@
 
         <activity
             android:name="com.android.musicplayer.presentation.songplayer.SongPlayerActivity"
-            android:parentActivityName=".presentation.playlist.PlaylistActivity" />
+            android:parentActivityName=".presentation.playlist.PlaylistActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="player" />
+
+            </intent-filter>
+        </activity>
 
     </application>
 

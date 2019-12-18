@@ -13,7 +13,7 @@ object QueueHelper {
         song: ASong
     ): Int {
         for ((index, item) in queue.withIndex()) {
-            if (song.getSongId() == item.getSongId()) {
+            if (song.songId == item.songId) {
                 return index
             }
         }
@@ -47,7 +47,7 @@ object QueueHelper {
             return false
         }
         for (i in list1.indices) {
-            if (list1[i].getSongId() != list2[i].getSongId()) {
+            if (list1[i].songId != list2[i].songId) {
                 return false
             }
         }

@@ -109,12 +109,12 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
                 path.toString(),
                 artist,
                 albumArt,
-                duration
+                duration,
+                3
             )
             viewModel.saveSongData(song)
         }
         cursor?.close()
-
     }
 
 

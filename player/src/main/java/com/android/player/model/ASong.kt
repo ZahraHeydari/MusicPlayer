@@ -1,31 +1,23 @@
 package com.android.player.model
 
+import android.os.Parcelable
 
-abstract class ASong {
+abstract class ASong(
+    var songId: Int = 0,
+    var title: String? = "",
+    var clipArt: String? = "",
+    var artist: String? = "",
+    var source: String? = "",
+    var songType: Int = 0,
+    var length: String? = "",
+    var downloadPath: String? = "",
+    var category: String? = ""
+) : Parcelable {
 
     private var isPlay = false
-    @Transient
     private var duration: Long = 0
-    @Transient
     private var currentPosition: Long = 0
-    @Transient
     private var playingPercent = 0
-
-    abstract fun getSongId(): Int
-
-    abstract fun getName(): String?
-
-    abstract fun getFeatureAvatar(): String?
-
-    abstract fun getArtistName(): String?
-
-    abstract fun getCategory(): String
-
-    abstract fun getSource(): String
-
-    abstract fun getSongType(): Int
-
-    abstract fun getDownloadPath(): String
 
     private fun calculatePercentPlay(): Int {
         return if (currentPosition == 0L || duration == 0L) 0 else (currentPosition * 100 / duration).toInt()
@@ -43,19 +35,19 @@ abstract class ASong {
         if (this === o) return true
         if (o == null || o !is ASong) return false
         val song = o as ASong?
-        if (this.getSongId() != this.getSongId()) return false
-        if (if (this.getName() != null) this.getName() != song?.getName() else song?.getName() != null)
+        if (this.songId != this.songId) return false
+        if (if (this.title != null) this.title != song?.title else song?.title != null)
             return false
-        if (if (this.getFeatureAvatar() != null) this.getFeatureAvatar() != song?.getFeatureAvatar() else song?.getFeatureAvatar() != null)
+        if (if (this.clipArt != null) this.clipArt != song?.clipArt else song?.clipArt != null)
             return false
-        return if (this.getArtistName() != null) this.getArtistName() == song?.getArtistName() else song?.getArtistName() == null
+        return if (this.artist != null) this.artist == song?.artist else song?.artist == null
     }
 
     override fun hashCode(): Int {
-        var result = getSongId() xor getSongId().ushr(32)
-        result = 31 * result + if (getName() != null) getName().hashCode() else 0
-        result = 31 * result + if (getFeatureAvatar() != null) getFeatureAvatar().hashCode() else 0
-        result = 31 * result + if (getArtistName() != null) getArtistName().hashCode() else 0
+        var result = songId xor songId.ushr(32)
+        result = 31 * result + if (title != null) title.hashCode() else 0
+        result = 31 * result + if (clipArt != null) clipArt.hashCode() else 0
+        result = 31 * result + if (artist != null) artist.hashCode() else 0
         return result
     }
 

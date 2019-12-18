@@ -21,7 +21,6 @@ class PlaylistViewModel(
     fun saveSongData(song: Song) {
         Log.i(TAG, "Song : $song")
         saveSongDataUseCase.saveSongItem(song)
-
     }
 
     fun getSongsFromDb() {
