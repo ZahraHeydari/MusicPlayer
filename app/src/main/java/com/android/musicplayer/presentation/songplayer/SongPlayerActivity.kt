@@ -19,7 +19,7 @@ import java.io.File
 
 class SongPlayerActivity : BaseSongPlayerActivity() {
 
-    private val TAG = SongPlayerActivity::class.java.name
+
     private var mSong: Song? = null
     private var mSongList: MutableList<ASong>? = null
 
@@ -45,34 +45,36 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
         loadInitialData(mSong?.title, mSong?.artist, mSong?.clipArt)
 
 
-        playerViewModel.songDurationTextData.observe(this, Observer<String> { t ->
+        playerViewModel.getSongDurationTextData().observe(this, Observer<String> { t ->
             song_player_total_time_text_view.text = t
         })
 
-        playerViewModel.songDurationData.observe(this, Observer {
+        playerViewModel.getSongDurationData().observe(this, Observer {
             song_player_progress_seek_bar.max = it
         })
 
-        playerViewModel.songPositionTextData.observe(this,
+        playerViewModel.getSongPositionTextData().observe(this,
             Observer<String> { t -> song_player_passed_time_text_view.text = t })
 
-        playerViewModel.songPositionData.observe(this, Observer {
+        playerViewModel.getSongPositionData().observe(this, Observer {
             song_player_progress_seek_bar.progress = it
         })
 
-        playerViewModel.isRepeatData.observe(this, Observer {
-            song_player_repeat_image_view.setImageResource(if (it) R.drawable.ic_repeat_one_color_primary_vector else R.drawable.ic_repeat_one_black_vector)
+        playerViewModel.getRepeatData().observe(this, Observer {
+            song_player_repeat_image_view.setImageResource(if (it) R.drawable.ic_repeat_one_color_primary_vector
+            else R.drawable.ic_repeat_one_black_vector)
         })
 
-        playerViewModel.isShuffleData.observe(this, Observer {
-            song_player_shuffle_image_view.setImageResource(if (it) R.drawable.ic_shuffle_color_primary_vector else R.drawable.ic_shuffle_black_vector)
+        playerViewModel.getShuffleData().observe(this, Observer {
+            song_player_shuffle_image_view.setImageResource(if (it) R.drawable.ic_shuffle_color_primary_vector
+            else R.drawable.ic_shuffle_black_vector)
         })
 
-        playerViewModel.isPlayData.observe(this, Observer {
+        playerViewModel.getPlayingData().observe(this, Observer {
             song_player_toggle_image_view.setImageResource(if (it) R.drawable.ic_pause_vector else R.drawable.ic_play_vector)
         })
 
-        playerViewModel.playerData.observe(this, Observer {
+        playerViewModel.getPlayerData().observe(this, Observer {
             loadInitialData(it?.title, it?.artist, it?.clipArt)
         })
 
@@ -154,6 +156,8 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
 
 
     companion object {
+
+        private val TAG = SongPlayerActivity::class.java.name
 
         fun start(context: Context, song: Song, songList: ArrayList<Song>) {
             val intent = Intent(context, SongPlayerActivity::class.java)

@@ -17,8 +17,6 @@ interface OnMediaControllerCallback {
 
     fun onPlaybackStateChanged()
 
-    fun onPlaybackStart()
-
     fun onNotificationRequired()
 
     fun onPlaybackStop()

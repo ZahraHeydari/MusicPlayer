@@ -5,7 +5,6 @@ import com.android.player.model.ASong
 
 class QueueModel {
 
-    private val TAG = QueueModel::class.java.name
     private var list: MutableList<ASong> = ArrayList()
     private var shuffleList: MutableList<ASong> = ArrayList()
     var isShuffle = false
@@ -33,5 +32,11 @@ class QueueModel {
     fun addItem(song: ASong) {
         this.list.add(song)
         this.shuffleList.add(song)
+    }
+
+
+    companion object{
+
+        private val TAG = QueueModel::class.java.name
     }
 }

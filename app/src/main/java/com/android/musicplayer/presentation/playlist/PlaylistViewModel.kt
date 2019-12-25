@@ -15,11 +15,9 @@ class PlaylistViewModel(
 ) : ViewModel() {
 
 
-    val TAG = PlaylistViewModel::class.java.name
     val playlistData = MutableLiveData<List<Song>>()
 
     fun saveSongData(song: Song) {
-        Log.i(TAG, "Song : $song")
         saveSongDataUseCase.saveSongItem(song)
     }
 

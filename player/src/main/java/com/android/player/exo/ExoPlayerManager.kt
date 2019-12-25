@@ -41,7 +41,6 @@ import com.google.android.exoplayer2.util.Util
 class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
 
 
-    val TAG = ExoPlayerManager::class.java.name
     private val BANDWIDTH_METER = DefaultBandwidthMeter()
     // The volume we set the media player to when we lose audio focus, but are
     // allowed to reduce the volume instead of stopping playback.
@@ -452,6 +451,8 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
     }
 
     companion object {
+
+        val TAG = ExoPlayerManager::class.java.name
         const val AUDIO_TYPE = 3
         const val UPDATE_PROGRESS_DELAY = 500L
     }

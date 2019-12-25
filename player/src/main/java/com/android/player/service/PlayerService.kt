@@ -16,7 +16,6 @@ import java.util.*
 
 class PlayerService : Service(), OnMediaControllerCallback {
 
-    private val TAG = PlayerService::class.java.name
     private var mMediaController: MediaController? = null
     var mNotificationManager: MediaNotificationManager? = null
     private val mMediaControllerCallbackHashSet = HashSet<OnMediaControllerCallback>()
@@ -167,10 +166,6 @@ class PlayerService : Service(), OnMediaControllerCallback {
         return LocalBinder()
     }
 
-    override fun onPlaybackStart() {
-        Log.d(TAG, "onPlaybackStart() called")
-    }
-
     override fun onNotificationRequired() {
         mNotificationManager?.startNotification()
     }
@@ -209,6 +204,7 @@ class PlayerService : Service(), OnMediaControllerCallback {
 
     companion object {
 
+        private val TAG = PlayerService::class.java.name
         const val ACTION_CMD = "app.ACTION_CMD"
         const val CMD_NAME = "CMD_NAME"
         const val CMD_STOP_CASTING = "CMD_STOP_CASTING"

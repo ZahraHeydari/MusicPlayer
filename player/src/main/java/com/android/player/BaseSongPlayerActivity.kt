@@ -18,8 +18,6 @@ import com.android.player.service.PlayerService
 open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
     OnPlayerServiceListener {
 
-
-    private val TAG = BaseSongPlayerActivity::class.java.name
     private var mService: PlayerService? = null
     private var mBound = false
     val playerViewModel: PlayerViewModel = PlayerViewModel()
@@ -163,6 +161,7 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
 
     companion object {
 
+        private val TAG = BaseSongPlayerActivity::class.java.name
         const val SONG_LIST_KEY = "SONG_LIST_KEY"
         private const val ACTION_PLAY_SONG = 1
         private const val ACTION_PLAY_LIST = 2

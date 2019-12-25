@@ -20,7 +20,7 @@ class MediaController(
     private val mediaControllerCallback: OnMediaControllerCallback
 ) : OnExoPlayerManagerCallback.OnSongStateCallback {
 
-    private val TAG = MediaController::class.java.name
+
     val mMediaControllersCallbacksHashSet = HashSet<OnMediaControllerCallback>()
     private var queueManager: QueueManager? = null
     private var mQueueManagerCallback: OnQueueManagerCallback? = null
@@ -78,7 +78,6 @@ class MediaController(
         while (iterator.hasNext()) {
             runOnSongChanged(iterator.next())
         }
-        mediaControllerCallback.onPlaybackStart()
         mediaControllerCallback.onNotificationRequired()
     }
 
@@ -208,5 +207,10 @@ class MediaController(
 
     private fun runOnPlaybackStateChanged(mediaControllerCallback: OnMediaControllerCallback?) {
         mediaControllerCallback?.onPlaybackStateChanged()
+    }
+
+
+    companion object{
+        private val TAG = MediaController::class.java.name
     }
 }

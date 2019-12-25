@@ -24,7 +24,6 @@ import kotlin.properties.Delegates
 internal class PlaylistAdapter(val mListener: OnPlaylistAdapterListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val TAG = PlaylistAdapter::class.java.name
     var songs: List<Song> by Delegates.observable(emptyList()) { _, _, _ ->
         notifyDataSetChanged()
     }
@@ -93,6 +92,10 @@ internal class PlaylistAdapter(val mListener: OnPlaylistAdapterListener) :
             }
 
         }
+    }
+
+    companion object {
+        private val TAG = PlaylistAdapter::class.java.name
     }
 
 }

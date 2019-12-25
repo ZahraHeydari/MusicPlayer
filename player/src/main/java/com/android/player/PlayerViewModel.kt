@@ -9,19 +9,18 @@ import com.android.player.utils.AppConstants
 
 class PlayerViewModel : ViewModel() {
 
-    private val TAG = PlayerViewModel::class.java.name
-    val playerData = MutableLiveData<ASong>()
-    val isVisibleData = MutableLiveData<Boolean>()
-    val isBufferingData = MutableLiveData<Boolean>()
-    val isPlayData = MutableLiveData<Boolean>()
-    val playingPercentData = MutableLiveData<Int>()
-    val songDurationTextData = MutableLiveData<String>()
-    val songPositionTextData = MutableLiveData<String>()
-    val songDurationData = MutableLiveData<Int>()
-    val songPositionData = MutableLiveData<Int>()
-    val isShuffleData = MutableLiveData<Boolean>()
-    val isRepeatAllData = MutableLiveData<Boolean>()
-    val isRepeatData = MutableLiveData<Boolean>()
+    private val playerData = MutableLiveData<ASong>()
+    private val isVisibleData = MutableLiveData<Boolean>()
+    private val isBufferingData = MutableLiveData<Boolean>()
+    private val isPlayData = MutableLiveData<Boolean>()
+    private val playingPercentData = MutableLiveData<Int>()
+    private val songDurationTextData = MutableLiveData<String>()
+    private val songPositionTextData = MutableLiveData<String>()
+    private val songDurationData = MutableLiveData<Int>()
+    private val songPositionData = MutableLiveData<Int>()
+    private val isShuffleData = MutableLiveData<Boolean>()
+    private val isRepeatAllData = MutableLiveData<Boolean>()
+    private val isRepeatData = MutableLiveData<Boolean>()
     private var mNavigator: OnPlayerActionCallback? = null
 
     val song: ASong?
@@ -74,6 +73,40 @@ class PlayerViewModel : ViewModel() {
     fun setBuffering(isBuffering: Boolean) {
         this.isBufferingData.value = isBuffering
     }
+
+
+    fun getSongDurationTextData():MutableLiveData<String>{
+        return songDurationTextData
+    }
+
+    fun getSongDurationData():MutableLiveData<Int>{
+        return songDurationData
+    }
+
+    fun getSongPositionTextData():MutableLiveData<String>{
+        return songPositionTextData
+    }
+
+    fun getSongPositionData():MutableLiveData<Int>{
+        return songPositionData
+    }
+
+    fun getRepeatData():MutableLiveData<Boolean>{
+        return isRepeatData
+    }
+
+    fun getShuffleData():MutableLiveData<Boolean>{
+        return isShuffleData
+    }
+
+    fun getPlayingData():MutableLiveData<Boolean>{
+        return isPlayData
+    }
+
+    fun getPlayerData():MutableLiveData<ASong>{
+        return playerData
+    }
+
 
     fun play() {
         if (isPlayData.value == true) {
@@ -155,6 +188,11 @@ class PlayerViewModel : ViewModel() {
 
     fun onComplete() {
         songPositionTextData.value = songDurationTextData.value
+    }
+
+    companion object{
+
+        private val TAG = PlayerViewModel::class.java.name
     }
 
 }

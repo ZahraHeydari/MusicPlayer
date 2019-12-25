@@ -32,7 +32,6 @@ import com.android.player.service.PlayerService
 class MediaNotificationManager @Throws(RemoteException::class)
 constructor(private val mService: PlayerService) : BroadcastReceiver() {
 
-    private val TAG = MediaNotificationManager::class.java.name
     private var mNotificationManager: NotificationManager? = null
     private val mPlayIntent: PendingIntent
     private val mPauseIntent: PendingIntent
@@ -318,6 +317,7 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
 
     companion object {
 
+        private val TAG = MediaNotificationManager::class.java.name
         private val isSupportExpand = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
         private const val ACTION_PAUSE = "app.pause"
         private const val ACTION_PLAY = "app.play"

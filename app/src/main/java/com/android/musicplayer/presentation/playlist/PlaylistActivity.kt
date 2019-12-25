@@ -24,8 +24,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
 
-
-    private val TAG = PlaylistActivity::class.java.name
     private var adapter: PlaylistAdapter? = null
     private val viewModel: PlaylistViewModel by viewModel()
 
@@ -189,6 +187,8 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
 
 
     companion object {
+
+        private val TAG = PlaylistActivity::class.java.name
         const val REQUEST_PERMISSION_READ_EXTERNAL_STORAGE_CODE = 7031
         const val PICK_AUDIO_KEY = 2017
     }

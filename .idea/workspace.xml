@@ -6,7 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
@@ -16,24 +16,12 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/jarAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/data/model/Song.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/data/model/Song.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistViewModel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/player/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/ExoPlayerManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/ExoPlayerManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/model/ASong.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/model/ASong.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/queue/QueueHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/queue/QueueHelper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/PlayerViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/PlayerViewModel.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -50,7 +38,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="5203b2dbfa679423" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_28" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -76,31 +64,28 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/data/model/Song.kt">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/model/ASong.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="30" lean-forward="true" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
-              <folding>
-                <element signature="e#34#102#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-1260">
+              <caret line="29" column="36" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="44" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistViewModel.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
-              <caret line="19" column="41" selection-start-line="19" selection-start-column="41" selection-end-line="19" selection-end-column="41" />
+            <state relative-caret-position="336">
+              <caret line="66" column="37" selection-start-line="66" selection-start-column="24" selection-end-line="66" selection-end-column="37" />
               <folding>
                 <element signature="e#57#643#0" expanded="true" />
               </folding>
@@ -111,8 +96,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="117" column="43" lean-forward="true" selection-start-line="117" selection-start-column="43" selection-end-line="117" selection-end-column="43" />
+            <state relative-caret-position="180">
+              <caret line="24" column="34" lean-forward="true" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -120,44 +105,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/PlayerViewModel.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="35" column="13" lean-forward="true" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistActivity.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="740">
-              <caret line="113" column="30" selection-start-line="113" selection-start-column="30" selection-end-line="113" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="117" column="9" lean-forward="true" selection-start-line="117" selection-start-column="9" selection-end-line="117" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/service/PlayerService.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="55">
-              <caret line="131" selection-start-line="131" selection-end-line="131" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/exo/ExoPlayerManager.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="86">
-              <caret line="193" column="31" lean-forward="true" selection-start-line="193" selection-start-column="31" selection-end-line="193" selection-end-column="31" />
+            <state relative-caret-position="276">
+              <caret line="98" column="28" selection-start-line="98" selection-start-column="28" selection-end-line="98" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -165,11 +114,47 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/controller/MediaController.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
-              <caret line="104" column="36" selection-start-line="104" selection-start-column="36" selection-end-line="104" selection-end-column="36" />
+            <state relative-caret-position="2070">
+              <caret line="145" column="38" selection-start-line="145" selection-start-column="38" selection-end-line="145" selection-end-column="38" />
               <folding>
                 <element signature="e#39#345#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/queue/QueueManager.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1170">
+              <caret line="79" column="9" selection-start-line="79" selection-start-column="9" selection-end-line="79" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/model/ASong.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" column="41" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1695">
+              <caret line="135" column="41" selection-start-line="135" selection-start-column="41" selection-end-line="135" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/player/src/androidTest/java/com/android/player/notification/MediaNotificationManagerTest.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="38" column="46" selection-start-line="38" selection-start-column="46" selection-end-line="38" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -201,6 +186,8 @@
       <find>onQueueUpdated</find>
       <find>mQueueManagerCallback</find>
       <find>getCurrentStreamPosition</find>
+      <find>ic_pause_vector</find>
+      <find>PlaylistViewModel</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/app</dir>
@@ -254,16 +241,16 @@
         <option value="$PROJECT_DIR$/player/src/main/java/com/android/player/OnPlayerActionCallback.kt" />
         <option value="$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/player/build.gradle" />
-        <option value="$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt" />
         <option value="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/ExoPlayerManager.kt" />
         <option value="$PROJECT_DIR$/player/src/main/java/com/android/player/queue/QueueHelper.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistActivity.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistViewModel.kt" />
-        <option value="$PROJECT_DIR$/player/src/main/java/com/android/player/PlayerViewModel.kt" />
+        <option value="$PROJECT_DIR$/player/build.gradle" />
+        <option value="$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/data/model/Song.kt" />
         <option value="$PROJECT_DIR$/player/src/main/java/com/android/player/model/ASong.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt" />
+        <option value="$PROJECT_DIR$/player/src/main/java/com/android/player/PlayerViewModel.kt" />
       </list>
     </option>
   </component>
@@ -279,17 +266,24 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <expand>
             <path>
               <item name="MusicPlayer" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="player" type="feadf853:AndroidModuleNode" />
             </path>
             <path>
               <item name="MusicPlayer" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
+              <item name="player" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="MusicPlayer" type="1abcf292:AndroidViewProjectNode" />
+              <item name="player" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="player" type="cbb59c9e:AndroidPsiDirectoryNode" />
             </path>
             <path>
               <item name="MusicPlayer" type="1abcf292:AndroidViewProjectNode" />
@@ -311,7 +305,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -709,7 +702,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.26576576" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.26576576" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -718,21 +711,21 @@
       <window_info id="Resources Explorer" order="7" />
       <window_info id="Capture Tool" order="8" />
       <window_info anchor="bottom" id="Run" order="0" weight="0.18958612" />
-      <window_info anchor="bottom" id="Logcat" order="1" weight="0.18558078" />
+      <window_info anchor="bottom" id="Logcat" order="1" weight="0.4072096" />
       <window_info anchor="bottom" id="TODO" order="2" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.26301736" />
-      <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.498713" weight="0.15754339" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.26301736" />
+      <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.498713" weight="0.3671562" />
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.501287" side_tool="true" weight="0.19359146" />
       <window_info anchor="bottom" id="Version Control" order="6" weight="0.32977304" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.498713" weight="0.1789052" />
-      <window_info anchor="bottom" id="Android Profiler" order="8" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.498713" visible="true" weight="0.12550066" />
+      <window_info anchor="bottom" id="Android Profiler" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.32977304" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" weight="0.32947233" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
-      <window_info anchor="right" id="Preview" order="5" />
+      <window_info anchor="right" id="Preview" order="5" weight="0.32947233" />
       <window_info anchor="right" id="Assistant" order="6" weight="0.32947233" />
       <window_info anchor="right" id="Coverage" order="7" side_tool="true" weight="0.32947233" />
       <window_info anchor="right" id="Hierarchy" order="8" weight="0.32947233" />
@@ -782,142 +775,10 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/queue/QueueManager.kt</url>
-          <line>132</line>
-          <properties />
-          <option name="timeStamp" value="28" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/queue/QueueManager.kt</url>
-          <line>133</line>
-          <properties />
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt</url>
-          <line>41</line>
-          <properties />
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/controller/MediaController.kt</url>
           <line>109</line>
           <properties />
           <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/service/PlayerService.kt</url>
-          <line>131</line>
-          <properties />
-          <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/service/PlayerService.kt</url>
-          <line>132</line>
-          <properties />
-          <option name="timeStamp" value="47" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/queue/QueueManager.kt</url>
-          <line>87</line>
-          <properties />
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/queue/QueueManager.kt</url>
-          <line>94</line>
-          <properties />
-          <option name="timeStamp" value="49" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/queue/QueueManager.kt</url>
-          <line>95</line>
-          <properties />
-          <option name="timeStamp" value="50" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/queue/QueueManager.kt</url>
-          <line>97</line>
-          <properties />
-          <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/queue/QueueManager.kt</url>
-          <line>98</line>
-          <properties />
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/queue/QueueManager.kt</url>
-          <line>103</line>
-          <properties />
-          <option name="timeStamp" value="53" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt</url>
-          <line>121</line>
-          <properties />
-          <option name="timeStamp" value="54" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt</url>
-          <line>150</line>
-          <properties />
-          <option name="timeStamp" value="55" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt</url>
-          <line>152</line>
-          <properties />
-          <option name="timeStamp" value="56" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt</url>
-          <line>172</line>
-          <properties />
-          <option name="timeStamp" value="57" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt</url>
-          <line>204</line>
-          <properties />
-          <option name="timeStamp" value="58" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt</url>
-          <line>205</line>
-          <properties />
-          <option name="timeStamp" value="59" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt</url>
-          <line>206</line>
-          <properties />
-          <option name="timeStamp" value="60" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt</url>
-          <line>207</line>
-          <properties />
-          <option name="timeStamp" value="61" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt</url>
-          <line>268</line>
-          <properties />
-          <option name="timeStamp" value="62" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt</url>
-          <line>276</line>
-          <properties />
-          <option name="timeStamp" value="63" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt</url>
-          <line>279</line>
-          <properties />
-          <option name="timeStamp" value="64" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -933,22 +794,6 @@
     <SUITE FILE_PATH="coverage/MusicPlayer$All_in_app.ic" NAME="All in app Coverage Results" MODIFIED="1575887308493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.61/72876c4e34feff9bf8d93d0b100e71ce6f5f8244/kotlin-stdlib-1.3.61-sources.jar!/kotlin/util/AssertionsJVM.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/player/src/test/java/com/android/player/model/ASongTest.kt" />
-    <entry file="file://$PROJECT_DIR$/player/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="55" lean-forward="true" selection-start-column="55" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-29/android.jar!/android/app/NotificationManager.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -1089,13 +934,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/player/src/androidTest/java/com/android/player/notification/MediaNotificationManagerTest.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="38" column="46" selection-start-line="38" selection-start-column="46" selection-end-line="38" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/local.properties">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1123,14 +961,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_song_player.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2385">
-          <caret line="159" selection-end-line="159" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/OnPlayerActionCallback.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="445">
@@ -1142,21 +972,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="25" column="25" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="34" column="38" selection-start-line="34" selection-start-column="38" selection-end-line="34" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/player/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="25" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -1209,13 +1024,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/queue/QueueManager.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="103" selection-start-line="103" selection-end-line="103" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/exo/ExoPlayerManager.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="86">
@@ -1223,81 +1031,137 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/player/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/data/model/Song.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/player/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="55" selection-start-column="55" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="34" column="38" selection-start-line="34" selection-start-column="38" selection-end-line="34" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/service/PlayerService.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="55">
-          <caret line="131" selection-start-line="131" selection-end-line="131" />
+        <state relative-caret-position="2070">
+          <caret line="149" column="30" selection-start-line="149" selection-start-column="30" selection-end-line="149" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-nodpi/ic_pause_vector.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-nodpi/ic_play_vector.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_song_player.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1680">
+          <caret line="112" column="29" selection-start-line="112" selection-start-column="29" selection-end-line="112" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/controller/MediaController.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="104" column="36" selection-start-line="104" selection-start-column="36" selection-end-line="104" selection-end-column="36" />
+        <state relative-caret-position="2070">
+          <caret line="145" column="38" selection-start-line="145" selection-start-column="38" selection-end-line="145" selection-end-column="38" />
           <folding>
             <element signature="e#39#345#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistViewModel.kt">
+    <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/queue/QueueManager.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="22" column="46" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="740">
-          <caret line="113" column="30" selection-start-line="113" selection-start-column="30" selection-end-line="113" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="117" column="9" lean-forward="true" selection-start-line="117" selection-start-column="9" selection-end-line="117" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/PlayerViewModel.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="35" column="13" lean-forward="true" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="117" column="43" lean-forward="true" selection-start-line="117" selection-start-column="43" selection-end-line="117" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="19" column="41" selection-start-line="19" selection-start-column="41" selection-end-line="19" selection-end-column="41" />
-          <folding>
-            <element signature="e#57#643#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/data/model/Song.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+        <state relative-caret-position="1170">
+          <caret line="79" column="9" selection-start-line="79" selection-start-column="9" selection-end-line="79" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/model/ASong.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="30" lean-forward="true" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+        <state relative-caret-position="270">
+          <caret line="18" column="41" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1695">
+          <caret line="135" column="41" selection-start-line="135" selection-start-column="41" selection-end-line="135" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/player/src/androidTest/java/com/android/player/notification/MediaNotificationManagerTest.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="38" column="46" selection-start-line="38" selection-start-column="46" selection-end-line="38" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1260">
+          <caret line="29" column="36" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="24" column="34" lean-forward="true" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistViewModel.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/player/src/main/java/com/android/player/PlayerViewModel.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="98" column="28" selection-start-line="98" selection-start-column="28" selection-end-line="98" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="66" column="37" selection-start-line="66" selection-start-column="24" selection-end-line="66" selection-end-column="37" />
           <folding>
-            <element signature="e#34#102#0" expanded="true" />
+            <element signature="e#57#643#0" expanded="true" />
           </folding>
         </state>
       </provider>
