@@ -1,14 +1,10 @@
 package com.android.player
 
-import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.os.Handler
-import android.os.IBinder
-import android.os.Looper
-import android.os.Message
+import android.os.*
 import androidx.appcompat.app.AppCompatActivity
 import com.android.player.model.ASong
 import com.android.player.service.OnPlayerServiceListener
@@ -60,7 +56,11 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
         playerViewModel.setPlayer(this)
         // Bind to PlayerService
         val intent = Intent(this, PlayerService::class.java)
-        startService(intent)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent)
+        } else {
+            startService(intent)
+        }
         if (!mBound) bindService(intent, mConnection, Context.BIND_AUTO_CREATE)
     }
 
