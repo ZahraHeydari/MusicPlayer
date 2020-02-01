@@ -14,21 +14,17 @@ abstract class ASong(
     var category: String? = ""
 ) : Parcelable {
 
-    private var isPlay = false
-    private var duration: Long = 0
-    private var currentPosition: Long = 0
-    private var playingPercent = 0
+    @Transient
+    var isPlay = false
+    @Transient
+    var totalDuration: Long = 0
+    @Transient
+    var currentPosition: Long = 0
+    @Transient
+    var playingPercent = 0
 
     private fun calculatePercentPlay(): Int {
-        return if (currentPosition == 0L || duration == 0L) 0 else (currentPosition * 100 / duration).toInt()
-    }
-
-    fun isPlay(): Boolean {
-        return isPlay
-    }
-
-    fun setPlay(play: Boolean) {
-        isPlay = play
+        return if (currentPosition == 0L || totalDuration == 0L) 0 else (currentPosition * 100 / totalDuration).toInt()
     }
 
     override fun equals(o: Any?): Boolean {

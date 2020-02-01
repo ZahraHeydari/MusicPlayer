@@ -1,6 +1,5 @@
 package com.android.musicplayer.presentation.playlist
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.musicplayer.data.model.Song

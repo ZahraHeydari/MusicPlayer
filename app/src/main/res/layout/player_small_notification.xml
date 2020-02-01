@@ -40,7 +40,7 @@
         android:id="@+id/notification_singer_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/notification_song_name_text_view"
+        android:layout_below="@+id/expanded_notification_song_name_text_view"
         android:layout_toEndOf="@+id/notification_image_view"
         android:layout_toRightOf="@+id/notification_image_view"
         android:text="singer name"
@@ -57,8 +57,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:id="@+id/notification_controller_container"
-        android:layout_toEndOf="@+id/notification_singer_name_text_view"
-        android:layout_toRightOf="@+id/notification_singer_name_text_view"
+        android:layout_toEndOf="@+id/expanded_notification_singer_name_text_view"
+        android:layout_toRightOf="@+id/expanded_notification_singer_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 

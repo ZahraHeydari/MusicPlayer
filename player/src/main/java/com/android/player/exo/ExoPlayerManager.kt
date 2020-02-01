@@ -47,7 +47,6 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
     private val VOLUME_DUCK = 0.2f
     // The volume we set the media player when we have audio focus.
     private val VOLUME_NORMAL = 1.0f
-    //private val TAG = LogHelper.makeLogTag(LocalPlayback::class.java)
     // we don't have audio focus, and can't duck (play at a low volume)
     private val AUDIO_NO_FOCUS_NO_DUCK = 0
     // we don't have focus, but can duck (play at a low volume)
@@ -140,38 +139,38 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
     override fun getCurrentSongState(): Int {
         if (mExoPlayer == null) {
             return if (mExoPlayerIsStopped) {
-                mCurrentSong?.setPlay(false)
+                mCurrentSong?.isPlay = false
                 PlaybackState.STATE_STOPPED
             } else {
-                mCurrentSong?.setPlay(false)
+                mCurrentSong?.isPlay = false
                 PlaybackState.STATE_NONE
             }
         }
         when (mExoPlayer?.playbackState) {
             Player.STATE_IDLE -> {
-                mCurrentSong?.setPlay(false)
+                mCurrentSong?.isPlay = false
                 return PlaybackState.STATE_PAUSED
 
             }
             Player.STATE_BUFFERING -> {
-                mCurrentSong?.setPlay(true)
+                mCurrentSong?.isPlay = true
                 return PlaybackState.STATE_BUFFERING
             }
             Player.STATE_READY -> {
                 return if (mExoPlayer?.playWhenReady == true) {
-                    mCurrentSong?.setPlay(true)
+                    mCurrentSong?.isPlay = true
                     PlaybackState.STATE_PLAYING
                 } else {
-                    mCurrentSong?.setPlay(false)
+                    mCurrentSong?.isPlay = false
                     PlaybackState.STATE_PAUSED
                 }
             }
             Player.STATE_ENDED -> {
-                mCurrentSong?.setPlay(false)
-                return PlaybackState.STATE_PAUSED
+                mCurrentSong?.isPlay = false
+                return PlaybackState.STATE_STOPPED
             }
             else -> {
-                mCurrentSong?.setPlay(false)
+                mCurrentSong?.isPlay = false
                 return PlaybackState.STATE_NONE
             }
         }
@@ -233,24 +232,19 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
             //MediaSource mediaSource = extractorMediaFactory.createMediaSource(Uri.parse(source));
 
             val mediaSource: MediaSource
-            when (mCurrentSong?.songType) {
-                C.TYPE_HLS -> mediaSource = HlsMediaSource(
-                    Uri.parse(source),
-                    dataSourceFactory,
-                    Handler(),
-                    PlayerEventLogger(DefaultTrackSelector(AdaptiveTrackSelection.Factory()))
-                )
-                C.TYPE_OTHER -> mediaSource = ExtractorMediaSource(
+            mediaSource = when (mCurrentSong?.songType) {
+                C.TYPE_OTHER -> ExtractorMediaSource(
                     Uri.parse(mCurrentSong?.source),
                     dataSourceFactory,
                     DefaultExtractorsFactory(),
                     Handler(),
                     PlayerEventLogger(DefaultTrackSelector(AdaptiveTrackSelection.Factory()))
                 )
-                else -> mediaSource = HlsMediaSource(
-                    Uri.parse(source), dataSourceFactory, Handler(), PlayerEventLogger(
-                        DefaultTrackSelector(AdaptiveTrackSelection.Factory())
-                    )
+                else -> HlsMediaSource(
+                    Uri.parse(source),
+                    dataSourceFactory,
+                    Handler(),
+                    PlayerEventLogger(DefaultTrackSelector(AdaptiveTrackSelection.Factory()))
                 )
             }
 
@@ -453,7 +447,6 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
     companion object {
 
         val TAG = ExoPlayerManager::class.java.name
-        const val AUDIO_TYPE = 3
         const val UPDATE_PROGRESS_DELAY = 500L
     }
 }

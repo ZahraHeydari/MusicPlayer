@@ -16,7 +16,6 @@ import com.android.musicplayer.R
 import com.android.musicplayer.data.model.Song
 import com.android.musicplayer.presentation.songplayer.SongPlayerActivity
 import com.android.player.BaseSongPlayerActivity
-import com.android.player.model.ASong
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_playlist.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -97,8 +96,7 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
             )
             var albumArt: String? = null
             if (cursorAlbums?.moveToFirst() == true) {
-                albumArt =
-                    cursorAlbums.getString(cursorAlbums.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART))
+                albumArt = cursorAlbums.getString(cursorAlbums.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART))
             }
             Log.i("addSong", "title: ${cursor.getString(0)} & path: $path")
             val song = Song(
@@ -108,7 +106,7 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
                 artist,
                 albumArt,
                 duration,
-                3
+                AUDIO_TYPE
             )
             viewModel.saveSongData(song)
         }
@@ -191,5 +189,6 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
         private val TAG = PlaylistActivity::class.java.name
         const val REQUEST_PERMISSION_READ_EXTERNAL_STORAGE_CODE = 7031
         const val PICK_AUDIO_KEY = 2017
+        const val AUDIO_TYPE = 3
     }
 }

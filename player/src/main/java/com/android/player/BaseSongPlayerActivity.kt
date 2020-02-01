@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.*
 import androidx.appcompat.app.AppCompatActivity
+import com.android.player.PlayerViewModel.Companion.getPlayerViewModelInstance
 import com.android.player.model.ASong
 import com.android.player.service.OnPlayerServiceListener
 import com.android.player.service.PlayerService
@@ -16,7 +17,7 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
 
     private var mService: PlayerService? = null
     private var mBound = false
-    val playerViewModel: PlayerViewModel = PlayerViewModel()
+    val playerViewModel: PlayerViewModel = getPlayerViewModelInstance()
     private var mSong: ASong? = null
     private var mSongList: MutableList<ASong>? = null
     private var msg = 0
@@ -57,9 +58,9 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
         // Bind to PlayerService
         val intent = Intent(this, PlayerService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(intent)
+            this.startForegroundService(intent)
         } else {
-            startService(intent)
+            this.startService(intent)
         }
         if (!mBound) bindService(intent, mConnection, Context.BIND_AUTO_CREATE)
     }
@@ -114,7 +115,7 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
     }
 
     override fun setPlay(isPlay: Boolean) {
-        playerViewModel.setPlay(isPlay)
+        playerViewModel.setPlayStatus(isPlay)
     }
 
     override fun updateSongProgress(duration: Long, position: Long) {

@@ -30,7 +30,7 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
 
 
         if (intent?.extras?.containsKey(SONG_LIST_KEY) == true) {
-            mSongList = intent?.extras?.get(SONG_LIST_KEY) as ArrayList<ASong>
+            mSongList = intent?.extras?.getParcelableArrayList(SONG_LIST_KEY)
             Log.i(TAG, "song list: $mSongList")
         }
 
@@ -45,36 +45,40 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
         loadInitialData(mSong?.title, mSong?.artist, mSong?.clipArt)
 
 
-        playerViewModel.getSongDurationTextData().observe(this, Observer<String> { t ->
+        playerViewModel.songDurationTextData.observe(this, Observer<String> { t ->
             song_player_total_time_text_view.text = t
         })
 
-        playerViewModel.getSongDurationData().observe(this, Observer {
+        playerViewModel.songDurationData.observe(this, Observer {
             song_player_progress_seek_bar.max = it
         })
 
-        playerViewModel.getSongPositionTextData().observe(this,
+        playerViewModel.songPositionTextData.observe(this,
             Observer<String> { t -> song_player_passed_time_text_view.text = t })
 
-        playerViewModel.getSongPositionData().observe(this, Observer {
+        playerViewModel.songPositionData.observe(this, Observer {
             song_player_progress_seek_bar.progress = it
         })
 
-        playerViewModel.getRepeatData().observe(this, Observer {
-            song_player_repeat_image_view.setImageResource(if (it) R.drawable.ic_repeat_one_color_primary_vector
-            else R.drawable.ic_repeat_one_black_vector)
+        playerViewModel.isRepeatData.observe(this, Observer {
+            song_player_repeat_image_view.setImageResource(
+                if (it) R.drawable.ic_repeat_one_color_primary_vector
+                else R.drawable.ic_repeat_one_black_vector
+            )
         })
 
-        playerViewModel.getShuffleData().observe(this, Observer {
-            song_player_shuffle_image_view.setImageResource(if (it) R.drawable.ic_shuffle_color_primary_vector
-            else R.drawable.ic_shuffle_black_vector)
+        playerViewModel.isShuffleData.observe(this, Observer {
+            song_player_shuffle_image_view.setImageResource(
+                if (it) R.drawable.ic_shuffle_color_primary_vector
+                else R.drawable.ic_shuffle_black_vector
+            )
         })
 
-        playerViewModel.getPlayingData().observe(this, Observer {
+        playerViewModel.isPlayData.observe(this, Observer {
             song_player_toggle_image_view.setImageResource(if (it) R.drawable.ic_pause_vector else R.drawable.ic_play_vector)
         })
 
-        playerViewModel.getPlayerData().observe(this, Observer {
+        playerViewModel.playerData.observe(this, Observer {
             loadInitialData(it?.title, it?.artist, it?.clipArt)
         })
 
@@ -132,25 +136,11 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
         song_player_title_text_view.text = title
         song_player_singer_name_text_view.text = singerName
 
-        if (image.isNullOrEmpty()) {
-            song_player_image_view.setImageDrawable(
-                ContextCompat.getDrawable(
-                    this@SongPlayerActivity,
-                    R.drawable.placeholder
-                )
-            )
-        } else {
-            song_player_image_view.load(File(image)) {
-                crossfade(true)
-                placeholder(
-                    ContextCompat.getDrawable(
-                        this@SongPlayerActivity,
-                        R.drawable.placeholder
-                    )
-                )
-                error(ContextCompat.getDrawable(this@SongPlayerActivity, R.drawable.placeholder))
-                transformations(CircleCropTransformation())
-            }
+        song_player_image_view.load(File(image)) {
+            crossfade(true)
+            placeholder(ContextCompat.getDrawable(this@SongPlayerActivity, R.drawable.placeholder))
+            error(ContextCompat.getDrawable(this@SongPlayerActivity, R.drawable.placeholder))
+            //transformations(CircleCropTransformation())
         }
     }
 

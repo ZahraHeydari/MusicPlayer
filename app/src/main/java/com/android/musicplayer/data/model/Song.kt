@@ -3,10 +3,10 @@ package com.android.musicplayer.data.model
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.android.player.exo.ExoPlayerManager.Companion.AUDIO_TYPE
 import com.android.player.model.ASong
 import kotlinx.android.parcel.Parcelize
 
+@Suppress("DIFFERENT_NAMES_FOR_THE_SAME_PARAMETER_IN_SUPERTYPES")
 @Entity
 @Parcelize
 data class Song(

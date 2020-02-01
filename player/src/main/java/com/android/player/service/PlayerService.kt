@@ -4,6 +4,7 @@ import android.app.Service
 import android.content.Intent
 import android.media.session.PlaybackState
 import android.os.Binder
+import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import com.android.player.controller.MediaController
@@ -28,6 +29,7 @@ class PlayerService : Service(), OnMediaControllerCallback {
         mMediaController = MediaController(exoPlayerManager, this)
         mNotificationManager = MediaNotificationManager(this)
         registerMediaControllerCallbacks()
+
 
     }
 
