@@ -8,7 +8,6 @@ import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import coil.api.load
-import coil.transform.CircleCropTransformation
 import com.android.musicplayer.R
 import com.android.musicplayer.data.model.Song
 import com.android.player.BaseSongPlayerActivity
@@ -136,11 +135,13 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
         song_player_title_text_view.text = title
         song_player_singer_name_text_view.text = singerName
 
-        song_player_image_view.load(File(image)) {
-            crossfade(true)
-            placeholder(ContextCompat.getDrawable(this@SongPlayerActivity, R.drawable.placeholder))
-            error(ContextCompat.getDrawable(this@SongPlayerActivity, R.drawable.placeholder))
-            //transformations(CircleCropTransformation())
+        image?.let {
+            song_player_image_view.load(File(it)) {
+                crossfade(true)
+                placeholder(ContextCompat.getDrawable(this@SongPlayerActivity, R.drawable.placeholder))
+                error(ContextCompat.getDrawable(this@SongPlayerActivity, R.drawable.placeholder))
+                //transformations(CircleCropTransformation())
+            }
         }
     }
 

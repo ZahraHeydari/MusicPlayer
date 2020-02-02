@@ -18,7 +18,7 @@ interface OnPlayerServiceListener {
 
     fun setVisibilityData(isVisibility: Boolean)
 
-    fun setPlay(isPlay: Boolean)
+    fun setPlayStatus(isPlay: Boolean)
 
     fun onSongEnded()
 

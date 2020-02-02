@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.RemoteViews
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat.startForegroundService
 import androidx.core.graphics.drawable.toBitmap
 import coil.Coil
 import coil.api.load
@@ -22,6 +23,7 @@ import com.android.player.R
 import com.android.player.exo.PlaybackState
 import com.android.player.model.ASong
 import com.android.player.service.PlayerService
+import java.io.File
 
 /**
  * This class is responsible for managing Notification
@@ -38,7 +40,7 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
     private val mNextIntent: PendingIntent
     private val mStopIntent: PendingIntent
     private val mStopCastIntent: PendingIntent
-    var mStarted = false
+    var mStarted = false //to check if notification manager is started or not!
     private var mCollapsedRemoteViews: RemoteViews =
         RemoteViews(getPackageName(), R.layout.player_collapsed_notification)
     private var mExpandedRemoteViews: RemoteViews =
@@ -88,6 +90,7 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
      * To start notification and service
      */
     fun startNotification() {
+        Log.i(TAG, "startNotification called()")
         if (!mStarted) {
             mStarted = true
             // The notification must be updated after setting started to true
@@ -104,22 +107,24 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
         }
     }
 
+    fun updateNotification() {
+        Log.i(TAG, "updateNotification called()")
+        createOrUpdateNotification()
+    }
+
     /**
      * To stop notification and service
      */
     fun stopNotification() {
+        Log.i(TAG, "stopNotification called()")
         if (mStarted) {
             mStarted = false
             mNotificationManager?.cancel(NOTIFICATION_ID)
             mService.unregisterReceiver(this)
             mService.stopForeground(true)
-
         }
     }
 
-    fun updateNotification() {
-        createOrUpdateNotification()
-    }
 
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {
@@ -146,6 +151,7 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
     }
 
     private fun createOrUpdateNotification(): Notification? {
+        Log.i(TAG, "createOrUpdateNotification called()")
         if (notificationBuilder == null) {
             notificationBuilder = NotificationCompat.Builder(mService, CHANNEL_ID)
             notificationBuilder?.setSmallIcon(R.drawable.itunes)
@@ -194,26 +200,32 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
     }
 
     private fun loadNotificationView() {
+        Log.i(TAG, "loadNotificationView called()")
+
         // To make sure that the notification can be dismissed by the user when we are not playing.
         notificationBuilder?.setOngoing(mService.getSongPlayingState() == PlaybackState.STATE_PLAYING)
 
         createCollapsedRemoteViews(mCollapsedRemoteViews)
         createExpandedRemoteViews(mExpandedRemoteViews)
 
-        Coil.load(mService, mService.getCurrentSong()?.clipArt) {
-            target {
-                mCollapsedRemoteViews.setImageViewBitmap(
-                    R.id.collapsed_notification_image_view,
-                    it.toBitmap()
-                )
-                mExpandedRemoteViews.setImageViewBitmap(
-                    R.id.expanded_notification_image_view,
-                    it.toBitmap()
-                )
+        mService.getCurrentSong()?.clipArt?.let { nonNullClipArt ->
+            Coil.load(mService, File(nonNullClipArt)) {
+                placeholder(R.drawable.placeholder)
+                error(R.drawable.placeholder)
+                target {
+                    Log.i(TAG, "Coil target called() $it")
+                    mCollapsedRemoteViews.setImageViewBitmap(
+                        R.id.collapsed_notification_image_view,
+                        it.toBitmap()
+                    )
+                    mExpandedRemoteViews.setImageViewBitmap(
+                        R.id.expanded_notification_image_view,
+                        it.toBitmap()
+                    )
+                }
             }
-            placeholder(R.drawable.placeholder)
-            error(R.drawable.placeholder)
         }
+
 
         if (mService.getSongPlayingState() == PlaybackState.STATE_PLAYING ||
             mService.getSongPlayingState() == PlaybackState.STATE_BUFFERING
@@ -358,7 +370,7 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
      * Creates Notification Channel. This is required in Android O+ to display notifications.
      */
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun createNotificationChannel() {
+    fun createNotificationChannel() {
         if (mNotificationManager?.getNotificationChannel(CHANNEL_ID) == null) {
             val notificationChannel = NotificationChannel(
                 CHANNEL_ID,

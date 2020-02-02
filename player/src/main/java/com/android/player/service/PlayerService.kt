@@ -23,6 +23,7 @@ class PlayerService : Service(), OnMediaControllerCallback {
     var mListener: OnPlayerServiceListener? = null
     var command: String? = null
 
+
     override fun onCreate() {
         super.onCreate()
         val exoPlayerManager = ExoPlayerManager(this)
@@ -30,7 +31,16 @@ class PlayerService : Service(), OnMediaControllerCallback {
         mNotificationManager = MediaNotificationManager(this)
         registerMediaControllerCallbacks()
 
-
+        /*
+        * However the system allows apps to call Context.startForegroundService() even while the app is in the background,
+        * in android O+ the app must call that service's startForeground() method within five seconds after the service is created.
+        * */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mNotificationManager?.startNotification()
+            if (getCurrentSong() == null) {
+                mNotificationManager?.stopNotification()
+            }
+        }
     }
 
     override fun onStartCommand(startIntent: Intent?, flags: Int, startId: Int): Int {
@@ -78,25 +88,25 @@ class PlayerService : Service(), OnMediaControllerCallback {
             PlaybackState.STATE_BUFFERING -> {
                 mListener?.setBufferingData(true)
                 mListener?.setVisibilityData(true)
-                mListener?.setPlay(true)
+                mListener?.setPlayStatus(true)
             }
 
             PlaybackState.STATE_PLAYING -> {
                 mListener?.setBufferingData(false)
                 mListener?.setVisibilityData(true)
-                mListener?.setPlay(true)
+                mListener?.setPlayStatus(true)
             }
 
             PlaybackState.STATE_PAUSED -> {
                 mListener?.setBufferingData(false)
                 mListener?.setVisibilityData(true)
-                mListener?.setPlay(false)
+                mListener?.setPlayStatus(false)
             }
 
             else -> {
                 mListener?.setBufferingData(false)
                 mListener?.setVisibilityData(false)
-                mListener?.setPlay(false)
+                mListener?.setPlayStatus(false)
             }
         }
     }
@@ -186,7 +196,7 @@ class PlayerService : Service(), OnMediaControllerCallback {
         if (mMediaController?.getSongPlayingState() == PlaybackState.STATE_STOPPED ||
             mMediaController?.getSongPlayingState() == PlaybackState.STATE_NONE
         ) mNotificationManager?.stopNotification()
-        else mNotificationManager?.startNotification()
+        else mNotificationManager?.updateNotification()
 
     }
 
