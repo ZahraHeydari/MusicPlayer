@@ -1,17 +1,7 @@
 # Android-Clean-Arch-Room-Koin(MusicPlayer)
 
-A Simple Android Mobile Application which has been implemented using Clean Architecture alongside MVVM design
-and consists of the music player for playing (online/offline) songs.
-
-
-### Technologies & Methodologies which used:
-
-- Koin
-- Clean Architecture
-- MVVM Pattern
-- LiveData
-- Coil(Image Loader)
-- ExoPlayer
+A Simple Audio Player Android Application which has been implemented using Clean Architecture alongside MVVM design
+to play (online/offline) songs by running a service in the background and displaying a notification at top of the screen.
 
 
 ### The flow of player module which implemented:
@@ -25,16 +15,37 @@ and consists of the music player for playing (online/offline) songs.
 
 ### The App Scenario
 
-To add songs from the device, save them in database and display them in a list. And when a list item
-is clicked, the app displays a player page and a player service run. (This player also supports all actions on played song)
-And if you click long on the song item you will be able to remove it from your stored playlist.
+After selecting songs from your device, they will be saved in database and will be displayed in a playlist. Besides when a list item
+is clicked, the song player page is displayed whereas player service is run in the background
+and notification will be displayed at top of the screen.(Clicking on notification has been handled!)
+Also if you click long on the song item of playlist, it will be removed both from your stored and displayed playlist.
+
+
+<br>
+<p align="center">
+  <img src="https://github.com/ZahraHeydari/MusicPlayer/blob/master/player_list_page.jpg" width="250"/>
+  <img src="https://github.com/ZahraHeydari/MusicPlayer/blob/master/song_player_page.jpg" width="250"/>
+  <img src="https://github.com/ZahraHeydari/MusicPlayer/blob/master/player_notification.jpg" width="250"/>
+</p>
+<br>
+
+
+### Technologies & Methodologies which used:
+
+- Koin
+- Clean Architecture
+- MVVM Pattern
+- LiveData
+- Coil(Image Loader)
+- ExoPlayer
+- Mockito
 
 
 ### The features of player module:
 
-- The player service run in the background.
-- The notification of playing song will be diplayed at top of screen. (collapse/Expand views)
-- Player actions are in use consists of play/pause, skip to next/previous, repeat one song, repeat all songs,
+- The player service run in the background and can`t be killed until user stops a song.
+- The notification of playing song will be diplayed at top of screen. (both collapse/Expand views were supported)
+- Player actions in use consists of play/pause, skip to next/previous, repeat one song, repeat all songs,
 shuffle songs,...
 - Supported swiping to left/right side.
 
@@ -52,11 +63,7 @@ android versions targeted:
 2. [Github](https://github.com/InsertKoinIO/koin) - Koin
 3. [Github](https://github.com/coil-kt/coil) - Coil
 4. [Github](https://github.com/google/ExoPlayer) - ExoPlayer
-
-
-## Version History
-
-* 1.0 (11/20/2019)- Initial implementation
+5. [Github](https://github.com/mockito/mockito) - Mockito
 
 
 ## License
@@ -75,4 +82,5 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+
 ```
