@@ -11,12 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7b2c3bf-8983-4400-b6e3-ea0d20ce3399" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/player_list_page.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/player_notification.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/song_player_page.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/player/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player_notification.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/player_notification.jpg" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -76,20 +72,18 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="65" selection-start-line="65" selection-end-line="67" selection-end-column="42" />
+            <state relative-caret-position="-532">
+              <caret line="19" column="100" selection-start-line="19" selection-start-column="100" selection-end-line="19" selection-end-column="100" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-313" />
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -213,8 +207,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt" />
         <option value="$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt" />
         <option value="$PROJECT_DIR$/player/src/main/java/com/android/player/service/PlayerService.kt" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/player/build.gradle" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -226,7 +220,7 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
@@ -664,10 +658,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1600" height="873" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.26576576" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.26576576" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -682,10 +675,10 @@
       <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.498713" weight="0.35914552" />
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.501287" side_tool="true" weight="0.19359146" />
       <window_info anchor="bottom" id="Version Control" order="6" weight="0.32977304" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.498713" visible="true" weight="0.22429906" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.498713" weight="0.22429906" />
       <window_info anchor="bottom" id="Android Profiler" order="8" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.32977304" />
-      <window_info anchor="bottom" id="SonarLint" order="10" weight="0.23364486" />
+      <window_info active="true" anchor="bottom" id="SonarLint" order="10" visible="true" weight="0.23364486" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" weight="0.32947233" />
@@ -1079,13 +1072,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="65" selection-start-line="65" selection-end-line="67" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/player/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
@@ -1094,8 +1080,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-313" />
+        <state relative-caret-position="-532">
+          <caret line="19" column="100" selection-start-line="19" selection-start-column="100" selection-end-line="19" selection-end-column="100" />
+        </state>
       </provider>
     </entry>
   </component>
