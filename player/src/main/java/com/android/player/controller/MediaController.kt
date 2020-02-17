@@ -193,7 +193,6 @@ class MediaController(
                 iterator.next()
             )
         }
-        mediaControllerCallback.onPlaybackStateUpdated()
     }
 
 

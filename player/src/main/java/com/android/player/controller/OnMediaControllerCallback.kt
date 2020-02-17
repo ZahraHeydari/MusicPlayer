@@ -21,8 +21,6 @@ interface OnMediaControllerCallback {
 
     fun onPlaybackStop()
 
-    fun onPlaybackStateUpdated()
-
     fun setDuration(duration: Long, position: Long)
 
     fun addToQueue(songList: ArrayList<ASong>)

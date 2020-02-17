@@ -183,20 +183,12 @@ class PlayerService : Service(), OnMediaControllerCallback {
     }
 
     override fun onSongComplete() {
-        mNotificationManager?.updateNotification()
         mListener?.onSongEnded()
+        onPlaybackStop()
     }
 
     override fun onPlaybackStop() {
         mNotificationManager?.stopNotification()
-
-    }
-
-    override fun onPlaybackStateUpdated() {
-        if (mMediaController?.getSongPlayingState() == PlaybackState.STATE_STOPPED ||
-            mMediaController?.getSongPlayingState() == PlaybackState.STATE_NONE
-        ) mNotificationManager?.stopNotification()
-        else mNotificationManager?.updateNotification()
 
     }
 
