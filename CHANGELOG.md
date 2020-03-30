@@ -2,6 +2,7 @@
 ## [1.0.3] - March 30, 2020
 - handled skip to next operation when list ended
 - added clear queue function
+- handled add parent stack in MediaNotificationManager
 
 ## [1.0.2] - February 17, 2020
 - solved some issues related to:
