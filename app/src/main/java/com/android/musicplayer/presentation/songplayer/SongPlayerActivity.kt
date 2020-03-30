@@ -22,27 +22,33 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
     private var mSong: Song? = null
     private var mSongList: MutableList<ASong>? = null
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        intent?.extras?.apply {
+            if (containsKey(SONG_LIST_KEY)) {
+                mSongList = getParcelableArrayList(SONG_LIST_KEY)
+                Log.i(TAG, "song list: $mSongList")
+            }
+
+            if (containsKey(ASong::class.java.name)) {
+                mSong = get(ASong::class.java.name) as Song
+            }
+        }
+
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_song_player)
 
-
-        if (intent?.extras?.containsKey(SONG_LIST_KEY) == true) {
-            mSongList = intent?.extras?.getParcelableArrayList(SONG_LIST_KEY)
-            Log.i(TAG, "song list: $mSongList")
-        }
-
-        if (intent?.extras?.containsKey(ASong::class.java.name) == true) {
-            mSong = intent?.extras?.get(ASong::class.java.name) as Song
-        }
+        onNewIntent(intent)
 
         mSong?.let {
             play(mSongList, it)
         }
 
         loadInitialData(mSong?.title, mSong?.artist, mSong?.clipArt)
-
 
         playerViewModel.songDurationTextData.observe(this, Observer<String> { t ->
             song_player_total_time_text_view.text = t

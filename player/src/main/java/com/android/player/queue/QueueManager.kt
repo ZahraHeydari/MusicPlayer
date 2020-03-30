@@ -63,12 +63,15 @@ class QueueManager(private val mListener: OnSongUpdateListener) : OnQueueManager
 
     fun skipQueuePosition(amount: Int): Boolean {
         var index = mCurrentIndex + amount
+        if (queue?.getShuffleOrNormalList()?.size == 0 || index >= queue?.getShuffleOrNormalList()?.size ?: 0) return false
         if (index < 0) {
             // skip backwards before the first song will keep you on the first song
             index = if (isRepeatAll()) queue?.getShuffleOrNormalList()?.size ?: 0 else 0
         } else {
             // skip forwards when in last song will cycle back to start of the queue
-            index %= queue?.getShuffleOrNormalList()?.size ?: 0
+            if (queue?.getShuffleOrNormalList()?.size != 0) {
+                index %= queue?.getShuffleOrNormalList()?.size ?: 0
+            }
         }
         return if (mCurrentIndex == index) {
             setCurrentQueueIndex(mCurrentIndex)
@@ -80,6 +83,9 @@ class QueueManager(private val mListener: OnSongUpdateListener) : OnQueueManager
         }
     }
 
+    override fun removeQueueItems() {
+        queue?.clearQueue()
+    }
 
     fun setCurrentQueue(
         newQueue: MutableList<ASong>,

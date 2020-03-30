@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/MusicPlayer.iml" filepath="$PROJECT_DIR$/.idea/modules/MusicPlayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/MusicPlayer-app.iml" filepath="$PROJECT_DIR$/app/MusicPlayer-app.iml" group="MusicPlayer/app" />
+      <module fileurl="file://$PROJECT_DIR$/player/MusicPlayer-player.iml" filepath="$PROJECT_DIR$/player/MusicPlayer-player.iml" group="MusicPlayer/player" />
+      <module fileurl="file://$PROJECT_DIR$/Project-MusicPlayer.iml" filepath="$PROJECT_DIR$/Project-MusicPlayer.iml" group="MusicPlayer" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/player/player.iml" filepath="$PROJECT_DIR$/player/player.iml" />
     </modules>

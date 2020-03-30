@@ -41,10 +41,8 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
     private val mStopIntent: PendingIntent
     private val mStopCastIntent: PendingIntent
     var mStarted = false //to check if notification manager is started or not!
-    private var mCollapsedRemoteViews: RemoteViews =
-        RemoteViews(getPackageName(), R.layout.player_collapsed_notification)
-    private var mExpandedRemoteViews: RemoteViews =
-        RemoteViews(getPackageName(), R.layout.player_expanded_notification)
+    private var mCollapsedRemoteViews: RemoteViews? = null
+    private var mExpandedRemoteViews: RemoteViews? = null
     private var notificationBuilder: NotificationCompat.Builder? = null
 
 
@@ -166,15 +164,20 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
                 ?.setDeleteIntent(mStopIntent)
                 ?.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 ?.setOnlyAlertOnce(true)
-                ?.setCustomContentView(mCollapsedRemoteViews)
-                ?.setContentIntent(createContentIntent())
-                ?.setCustomBigContentView(mExpandedRemoteViews)
 
             // Notification channels are only supported on Android O+.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 createNotificationChannel()
             }
         }
+
+        mCollapsedRemoteViews = RemoteViews(getPackageName(), R.layout.player_collapsed_notification)
+        notificationBuilder?.setCustomContentView(mCollapsedRemoteViews)
+
+        mExpandedRemoteViews = RemoteViews(getPackageName(), R.layout.player_expanded_notification)
+        notificationBuilder?.setCustomBigContentView(mExpandedRemoteViews)
+
+        notificationBuilder?.setContentIntent(createContentIntent())
         loadNotificationView()
         mNotificationManager?.notify(NOTIFICATION_ID, notificationBuilder?.build())
         return notificationBuilder?.build()
@@ -191,12 +194,13 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
         mService.getCurrentSongList()?.let {
             intent.putExtra(BaseSongPlayerActivity.SONG_LIST_KEY, it)
         }
-        val stackBuilder = TaskStackBuilder.create(mService)
-        stackBuilder.addNextIntentWithParentStack(intent)
-        return stackBuilder.getPendingIntent(
-            NOTIFICATION_REQUEST_CODE,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
+
+        return TaskStackBuilder.create(mService).run {
+            // Add the intent, which inflates the back stack
+            addNextIntentWithParentStack(intent)
+            // Get the PendingIntent containing the entire back stack
+            getPendingIntent(NOTIFICATION_REQUEST_CODE, PendingIntent.FLAG_UPDATE_CURRENT)
+        }
     }
 
     private fun loadNotificationView() {
@@ -205,8 +209,8 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
         // To make sure that the notification can be dismissed by the user when we are not playing.
         notificationBuilder?.setOngoing(mService.getSongPlayingState() == PlaybackState.STATE_PLAYING)
 
-        createCollapsedRemoteViews(mCollapsedRemoteViews)
-        createExpandedRemoteViews(mExpandedRemoteViews)
+        mCollapsedRemoteViews?.let { createCollapsedRemoteViews(it) }
+        mExpandedRemoteViews?.let { createExpandedRemoteViews(it) }
 
         mService.getCurrentSong()?.clipArt?.let { nonNullClipArt ->
             Coil.load(mService, File(nonNullClipArt)) {
@@ -214,11 +218,11 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
                 error(R.drawable.placeholder)
                 target {
                     Log.i(TAG, "Coil target called() $it")
-                    mCollapsedRemoteViews.setImageViewBitmap(
+                    mCollapsedRemoteViews?.setImageViewBitmap(
                         R.id.collapsed_notification_image_view,
                         it.toBitmap()
                     )
-                    mExpandedRemoteViews.setImageViewBitmap(
+                    mExpandedRemoteViews?.setImageViewBitmap(
                         R.id.expanded_notification_image_view,
                         it.toBitmap()
                     )
@@ -234,38 +238,38 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
     }
 
     private fun showPlayIcon() {
-        mCollapsedRemoteViews.setViewVisibility(
+        mCollapsedRemoteViews?.setViewVisibility(
             R.id.collapsed_notification_pause_image_view,
             View.GONE
         )
-        mCollapsedRemoteViews.setViewVisibility(
+        mCollapsedRemoteViews?.setViewVisibility(
             R.id.collapsed_notification_play_image_view,
             View.VISIBLE
         )
-        mExpandedRemoteViews.setViewVisibility(
+        mExpandedRemoteViews?.setViewVisibility(
             R.id.expanded_notification_pause_image_view,
             View.GONE
         )
-        mExpandedRemoteViews.setViewVisibility(
+        mExpandedRemoteViews?.setViewVisibility(
             R.id.expanded_notification_play_image_view,
             View.VISIBLE
         )
     }
 
     private fun showPauseIcon() {
-        mCollapsedRemoteViews.setViewVisibility(
+        mCollapsedRemoteViews?.setViewVisibility(
             R.id.collapsed_notification_pause_image_view,
             View.VISIBLE
         )
-        mCollapsedRemoteViews.setViewVisibility(
+        mCollapsedRemoteViews?.setViewVisibility(
             R.id.collapsed_notification_play_image_view,
             View.GONE
         )
-        mExpandedRemoteViews.setViewVisibility(
+        mExpandedRemoteViews?.setViewVisibility(
             R.id.expanded_notification_pause_image_view,
             View.VISIBLE
         )
-        mExpandedRemoteViews.setViewVisibility(
+        mExpandedRemoteViews?.setViewVisibility(
             R.id.expanded_notification_play_image_view,
             View.GONE
         )

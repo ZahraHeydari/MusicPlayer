@@ -24,6 +24,7 @@
         </activity>
 
         <activity
+            android:launchMode="singleTop"
             android:name="com.android.musicplayer.presentation.songplayer.SongPlayerActivity"
             android:parentActivityName=".presentation.playlist.PlaylistActivity" >
             <intent-filter>
