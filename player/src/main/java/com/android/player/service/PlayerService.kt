@@ -154,6 +154,10 @@ class PlayerService : Service(), OnMediaControllerCallback {
         mMediaController?.skipToPrevious()
     }
 
+    fun clearQueue() {
+        mMediaController?.clearQueue()
+    }
+
     fun seekTo(position: Long) {
         mMediaController?.seekTo(position)
     }

@@ -34,8 +34,13 @@ class QueueModel {
         this.shuffleList.add(song)
     }
 
+    fun clearQueue() {
+        this.list.clear()
+        this.shuffleList.clear()
+    }
 
-    companion object{
+
+    companion object {
 
         private val TAG = QueueModel::class.java.name
     }

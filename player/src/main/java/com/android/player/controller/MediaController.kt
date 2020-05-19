@@ -192,6 +192,10 @@ class MediaController(
         }
     }
 
+    override fun clearQueue() {
+        queueManager?.removeQueueItems()
+    }
+
 
     override fun onError(error: String) {
         Log.i(TAG, "error: $error")

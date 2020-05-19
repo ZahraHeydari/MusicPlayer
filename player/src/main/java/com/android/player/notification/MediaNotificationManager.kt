@@ -197,12 +197,13 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
         mService.getCurrentSongList()?.let {
             intent.putExtra(BaseSongPlayerActivity.SONG_LIST_KEY, it)
         }
-        val stackBuilder = TaskStackBuilder.create(mService)
-        stackBuilder.addNextIntentWithParentStack(intent)
-        return stackBuilder.getPendingIntent(
-            NOTIFICATION_REQUEST_CODE,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
+
+        return TaskStackBuilder.create(mService).run {
+            // Add the intent, which inflates the back stack
+            addNextIntentWithParentStack(intent)
+            // Get the PendingIntent containing the entire back stack
+            getPendingIntent(NOTIFICATION_REQUEST_INTENT_CODE, PendingIntent.FLAG_UPDATE_CURRENT)
+        }
     }
 
 
@@ -403,6 +404,7 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
         private const val CHANNEL_ID = "app.MUSIC_CHANNEL_ID"
         private const val NOTIFICATION_ID = 412
         private const val NOTIFICATION_REQUEST_CODE = 100
+        private const val NOTIFICATION_REQUEST_INTENT_CODE = 125245
     }
 }
 

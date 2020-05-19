@@ -22,23 +22,26 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
     private var mSong: Song? = null
     private var mSongList: MutableList<ASong>? = null
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        intent?.extras?.apply {
+            if (containsKey(SONG_LIST_KEY)) {
+                mSongList = getParcelableArrayList(SONG_LIST_KEY)
+            }
+
+            if (containsKey(ASong::class.java.name)) {
+                mSong = getParcelable<ASong>(ASong::class.java.name) as Song
+            }
+        }
+
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_song_player)
 
-
-        intent?.extras?.let {
-
-            if (it.containsKey(SONG_LIST_KEY)) {
-                mSongList = it.getParcelableArrayList(SONG_LIST_KEY)
-            }
-
-            if (it.containsKey(ASong::class.java.name)) {
-                mSong = it.getParcelable<ASong>(ASong::class.java.name) as Song
-            }
-        }
-
+        onNewIntent(intent)
 
         mSong?.let {
             play(mSongList, it)
@@ -139,7 +142,12 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
         image?.let {
             song_player_image_view.load(File(it)) {
                 crossfade(true)
-                placeholder(ContextCompat.getDrawable(this@SongPlayerActivity, R.drawable.placeholder))
+                placeholder(
+                    ContextCompat.getDrawable(
+                        this@SongPlayerActivity,
+                        R.drawable.placeholder
+                    )
+                )
                 error(ContextCompat.getDrawable(this@SongPlayerActivity, R.drawable.placeholder))
                 //transformations(CircleCropTransformation())
             }

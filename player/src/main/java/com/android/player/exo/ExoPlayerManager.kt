@@ -38,15 +38,20 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
 
 
     private val BANDWIDTH_METER = DefaultBandwidthMeter()
+
     // The volume we set the media player to when we lose audio focus, but are
     // allowed to reduce the volume instead of stopping playback.
     private val VOLUME_DUCK = 0.2f
+
     // The volume we set the media player when we have audio focus.
     private val VOLUME_NORMAL = 1.0f
+
     // we don't have audio focus, and can't duck (play at a low volume)
     private val AUDIO_NO_FOCUS_NO_DUCK = 0
+
     // we don't have focus, but can duck (play at a low volume)
     private val AUDIO_NO_FOCUS_CAN_DUCK = 1
+
     // we have full audio focus
     private val AUDIO_FOCUSED = 2
     private var mWifiLock: WifiManager.WifiLock? = null
@@ -119,7 +124,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
 
     private fun onUpdateProgress(position: Long, duration: Long) {
         Log.i(TAG, "onUpdateProgress: position: $position duration: $duration")
-        mExoSongStateCallback?.setCurrentPosition(position,duration)
+        mExoSongStateCallback?.setCurrentPosition(position, duration)
     }
 
     override fun start() {
@@ -226,7 +231,8 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
             val mediaSource: MediaSource
             mediaSource = when (mCurrentSong?.songType) {
                 C.TYPE_OTHER ->
-                    ExtractorMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(source))
+                    ExtractorMediaSource.Factory(dataSourceFactory)
+                        .createMediaSource(Uri.parse(source))
                 else ->
                     HlsMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(source))
             }
@@ -394,7 +400,6 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
                 ExoPlaybackException.TYPE_UNEXPECTED -> error.unexpectedException.message ?: ""
                 else -> "onPlayerError: $error"
             }
-            Log.e(TAG, "ExoPlayer error: what=$what")
             mExoSongStateCallback?.onError("ExoPlayer error $what")
         }
 
