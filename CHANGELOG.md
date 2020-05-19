@@ -9,6 +9,7 @@
 - update kotlin version from `1.3.61` to `1.3.71`
 - modify play function in ExoPlayerManager
 - android:requestLegacyExternalStorage="true" in AndroidManifest.xml due to external storage access limitation in android 10
+- solve issues relating MediaNotificationManager
 
 
 ## [1.0] - March 30, 2020

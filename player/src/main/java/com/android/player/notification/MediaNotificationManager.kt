@@ -14,7 +14,6 @@ import android.view.View
 import android.widget.RemoteViews
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.startForegroundService
 import androidx.core.graphics.drawable.toBitmap
 import coil.Coil
 import coil.api.load
@@ -87,28 +86,24 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
     /**
      * To start notification and service
      */
-    fun startNotification() {
+    fun notifyMediaNotification() {
         Log.i(TAG, "startNotification called()")
+        // The notification must be updated after setting started to true
+        val notification = createNotification()
+        val filter = IntentFilter()
+        filter.addAction(ACTION_NEXT)
+        filter.addAction(ACTION_PAUSE)
+        filter.addAction(ACTION_PLAY)
+        filter.addAction(ACTION_PREV)
+        filter.addAction(ACTION_STOP)
+        filter.addAction(ACTION_STOP_CASTING)
+        mService.registerReceiver(this, filter)
         if (!mStarted) {
             mStarted = true
-            // The notification must be updated after setting started to true
-            val notification = createOrUpdateNotification()
-            val filter = IntentFilter()
-            filter.addAction(ACTION_NEXT)
-            filter.addAction(ACTION_PAUSE)
-            filter.addAction(ACTION_PLAY)
-            filter.addAction(ACTION_PREV)
-            filter.addAction(ACTION_STOP)
-            filter.addAction(ACTION_STOP_CASTING)
-            mService.registerReceiver(this, filter)
             mService.startForeground(NOTIFICATION_ID, notification)
         }
     }
 
-    fun updateNotification() {
-        Log.i(TAG, "updateNotification called()")
-        createOrUpdateNotification()
-    }
 
     /**
      * To stop notification and service
@@ -128,7 +123,7 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
         when (intent.action) {
             ACTION_PAUSE -> {
                 mService.pause()
-                updateNotification()
+                //startNotification()
             }
             ACTION_PLAY -> {
                 mService.getCurrentSong()?.let {
@@ -139,16 +134,17 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
             ACTION_PREV -> mService.skipToPrevious()
             ACTION_STOP -> mService.stop()
             ACTION_STOP_CASTING -> {
-                val i = Intent(context, PlayerService::class.java)
-                i.action = PlayerService.ACTION_CMD
-                i.putExtra(PlayerService.CMD_NAME, PlayerService.CMD_STOP_CASTING)
+                val i = Intent(context, PlayerService::class.java).apply {
+                    action = PlayerService.ACTION_CMD
+                    putExtra(PlayerService.CMD_NAME, PlayerService.CMD_STOP_CASTING)
+                }
                 mService.startService(i)
             }
             else -> Log.w(TAG, "Unknown intent ignored.")
         }
     }
 
-    private fun createOrUpdateNotification(): Notification? {
+    private fun createNotification(): Notification? {
         Log.i(TAG, "createOrUpdateNotification called()")
         if (notificationBuilder == null) {
             notificationBuilder = NotificationCompat.Builder(mService, CHANNEL_ID)
@@ -172,7 +168,8 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
             }
         }
 
-        mCollapsedRemoteViews = RemoteViews(getPackageName(), R.layout.player_collapsed_notification)
+        mCollapsedRemoteViews =
+            RemoteViews(getPackageName(), R.layout.player_collapsed_notification)
         notificationBuilder?.setCustomContentView(mCollapsedRemoteViews)
 
         mExpandedRemoteViews = RemoteViews(getPackageName(), R.layout.player_expanded_notification)

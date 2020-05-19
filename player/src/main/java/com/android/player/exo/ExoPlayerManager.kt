@@ -93,7 +93,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
     private var mExoPlayerIsStopped = false
     private val mOnAudioFocusChangeListener =
         AudioManager.OnAudioFocusChangeListener { focusChange ->
-            Log.d(TAG, "onAudioFocusChange. focusChange= $focusChange")
+            //Log.d(TAG, "onAudioFocusChange. focusChange= $focusChange")
             when (focusChange) {
                 AudioManager.AUDIOFOCUS_GAIN -> mCurrentAudioFocusState = AUDIO_FOCUSED
                 AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK ->
@@ -123,7 +123,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
     }
 
     private fun onUpdateProgress(position: Long, duration: Long) {
-        Log.i(TAG, "onUpdateProgress: position: $position duration: $duration")
+        //Log.i(TAG, "onUpdateProgress: position: $position duration: $duration")
         mExoSongStateCallback?.setCurrentPosition(position, duration)
     }
 
@@ -268,7 +268,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
     }
 
     override fun seekTo(position: Long) {
-        Log.d(TAG, "seekTo called with: $position")
+        //Log.d(TAG, "seekTo called with: $position")
         registerAudioNoisyReceiver()
         mExoPlayer?.seekTo(position)
     }
@@ -343,6 +343,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
 
         // Stops and releases player (if requested and available).
         if (releasePlayer) {
+            mUpdateProgressHandler.removeMessages(0)
             mExoPlayer?.release()
             mExoPlayer?.removeListener(mEventListener)
             mExoPlayer = null

@@ -12,6 +12,7 @@ import com.android.musicplayer.R
 import com.android.musicplayer.data.model.Song
 import com.android.player.BaseSongPlayerActivity
 import com.android.player.model.ASong
+import com.android.player.utils.AppConstants
 import com.android.player.utils.OnSwipeTouchListener
 import kotlinx.android.synthetic.main.activity_song_player.*
 import java.io.File
@@ -45,82 +46,82 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
 
         mSong?.let {
             play(mSongList, it)
-            loadInitialData(it.title, it.artist, it.clipArt)
+            loadInitialData(it)
         }
 
-        playerViewModel.songDurationTextData.observe(this, Observer { t ->
-            song_player_total_time_text_view.text = t
-        })
+        with(playerViewModel) {
 
-        playerViewModel.songDurationData.observe(this, Observer {
-            song_player_progress_seek_bar.max = it
-        })
+            songDurationData.observe(this@SongPlayerActivity, Observer {
+                song_player_progress_seek_bar.max = it
+            })
 
-        playerViewModel.songPositionTextData.observe(this,
-            Observer { t -> song_player_passed_time_text_view.text = t })
+            songPositionTextData.observe(this@SongPlayerActivity,
+                Observer { t -> song_player_passed_time_text_view.text = t })
 
-        playerViewModel.songPositionData.observe(this, Observer {
-            song_player_progress_seek_bar.progress = it
-        })
+            songPositionData.observe(this@SongPlayerActivity, Observer {
+                song_player_progress_seek_bar.progress = it
+            })
 
-        playerViewModel.isRepeatData.observe(this, Observer {
-            song_player_repeat_image_view.setImageResource(
-                if (it) R.drawable.ic_repeat_one_color_primary_vector
-                else R.drawable.ic_repeat_one_black_vector
-            )
-        })
+            isRepeatData.observe(this@SongPlayerActivity, Observer {
+                song_player_repeat_image_view.setImageResource(
+                    if (it) R.drawable.ic_repeat_one_color_primary_vector
+                    else R.drawable.ic_repeat_one_black_vector
+                )
+            })
 
-        playerViewModel.isShuffleData.observe(this, Observer {
-            song_player_shuffle_image_view.setImageResource(
-                if (it) R.drawable.ic_shuffle_color_primary_vector
-                else R.drawable.ic_shuffle_black_vector
-            )
-        })
+            isShuffleData.observe(this@SongPlayerActivity, Observer {
+                song_player_shuffle_image_view.setImageResource(
+                    if (it) R.drawable.ic_shuffle_color_primary_vector
+                    else R.drawable.ic_shuffle_black_vector
+                )
+            })
 
-        playerViewModel.isPlayData.observe(this, Observer {
-            song_player_toggle_image_view.setImageResource(if (it) R.drawable.ic_pause_vector else R.drawable.ic_play_vector)
-        })
+            isPlayData.observe(this@SongPlayerActivity, Observer {
+                song_player_toggle_image_view.setImageResource(if (it) R.drawable.ic_pause_vector else R.drawable.ic_play_vector)
+            })
 
-        playerViewModel.playerData.observe(this, Observer {
-            loadInitialData(it?.title, it?.artist, it?.clipArt)
-        })
+            playerData.observe(this@SongPlayerActivity, Observer {
+                loadInitialData(it)
+            })
 
-        song_player_skip_next_image_view.setOnClickListener {
-            playerViewModel.next()
-        }
 
-        song_player_skip_back_image_view.setOnClickListener {
-            playerViewModel.previous()
-        }
-
-        song_player_toggle_image_view.setOnClickListener {
-            playerViewModel.play()
-        }
-
-        song_player_shuffle_image_view.setOnClickListener {
-            playerViewModel.shuffle()
-        }
-
-        song_player_repeat_image_view.setOnClickListener {
-            playerViewModel.repeat()
-        }
-
-        song_player_progress_seek_bar.setOnSeekBarChangeListener(object :
-            SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                Log.i(TAG, "onProgressChanged: p0: $p0 p1: $p1, p2: $p2")
+            song_player_skip_next_image_view.setOnClickListener {
+                next()
             }
 
-            override fun onStartTrackingTouch(p0: SeekBar?) {
-                Log.i(TAG, "onStartTrackingTouch: p0: $p0")
+            song_player_skip_back_image_view.setOnClickListener {
+                previous()
             }
 
-            override fun onStopTrackingTouch(p0: SeekBar?) {
-                Log.i(TAG, "onStopTrackingTouch: p0: $p0")
-                playerViewModel.seekTo(song_player_progress_seek_bar.progress.toLong())
+            song_player_toggle_image_view.setOnClickListener {
+                play()
             }
 
-        })
+            song_player_shuffle_image_view.setOnClickListener {
+                shuffle()
+            }
+
+            song_player_repeat_image_view.setOnClickListener {
+                repeat()
+            }
+
+            song_player_progress_seek_bar.setOnSeekBarChangeListener(object :
+                SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                    Log.i(TAG, "onProgressChanged: p0: $p0 p1: $p1, p2: $p2")
+                }
+
+                override fun onStartTrackingTouch(p0: SeekBar?) {
+                    Log.i(TAG, "onStartTrackingTouch: p0: $p0")
+                }
+
+                override fun onStopTrackingTouch(p0: SeekBar?) {
+                    Log.i(TAG, "onStopTrackingTouch: p0: $p0")
+                    seekTo(song_player_progress_seek_bar.progress.toLong())
+                }
+
+            })
+        }
 
         song_player_container.setOnTouchListener(object :
             OnSwipeTouchListener(this@SongPlayerActivity) {
@@ -135,11 +136,12 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
         })
     }
 
-    private fun loadInitialData(title: String?, singerName: String?, image: String?) {
-        song_player_title_text_view.text = title
-        song_player_singer_name_text_view.text = singerName
+    private fun loadInitialData(aSong: ASong) {
+        song_player_title_text_view.text = aSong.title
+        song_player_singer_name_text_view.text = aSong.artist
+        song_player_total_time_text_view.text = AppConstants.formatTimeInMillisToString(aSong.length?.toLong()?:0L)
 
-        image?.let {
+        aSong.clipArt?.let {
             song_player_image_view.load(File(it)) {
                 crossfade(true)
                 placeholder(

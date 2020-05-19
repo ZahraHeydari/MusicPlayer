@@ -35,7 +35,7 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
                         mService?.play(nonNullSongList, nonNullSong)
                     } ?: mService?.play(nonNullSong)
                 }
-                ACTION_PLAY_LIST -> mSongList?.let { mService?.playSongs(it) }
+                ACTION_PLAY_LIST -> mSongList?.let { mService?.play(it) }
                 ACTION_PLAY_SONG -> mSong?.let { mService?.play(it) }
             }
         }
@@ -157,6 +157,7 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
 
     override fun stop() {
         mService?.stop()
+        playerViewModel.stop()
     }
 
     override fun skipToNext() {

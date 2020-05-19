@@ -65,7 +65,7 @@ class PlayerService : Service(), OnMediaControllerCallback {
 
     override fun onSongChanged() {
         mListener?.updateSongData(getCurrentSong())
-        mNotificationManager?.updateNotification()
+        mNotificationManager?.notifyMediaNotification()
     }
 
     override fun getSongPlayingState(): Int {
@@ -100,9 +100,6 @@ class PlayerService : Service(), OnMediaControllerCallback {
         }
     }
 
-    fun playSongs(songList: MutableList<ASong>) {
-        mMediaController?.playSongs(songList)
-    }
 
     override fun onShuffle(isShuffle: Boolean) {
         mMediaController?.shuffle(isShuffle)
@@ -120,6 +117,14 @@ class PlayerService : Service(), OnMediaControllerCallback {
         mMediaController?.play(song)
     }
 
+    fun play(songList: MutableList<ASong>) {
+        mMediaController?.playSongs(songList)
+    }
+
+    fun play(songList: MutableList<ASong>, song: ASong) {
+        mMediaController?.play(songList, song)
+    }
+
     fun playOnCurrentQueue(song: ASong) {
         mMediaController?.playOnCurrentQueue(song)
     }
@@ -128,14 +133,10 @@ class PlayerService : Service(), OnMediaControllerCallback {
         mMediaController?.addToCurrentQueue(songList)
     }
 
-    fun play(songList: MutableList<ASong>, song: ASong) {
-        mMediaController?.play(songList, song)
-        mNotificationManager?.updateNotification()
-    }
 
     fun pause() {
         mMediaController?.pause()
-        mNotificationManager?.updateNotification()
+        mNotificationManager?.notifyMediaNotification()
     }
 
     fun stop() {
@@ -172,12 +173,12 @@ class PlayerService : Service(), OnMediaControllerCallback {
     }
 
     override fun onNotificationRequired() {
-        mNotificationManager?.startNotification()
+        mNotificationManager?.notifyMediaNotification()
     }
 
     override fun onSongComplete() {
         mListener?.onSongEnded()
-        //onServiceStop()
+        //onServiceStop() //it`s optional
     }
 
     override fun onServiceStop() {
