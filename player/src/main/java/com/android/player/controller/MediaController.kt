@@ -4,7 +4,6 @@ import android.os.Handler
 import android.util.Log
 import com.android.player.exo.OnExoPlayerManagerCallback
 import com.android.player.model.ASong
-import com.android.player.queue.OnQueueManagerCallback
 import com.android.player.queue.QueueManager
 import com.android.player.queue.QueueModel
 import java.util.*
@@ -23,8 +22,6 @@ class MediaController(
 
     val mMediaControllersCallbacksHashSet = HashSet<OnMediaControllerCallback>()
     private var queueManager: QueueManager? = null
-    private var mQueueManagerCallback: OnQueueManagerCallback? = null
-
 
     init {
         this.onExoPlayerManagerCallback.setCallback(this)
@@ -78,7 +75,6 @@ class MediaController(
         while (iterator.hasNext()) {
             runOnSongChanged(iterator.next())
         }
-        mediaControllerCallback.onNotificationRequired()
     }
 
     fun playSongs(songList: MutableList<ASong>) {
@@ -117,9 +113,10 @@ class MediaController(
         this.onExoPlayerManagerCallback.seekTo(position)
     }
 
+
     fun stop() {
         this.onExoPlayerManagerCallback.stop()
-        mediaControllerCallback.onPlaybackStop()
+        mediaControllerCallback.onServiceStop()
         val iterator = mMediaControllersCallbacksHashSet.iterator()
         while (iterator.hasNext()) {
             runOnPlaybackStateChanged(

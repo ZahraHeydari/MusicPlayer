@@ -4,7 +4,6 @@ import android.app.Service
 import android.content.Intent
 import android.media.session.PlaybackState
 import android.os.Binder
-import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import com.android.player.controller.MediaController
@@ -30,17 +29,7 @@ class PlayerService : Service(), OnMediaControllerCallback {
         mMediaController = MediaController(exoPlayerManager, this)
         mNotificationManager = MediaNotificationManager(this)
         registerMediaControllerCallbacks()
-
-        /*
-        * However the system allows apps to call Context.startForegroundService() even while the app is in the background,
-        * in android O+ the app must call that service's startForeground() method within five seconds after the service is created.
-        * */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            mNotificationManager?.startNotification()
-            if (getCurrentSong() == null) {
-                mNotificationManager?.stopNotification()
-            }
-        }
+        onNotificationRequired()
     }
 
     override fun onStartCommand(startIntent: Intent?, flags: Int, startId: Int): Int {
@@ -184,11 +173,11 @@ class PlayerService : Service(), OnMediaControllerCallback {
 
     override fun onSongComplete() {
         mListener?.onSongEnded()
-        onPlaybackStop()
+        //onServiceStop()
     }
 
-    override fun onPlaybackStop() {
-        mNotificationManager?.stopNotification()
+    override fun onServiceStop() {
+        mNotificationManager?.stopServiceAndCancelNotification()
 
     }
 

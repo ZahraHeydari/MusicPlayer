@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -66,7 +65,6 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
     }
 
     private fun addSong(musicData: Uri) {
-        Log.i("addMusicFromStorage", "musicData: $musicData")
         /*    val cursor = activity?.contentResolver?.query(musicData, null,null, null, null)*/
         val cursor = contentResolver?.query(
             musicData,
@@ -96,9 +94,10 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
             )
             var albumArt: String? = null
             if (cursorAlbums?.moveToFirst() == true) {
-                albumArt = cursorAlbums.getString(cursorAlbums.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART))
+                albumArt =
+                    cursorAlbums.getString(cursorAlbums.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART))
             }
-            Log.i("addSong", "title: ${cursor.getString(0)} & path: $path")
+
             val song = Song(
                 id.toInt(),
                 title.toString(),
@@ -172,10 +171,7 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
 
     private fun openMusicList() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(
-            intent,
-            PICK_AUDIO_KEY
-        )
+        startActivityForResult(intent, PICK_AUDIO_KEY)
     }
 
 

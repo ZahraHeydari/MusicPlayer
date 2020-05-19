@@ -12,7 +12,6 @@ import android.os.Looper
 import android.os.Message
 import android.util.Log
 import com.android.player.BuildConfig
-import com.android.player.logger.PlayerEventLogger
 import com.android.player.model.ASong
 import com.android.player.service.PlayerService
 import com.google.android.exoplayer2.*
@@ -22,11 +21,8 @@ import com.google.android.exoplayer2.audio.AudioAttributes
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.MediaSource
-import com.google.android.exoplayer2.source.TrackGroupArray
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
-import com.google.android.exoplayer2.trackselection.TrackSelectionArray
 import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
@@ -123,7 +119,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
 
     private fun onUpdateProgress(position: Long, duration: Long) {
         Log.i(TAG, "onUpdateProgress: position: $position duration: $duration")
-        mExoSongStateCallback?.setCurrentPosition(position, duration)
+        mExoSongStateCallback?.setCurrentPosition(position,duration)
     }
 
     override fun start() {
@@ -203,11 +199,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
             releaseResources(false) // release everything except the player
             val source = mCurrentSong?.source
             if (mExoPlayer == null) {
-                mExoPlayer = ExoPlayerFactory.newSimpleInstance(
-                    context.applicationContext,
-                    DefaultTrackSelector(),
-                    DefaultLoadControl()
-                )
+                mExoPlayer = SimpleExoPlayer.Builder(context).build()
                 mExoPlayer?.addListener(mEventListener)
             }
 
@@ -233,19 +225,10 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
 
             val mediaSource: MediaSource
             mediaSource = when (mCurrentSong?.songType) {
-                C.TYPE_OTHER -> ExtractorMediaSource(
-                    Uri.parse(mCurrentSong?.source),
-                    dataSourceFactory,
-                    DefaultExtractorsFactory(),
-                    Handler(),
-                    PlayerEventLogger(DefaultTrackSelector(AdaptiveTrackSelection.Factory()))
-                )
-                else -> HlsMediaSource(
-                    Uri.parse(source),
-                    dataSourceFactory,
-                    Handler(),
-                    PlayerEventLogger(DefaultTrackSelector(AdaptiveTrackSelection.Factory()))
-                )
+                C.TYPE_OTHER ->
+                    ExtractorMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(source))
+                else ->
+                    HlsMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(source))
             }
 
             // Prepares media to play (happens on background thread) and triggers
@@ -384,14 +367,6 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
     }
 
     private inner class ExoPlayerEventListener : Player.EventListener {
-        override fun onTimelineChanged(timeline: Timeline?, manifest: Any?, reason: Int) {
-            // Nothing to do.
-        }
-
-        override fun onTracksChanged(
-            trackGroups: TrackGroupArray?, trackSelections: TrackSelectionArray?
-        ) { // Nothing to do.
-        }
 
         override fun onLoadingChanged(isLoading: Boolean) {
             // Nothing to do.
@@ -424,10 +399,6 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
         }
 
         override fun onPositionDiscontinuity(reason: Int) {
-            // Nothing to do.
-        }
-
-        override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters?) {
             // Nothing to do.
         }
 

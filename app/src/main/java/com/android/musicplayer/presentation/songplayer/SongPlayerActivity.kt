@@ -28,23 +28,24 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
         setContentView(R.layout.activity_song_player)
 
 
-        if (intent?.extras?.containsKey(SONG_LIST_KEY) == true) {
-            mSongList = intent?.extras?.getParcelableArrayList(SONG_LIST_KEY)
-            Log.i(TAG, "song list: $mSongList")
+        intent?.extras?.let {
+
+            if (it.containsKey(SONG_LIST_KEY)) {
+                mSongList = it.getParcelableArrayList(SONG_LIST_KEY)
+            }
+
+            if (it.containsKey(ASong::class.java.name)) {
+                mSong = it.getParcelable<ASong>(ASong::class.java.name) as Song
+            }
         }
 
-        if (intent?.extras?.containsKey(ASong::class.java.name) == true) {
-            mSong = intent?.extras?.get(ASong::class.java.name) as Song
-        }
 
         mSong?.let {
             play(mSongList, it)
+            loadInitialData(it.title, it.artist, it.clipArt)
         }
 
-        loadInitialData(mSong?.title, mSong?.artist, mSong?.clipArt)
-
-
-        playerViewModel.songDurationTextData.observe(this, Observer<String> { t ->
+        playerViewModel.songDurationTextData.observe(this, Observer { t ->
             song_player_total_time_text_view.text = t
         })
 
@@ -53,7 +54,7 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
         })
 
         playerViewModel.songPositionTextData.observe(this,
-            Observer<String> { t -> song_player_passed_time_text_view.text = t })
+            Observer { t -> song_player_passed_time_text_view.text = t })
 
         playerViewModel.songPositionData.observe(this, Observer {
             song_player_progress_seek_bar.progress = it
@@ -145,15 +146,16 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
         }
     }
 
-
     companion object {
 
         private val TAG = SongPlayerActivity::class.java.name
 
+
         fun start(context: Context, song: Song, songList: ArrayList<Song>) {
-            val intent = Intent(context, SongPlayerActivity::class.java)
-            intent.putExtra(ASong::class.java.name, song)
-            intent.putExtra(SONG_LIST_KEY, songList)
+            val intent = Intent(context, SongPlayerActivity::class.java).apply {
+                putExtra(ASong::class.java.name, song)
+                putExtra(SONG_LIST_KEY, songList)
+            }
             context.startActivity(intent)
         }
     }

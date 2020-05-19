@@ -19,7 +19,7 @@ interface OnMediaControllerCallback {
 
     fun onNotificationRequired()
 
-    fun onPlaybackStop()
+    fun onServiceStop()
 
     fun setDuration(duration: Long, position: Long)
 

@@ -1,10 +1,14 @@
 package com.android.player
 
+import android.app.ActivityManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.os.*
+import android.os.Handler
+import android.os.IBinder
+import android.os.Looper
+import android.os.Message
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.android.player.PlayerViewModel.Companion.getPlayerViewModelInstance
@@ -26,9 +30,13 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
     private val mHandler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             when (msg.what) {
-                ACTION_PLAY_SONG_IN_LIST -> mSong?.let { play(mSongList, it) }
-                ACTION_PLAY_LIST -> mSongList?.let { play(it) }
-                ACTION_PLAY_SONG -> mSong?.let { play(it) }
+                ACTION_PLAY_SONG_IN_LIST -> mSong?.let {nonNullSong->
+                    mSongList?.let { nonNullSongList ->
+                        mService?.play(nonNullSongList, nonNullSong)
+                    } ?: mService?.play(nonNullSong)
+                }
+                ACTION_PLAY_LIST -> mSongList?.let { mService?.playSongs(it) }
+                ACTION_PLAY_SONG -> mSong?.let { mService?.play(it) }
             }
         }
     }
@@ -56,10 +64,6 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
     override fun onStart() {
         super.onStart()
         playerViewModel.setPlayer(this)
-        // Bind to PlayerService
-        val intent = Intent(this, PlayerService::class.java)
-        ContextCompat.startForegroundService(this, intent)
-        if (!mBound) bindService(intent, mConnection, Context.BIND_AUTO_CREATE)
     }
 
     override fun setBufferingData(isBuffering: Boolean) {
@@ -68,6 +72,13 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
 
     override fun setVisibilityData(isVisibility: Boolean) {
         playerViewModel.setVisibility(isVisibility)
+    }
+
+    private fun bindPlayerService() {
+        // Bind to PlayerService
+        val intent = Intent(this, PlayerService::class.java)
+        ContextCompat.startForegroundService(this, intent)
+        if (!mBound) bindService(intent, mConnection, Context.BIND_AUTO_CREATE)
     }
 
     override fun onDestroy() {
@@ -79,16 +90,29 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
         super.onDestroy()
     }
 
+    override fun play(songList: MutableList<ASong>?, song: ASong) {
+        msg = ACTION_PLAY_SONG_IN_LIST
+        mSong = song
+        mSongList = songList
+        if (mService == null) bindPlayerService()
+        else {
+            if (songList.isNullOrEmpty()) mService?.play(song)
+            else mService?.play(songList, song)
+        }
+    }
+
     override fun play(songList: MutableList<ASong>) {
         msg = ACTION_PLAY_LIST
         mSongList = songList
-        mService?.playSongs(songList)
+        if (mService == null) bindPlayerService()
+        else mHandler.sendEmptyMessage(msg)
     }
 
     override fun play(song: ASong) {
         msg = ACTION_PLAY_SONG
         mSong = song
-        mService?.play(song)
+        if (mService == null) bindPlayerService()
+        else mHandler.sendEmptyMessage(msg)
     }
 
     override fun addToQueue(songList: ArrayList<ASong>) {
@@ -123,14 +147,6 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
         playerViewModel.onComplete()
     }
 
-    override fun play(songList: MutableList<ASong>?, song: ASong) {
-        msg = ACTION_PLAY_SONG_IN_LIST
-        mSong = song
-        mSongList = songList
-        if (songList.isNullOrEmpty()) play(song)
-        else mService?.play(songList, song)
-    }
-
     override fun playOnCurrentQueue(song: ASong) {
         mService?.playOnCurrentQueue(song)
     }
@@ -156,6 +172,7 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
             mService?.seekTo(nonNullPosition)
         }
     }
+
 
     companion object {
 
