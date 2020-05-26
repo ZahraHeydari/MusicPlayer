@@ -32,15 +32,15 @@ class MediaController(
             }
 
             override fun onSongRetrieveError() {
-                //Log.d(TAG, "onSongRetrieveError() called")
+                Log.d(TAG, "onSongRetrieveError() called")
             }
 
             override fun onCurrentQueueIndexUpdated(queueIndex: Int) {
-                //Log.d(TAG, "onCurrentQueueIndexUpdated() called with: queueIndex = [$queueIndex]")
+                Log.d(TAG, "onCurrentQueueIndexUpdated() called with: queueIndex = [$queueIndex]")
             }
 
             override fun onQueueUpdated(newQueue: QueueModel) {
-                //Log.d(TAG, "onQueueUpdated() called")
+                Log.d(TAG, "onQueueUpdated() called")
             }
         })
     }

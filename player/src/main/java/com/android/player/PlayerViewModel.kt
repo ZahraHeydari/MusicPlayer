@@ -1,6 +1,5 @@
 package com.android.player
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -113,11 +112,6 @@ class PlayerViewModel : ViewModel() {
         }
     }
 
-    fun pause() {
-        setPlayStatus(false)
-        mNavigator?.pause()
-    }
-
     fun play(song: ASong?) {
         song?.let {
             mNavigator?.play(it)
@@ -138,12 +132,35 @@ class PlayerViewModel : ViewModel() {
         }
     }
 
+    fun toggle() {
+        if (_isPlayData.value == true) {
+            mNavigator?.pause()
+        } else {
+            _playerData.value?.let {
+                mNavigator?.play(it)
+            }
+        }
+    }
+
+    fun toggle(song: ASong?) {
+        if (_isPlayData.value == true) {
+            mNavigator?.pause()
+        } else {
+            song?.let { it1 -> mNavigator?.play(it1) }
+        }
+    }
+
     fun next() {
         mNavigator?.skipToNext()
     }
 
     fun previous() {
         mNavigator?.skipToPrevious()
+    }
+
+    fun pause() {
+        setPlayStatus(false)
+        mNavigator?.pause()
     }
 
     fun seekTo(position: Long) {
@@ -153,11 +170,18 @@ class PlayerViewModel : ViewModel() {
     }
 
     fun stop() {
+        //mNavigator?.clearAllItemsInQueue() // it`s optional
         setPlayStatus(false)
         _songPositionData.value = 0
         _songPositionTextData.value = AppConstants.formatTimeInMillisToString(_songPositionData.value?.toLong() ?: 0)
         mNavigator?.stop()
         _isVisibleData.value = false
+    }
+
+    fun stopSongIfIsPlaying() {
+        if (_isPlayData.value == true) {
+            stop()
+        }
     }
 
     fun setPlayingPercent(playingPercent: Int) {
@@ -166,7 +190,6 @@ class PlayerViewModel : ViewModel() {
     }
 
     fun setChangePosition(currentPosition: Long, duration: Long) {
-        Log.i(TAG, "currentPosition: $currentPosition >>>>> duration: $duration")
         if (currentPosition > duration) return
         _songPositionTextData.value = AppConstants.formatTimeInMillisToString(currentPosition)
         _songPositionData.value = currentPosition.toInt()

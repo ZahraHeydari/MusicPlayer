@@ -94,7 +94,7 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
             }
 
             song_player_toggle_image_view.setOnClickListener {
-                play()
+                toggle()
             }
 
             song_player_shuffle_image_view.setOnClickListener {

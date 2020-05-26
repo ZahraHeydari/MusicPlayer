@@ -16,6 +16,7 @@ import java.util.*
 
 class PlayerService : Service(), OnMediaControllerCallback {
 
+
     private var mMediaController: MediaController? = null
     var mNotificationManager: MediaNotificationManager? = null
     private val mMediaControllerCallbackHashSet = HashSet<OnMediaControllerCallback>()

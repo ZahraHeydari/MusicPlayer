@@ -1,6 +1,5 @@
 package com.android.player
 
-import android.app.ActivityManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -20,12 +19,14 @@ import com.android.player.service.PlayerService
 open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
     OnPlayerServiceListener {
 
+
     private var mService: PlayerService? = null
     private var mBound = false
     val playerViewModel: PlayerViewModel = getPlayerViewModelInstance()
     private var mSong: ASong? = null
     private var mSongList: MutableList<ASong>? = null
     private var msg = 0
+
 
     private val mHandler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
@@ -113,6 +114,10 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
         mSong = song
         if (mService == null) bindPlayerService()
         else mHandler.sendEmptyMessage(msg)
+    }
+
+    override fun clearAllItemsInQueue() {
+        mService?.clearQueue()
     }
 
     override fun addToQueue(songList: ArrayList<ASong>) {

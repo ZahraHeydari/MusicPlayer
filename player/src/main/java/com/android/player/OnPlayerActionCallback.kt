@@ -36,4 +36,6 @@ interface OnPlayerActionCallback {
 
     fun repeatAll(isRepeatAll: Boolean)
 
+    fun clearAllItemsInQueue()
+
 }

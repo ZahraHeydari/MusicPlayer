@@ -87,7 +87,7 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
      * To start notification and service
      */
     fun notifyMediaNotification() {
-        Log.i(TAG, "startNotification called()")
+        Log.i(TAG, "notifyMediaNotification called()")
         // The notification must be updated after setting started to true
         val notification = createNotification()
         val filter = IntentFilter()
@@ -109,7 +109,7 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
      * To stop notification and service
      */
     fun stopServiceAndCancelNotification() {
-        Log.i(TAG, "stopNotification called()")
+        Log.i(TAG, "stopServiceAndCancelNotification called()")
         if (mStarted) {
             mStarted = false
             mNotificationManager?.cancel(NOTIFICATION_ID)
@@ -123,7 +123,6 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
         when (intent.action) {
             ACTION_PAUSE -> {
                 mService.pause()
-                //startNotification()
             }
             ACTION_PLAY -> {
                 mService.getCurrentSong()?.let {
@@ -145,7 +144,6 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
     }
 
     private fun createNotification(): Notification? {
-        Log.i(TAG, "createOrUpdateNotification called()")
         if (notificationBuilder == null) {
             notificationBuilder = NotificationCompat.Builder(mService, CHANNEL_ID)
             notificationBuilder?.setSmallIcon(R.drawable.itunes)
@@ -168,14 +166,14 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
             }
         }
 
-        mCollapsedRemoteViews =
-            RemoteViews(getPackageName(), R.layout.player_collapsed_notification)
+        mCollapsedRemoteViews = RemoteViews(getPackageName(), R.layout.player_collapsed_notification)
         notificationBuilder?.setCustomContentView(mCollapsedRemoteViews)
 
         mExpandedRemoteViews = RemoteViews(getPackageName(), R.layout.player_expanded_notification)
         notificationBuilder?.setCustomBigContentView(mExpandedRemoteViews)
 
         notificationBuilder?.setContentIntent(createContentIntent())
+
         loadNotificationView()
 
         mNotificationManager?.notify(NOTIFICATION_ID, notificationBuilder?.build())
@@ -185,14 +183,14 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
 
 
     private fun createContentIntent(): PendingIntent {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("player://"))
-        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-
-        mService.getCurrentSong()?.let {
-            intent.putExtra(ASong::class.java.name, it)
-        }
-        mService.getCurrentSongList()?.let {
-            intent.putExtra(BaseSongPlayerActivity.SONG_LIST_KEY, it)
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("player://")).apply {
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+            mService.getCurrentSong()?.let {
+                putExtra(ASong::class.java.name, it)
+            }
+            mService.getCurrentSongList()?.let {
+                putExtra(BaseSongPlayerActivity.SONG_LIST_KEY, it)
+            }
         }
 
         return TaskStackBuilder.create(mService).run {
@@ -205,8 +203,6 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
 
 
     private fun loadNotificationView() {
-        Log.i(TAG, "loadNotificationView called()")
-
         // To make sure that the notification can be dismissed by the user when we are not playing.
         notificationBuilder?.setOngoing(mService.getSongPlayingState() == PlaybackState.STATE_PLAYING)
 
@@ -218,7 +214,6 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
                 placeholder(R.drawable.placeholder)
                 error(R.drawable.placeholder)
                 target {
-                    Log.i(TAG, "Coil target called() $it")
                     mCollapsedRemoteViews?.setImageViewBitmap(
                         R.id.collapsed_notification_image_view,
                         it.toBitmap()
