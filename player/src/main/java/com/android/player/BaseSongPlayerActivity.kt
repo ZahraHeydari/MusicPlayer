@@ -31,13 +31,15 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
     private val mHandler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             when (msg.what) {
-                ACTION_PLAY_SONG_IN_LIST -> mSong?.let {nonNullSong->
+                ACTION_PLAY_SONG_IN_LIST -> mSong?.let { nonNullSong ->
                     mSongList?.let { nonNullSongList ->
                         mService?.play(nonNullSongList, nonNullSong)
                     } ?: mService?.play(nonNullSong)
                 }
                 ACTION_PLAY_LIST -> mSongList?.let { mService?.play(it) }
                 ACTION_PLAY_SONG -> mSong?.let { mService?.play(it) }
+                ACTION_STOP -> mService?.stop()
+                ACTION_PAUSE -> mService?.pause()
             }
         }
     }
@@ -157,10 +159,16 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
     }
 
     override fun pause() {
+        msg = ACTION_PAUSE
+        if (mService == null) bindPlayerService()
+        else mHandler.sendEmptyMessage(msg)
         mService?.pause()
     }
 
     override fun stop() {
+        msg = ACTION_STOP
+        if (mService == null) bindPlayerService()
+        else mHandler.sendEmptyMessage(msg)
         mService?.stop()
         playerViewModel.stop()
     }

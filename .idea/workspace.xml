@@ -13,12 +13,6 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/OnPlayerActionCallback.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/OnPlayerActionCallback.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/PlayerViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/PlayerViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/PlayerService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/PlayerService.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,7 +20,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="RR8M809F2CV" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="2.7_QVGA_slider_API_22" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -148,11 +142,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/controller/MediaController.kt</url>
-          <line>104</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/queue/QueueManager.kt</url>
           <line>93</line>
           <option name="timeStamp" value="5" />
@@ -176,36 +165,6 @@
           <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/queue/QueueManager.kt</url>
           <line>118</line>
           <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/controller/MediaController.kt</url>
-          <line>30</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/controller/MediaController.kt</url>
-          <line>74</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/controller/MediaController.kt</url>
-          <line>73</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/controller/MediaController.kt</url>
-          <line>72</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/controller/MediaController.kt</url>
-          <line>75</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/controller/MediaController.kt</url>
-          <line>204</line>
-          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
