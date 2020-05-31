@@ -31,14 +31,16 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
     private val mHandler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             when (msg.what) {
-                ACTION_PLAY_SONG_IN_LIST -> mSong?.let { nonNullSong ->
-                    mSongList?.let { nonNullSongList ->
-                        mService?.play(nonNullSongList, nonNullSong)
-                    } ?: mService?.play(nonNullSong)
+                ACTION_PLAY_SONG_IN_LIST -> {
+                    if (mSongList.isNullOrEmpty()) mSong?.let { mService?.play(it) }
+                    else mSong?.let { mService?.play(mSongList!!, it) }
                 }
                 ACTION_PLAY_LIST -> mSongList?.let { mService?.play(it) }
                 ACTION_PLAY_SONG -> mSong?.let { mService?.play(it) }
-                ACTION_STOP -> mService?.stop()
+                ACTION_STOP -> {
+                    mService?.stop()
+                    playerViewModel.stop()
+                }
                 ACTION_PAUSE -> mService?.pause()
             }
         }
@@ -98,10 +100,7 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
         mSong = song
         mSongList = songList
         if (mService == null) bindPlayerService()
-        else {
-            if (songList.isNullOrEmpty()) mService?.play(song)
-            else mService?.play(songList, song)
-        }
+        else mHandler.sendEmptyMessage(msg)
     }
 
     override fun play(songList: MutableList<ASong>) {
@@ -114,6 +113,18 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
     override fun play(song: ASong) {
         msg = ACTION_PLAY_SONG
         mSong = song
+        if (mService == null) bindPlayerService()
+        else mHandler.sendEmptyMessage(msg)
+    }
+
+    override fun pause() {
+        msg = ACTION_PAUSE
+        if (mService == null) bindPlayerService()
+        else mHandler.sendEmptyMessage(msg)
+    }
+
+    override fun stop() {
+        msg = ACTION_STOP
         if (mService == null) bindPlayerService()
         else mHandler.sendEmptyMessage(msg)
     }
@@ -156,21 +167,6 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
 
     override fun playOnCurrentQueue(song: ASong) {
         mService?.playOnCurrentQueue(song)
-    }
-
-    override fun pause() {
-        msg = ACTION_PAUSE
-        if (mService == null) bindPlayerService()
-        else mHandler.sendEmptyMessage(msg)
-        mService?.pause()
-    }
-
-    override fun stop() {
-        msg = ACTION_STOP
-        if (mService == null) bindPlayerService()
-        else mHandler.sendEmptyMessage(msg)
-        mService?.stop()
-        playerViewModel.stop()
     }
 
     override fun skipToNext() {

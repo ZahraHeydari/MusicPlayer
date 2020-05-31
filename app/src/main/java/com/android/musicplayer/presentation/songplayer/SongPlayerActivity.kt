@@ -32,6 +32,10 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
 
             if (containsKey(ASong::class.java.name)) {
                 mSong = getParcelable<ASong>(ASong::class.java.name) as Song
+                mSong?.let {
+                    play(mSongList, it)
+                    loadInitialData(it)
+                }
             }
         }
 
@@ -43,11 +47,6 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
         setContentView(R.layout.activity_song_player)
 
         onNewIntent(intent)
-
-        mSong?.let {
-            play(mSongList, it)
-            loadInitialData(it)
-        }
 
         with(playerViewModel) {
 
