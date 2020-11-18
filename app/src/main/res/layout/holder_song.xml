@@ -1,38 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/music_item_normal_container"
+    android:layout_margin="4dp"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:layout_margin="8dp">
+    android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:id="@+id/music_item_normal_container"
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/music_item_card_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintDimensionRatio="2:2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/music_item__avatar_image_view"
-            android:layout_width="match_parent"
-            android:layout_height="155dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/placeholder"
-            android:scaleType="fitXY" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/music_item_avatar_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/placeholder"
+            android:scaleType="fitXY"
+            app:layout_constraintDimensionRatio="2:2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/music_item_name_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_below="@id/music_item__avatar_image_view"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="4dp"
-            android:ellipsize="end"
-            android:lineSpacingExtra="5dp"
-            android:maxLines="1"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:textAlignment="center" />
 
-    </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
-</androidx.cardview.widget.CardView>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/music_item_name_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:padding="4dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lineSpacingExtra="5dp"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:textSize="@dimen/subheading1"
+        android:textColor="@color/colorTextPrimary"
+        app:layout_constraintTop_toBottomOf="@+id/music_item_card_view"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

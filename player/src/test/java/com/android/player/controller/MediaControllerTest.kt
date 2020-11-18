@@ -3,8 +3,7 @@ package com.android.player.controller
 import com.android.player.exo.OnExoPlayerManagerCallback
 import com.android.player.exo.PlaybackState
 import com.android.player.model.ASong
-import com.android.player.queue.QueueHelper
-import com.android.player.queue.QueueManager
+import com.android.player.playlist.PlaylistManager
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -18,8 +17,8 @@ import org.mockito.junit.MockitoJUnitRunner
 class MediaControllerTest {
 
     lateinit var mMediaController: MediaController
-    lateinit var queueManager: QueueManager
-    private val mListener = mock(QueueManager.OnSongUpdateListener::class.java)
+    lateinit var playlistManager: PlaylistManager
+    private val mListener = mock(PlaylistManager.OnSongUpdateListener::class.java)
     private val mMediaControllerCallback = mock(OnMediaControllerCallback::class.java)
     private val onExoPlayerManagerCallback = Mockito.mock(OnExoPlayerManagerCallback::class.java)
     private val mediaControllerCallback = Mockito.mock(OnMediaControllerCallback::class.java)
@@ -32,7 +31,7 @@ class MediaControllerTest {
     fun setup() {
         MockitoAnnotations.initMocks(this)
         mMediaController = MediaController(onExoPlayerManagerCallback, mediaControllerCallback)
-        queueManager = QueueManager(mListener)
+        playlistManager = PlaylistManager(mListener)
     }
 
     @Test
@@ -51,29 +50,29 @@ class MediaControllerTest {
 
 
     @Test
-    fun testAddSongToQueue() {
+    fun testAddSongToPlaylist() {
         val song = Mockito.mock(ASong::class.java)
-        queueManager.addToQueue(song)
+        playlistManager.addToPlaylist(song)
 
-        val result = queueManager.getCurrentSongList().contains(song)
+        val result = playlistManager.getCurrentSongList().contains(song)
         assertTrue(
-            "Received result ${queueManager.getCurrentSongList().contains(song)}" +
+            "Received result ${playlistManager.getCurrentSongList().contains(song)}" +
                     " & mocked [true] must be matches on each other!", result
         )
-        assertEquals(1, queueManager.getCurrentSongList().size)
+        assertEquals(1, playlistManager.getCurrentSongList().size)
     }
 
 
     @Test
-    fun testAddSongListToQueue() {
-        queueManager.addToQueue(songList)
+    fun testAddSongListToPlaylist() {
+        playlistManager.addToPlaylist(songList)
 
-        val result = queueManager.getCurrentSongList().containsAll(songList)
+        val result = playlistManager.getCurrentSongList().containsAll(songList)
         assertTrue(
-            "Received result ${queueManager.getCurrentSongList().containsAll(songList)}" +
+            "Received result ${playlistManager.getCurrentSongList().containsAll(songList)}" +
                     " & mocked [true] must be matches on each other!", result
         )
-        assertEquals(1, queueManager.getCurrentSongList().size)
+        assertEquals(1, playlistManager.getCurrentSongList().size)
     }
 
 

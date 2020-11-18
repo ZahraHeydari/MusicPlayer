@@ -36,7 +36,7 @@ class MediaNotificationManagerTest {
 
     @Test
     fun testStopNotification() {
-        notificationManager.stopServiceAndCancelNotification()
+        notificationManager.stopForegroundPlayerService()
         assertTrue(!notificationManager.mStarted)
     }
 }

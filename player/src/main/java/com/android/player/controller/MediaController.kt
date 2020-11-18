@@ -4,13 +4,13 @@ import android.os.Handler
 import android.util.Log
 import com.android.player.exo.OnExoPlayerManagerCallback
 import com.android.player.model.ASong
-import com.android.player.queue.QueueManager
-import com.android.player.queue.QueueModel
+import com.android.player.playlist.PlaylistManager
+import com.android.player.playlist.Playlist
 import java.util.*
 
 
 /**
- * This class is used to interact with [ExoPlayerManager] & [QueueManager]
+ * This class is used to interact with [ExoPlayerManager] & [PlaylistManager]
  *
  * @author ZARA
  * */
@@ -21,26 +21,27 @@ class MediaController(
 
 
     val mMediaControllersCallbacksHashSet = HashSet<OnMediaControllerCallback>()
-    private var queueManager: QueueManager? = null
+    private var playlistManager: PlaylistManager? = null
 
     init {
         this.onExoPlayerManagerCallback.setCallback(this)
 
-        queueManager = QueueManager(object : QueueManager.OnSongUpdateListener {
+        playlistManager = PlaylistManager(object : PlaylistManager.OnSongUpdateListener {
             override fun onSongChanged(song: ASong) {
+              //  Log.d(TAG, "onSongChanged() called with: song = $song")
                 play(song)
             }
 
             override fun onSongRetrieveError() {
-                Log.d(TAG, "onSongRetrieveError() called")
+              //  Log.d(TAG, "onSongRetrieveError() called")
             }
 
-            override fun onCurrentQueueIndexUpdated(queueIndex: Int) {
-                Log.d(TAG, "onCurrentQueueIndexUpdated() called with: queueIndex = [$queueIndex]")
+            override fun onCurrentPlaylistIndexUpdate(index: Int) {
+               // Log.d(TAG, "onCurrentPlaylistIndexUpdate() called with: index = $index")
             }
 
-            override fun onQueueUpdated(newQueue: QueueModel) {
-                Log.d(TAG, "onQueueUpdated() called")
+            override fun onPlaylistUpdate(newPlaylist: Playlist) {
+              //  Log.d(TAG, "onPlaylistUpdate() called with: newPlaylist = $newPlaylist")
             }
         })
     }
@@ -78,31 +79,31 @@ class MediaController(
     }
 
     fun playSongs(songList: MutableList<ASong>) {
-        queueManager?.setCurrentQueue(songList)
+        playlistManager?.setCurrentPlaylist(songList)
     }
 
     override fun shuffle(isShuffle: Boolean) {
-        queueManager?.setShuffle(isShuffle)
+        playlistManager?.setShuffle(isShuffle)
     }
 
     override fun repeatAll(isRepeatAll: Boolean) {
-        queueManager?.setRepeatAll(isRepeatAll)
+        playlistManager?.setRepeatAll(isRepeatAll)
     }
 
     override fun repeat(isRepeat: Boolean) {
-        queueManager?.setRepeat(isRepeat)
+        playlistManager?.setRepeat(isRepeat)
     }
 
-    fun play(queueEntity: QueueModel, song: ASong) {
-        queueManager?.setCurrentQueue(queueEntity, song)
+    fun play(playlist: Playlist, song: ASong) {
+        playlistManager?.setCurrentPlaylist(playlist, song)
     }
 
-    fun playOnCurrentQueue(song: ASong) {
-        queueManager?.setCurrentQueueItem(song)
+    fun playOnCurrentPlaylist(song: ASong) {
+        playlistManager?.setSongIndexOnCurrentPlaylist(song)
     }
 
     fun play(songList: MutableList<ASong>, song: ASong) {
-        queueManager?.setCurrentQueue(songList, song)
+        playlistManager?.setCurrentPlaylist(songList, song)
     }
 
     fun pause() {
@@ -126,7 +127,7 @@ class MediaController(
     }
 
     override fun getCurrentSongList(): ArrayList<ASong>? {
-        return queueManager?.getCurrentSongList() as ArrayList<ASong>
+        return playlistManager?.getCurrentSongList() as ArrayList<ASong>
     }
 
     override fun getCurrentSong(): ASong? {
@@ -139,37 +140,38 @@ class MediaController(
     }
 
     fun skipToNext() {
-        this.queueManager?.skipQueuePosition(1)
+        this.playlistManager?.skipPosition(1)
     }
 
     fun skipToPrevious() {
-        this.queueManager?.skipQueuePosition(-1)
+        this.playlistManager?.skipPosition(-1)
     }
 
-    fun addToCurrentQueue(songList: ArrayList<ASong>) {
-//        Log.i(TAG, "addToQueue songList: $songList")
-        queueManager?.addToQueue(songList)
+    fun addToCurrentPlaylist(songList: ArrayList<ASong>) {
+        Log.d(TAG, "addToCurrentPlaylist() called with: songList = $songList")
+        playlistManager?.addToPlaylist(songList)
     }
 
-    fun addToCurrentQueue(song: ASong) {
-        queueManager?.addToQueue(song)
+    fun addToCurrentPlaylist(song: ASong) {
+        Log.d(TAG, "addToCurrentPlaylist() called with: song = $song")
+        playlistManager?.addToPlaylist(song)
     }
 
 
     override fun onCompletion() {
-        if (this.queueManager?.isRepeat() == true) {
+        if (this.playlistManager?.isRepeat() == true) {
             this.onExoPlayerManagerCallback.stop()
-            this.queueManager?.repeat()
+            this.playlistManager?.repeat()
             return
         }
 
-        if (this.queueManager?.hasQueueNext() == true) {
-            this.queueManager?.skipQueuePosition(1)
+        if (this.playlistManager?.hasNext() == true) {
+            this.playlistManager?.skipPosition(1)
             return
         }
 
-        if (this.queueManager?.isRepeatAll() == true) {
-            this.queueManager?.skipQueuePosition(-1)
+        if (this.playlistManager?.isRepeatAll() == true) {
+            this.playlistManager?.skipPosition(-1)
             return
         }
 
@@ -192,8 +194,8 @@ class MediaController(
         }
     }
 
-    override fun clearQueue() {
-        queueManager?.removeQueueItems()
+    override fun clearPlaylist() {
+        playlistManager?.clearPlaylist()
     }
 
 
@@ -210,7 +212,7 @@ class MediaController(
     }
 
 
-    companion object{
+    companion object {
         private val TAG = MediaController::class.java.name
     }
 }

@@ -2,22 +2,17 @@ package com.android.player.service
 
 import android.content.Context
 import android.content.Intent
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ServiceTestRule
-import com.android.player.exo.OnExoPlayerManagerCallback
-import com.android.player.model.ASong
 import com.android.player.service.PlayerService.LocalBinder
 import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.any
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import java.util.concurrent.TimeoutException
 
@@ -66,7 +61,7 @@ class PlayerServiceTest {
         val binder = mServiceRule.bindService(intent)
         val service: PlayerService = (binder as LocalBinder).service
         service.onCreate()
-        assert(service.mListener != null) // Verify that the service is created.
+        assert(service.mCallback != null) // Verify that the service is created.
     }
 
 
@@ -77,6 +72,6 @@ class PlayerServiceTest {
         val binder = mServiceRule.bindService(intent)
         val service: PlayerService = (binder as LocalBinder).service
         service.onDestroy()
-        assert(service.mListener == null) // Verify that the service is destroyed.
+        assert(service.mCallback == null) // Verify that the service is destroyed.
     }
 }

@@ -4,10 +4,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
-import coil.transform.CircleCropTransformation
+import coil.request.CachePolicy
 import com.android.musicplayer.R
 import com.android.musicplayer.data.model.Song
 import com.android.musicplayer.presentation.playlist.PlaylistAdapter.SongViewHolder
@@ -29,7 +28,7 @@ internal class PlaylistAdapter(val mListener: OnPlaylistAdapterListener) :
     }
 
 
-    /**
+    /*
      * This method is called right when adapter is created &
      * is used to initialize ViewHolders
      * */
@@ -39,7 +38,7 @@ internal class PlaylistAdapter(val mListener: OnPlaylistAdapterListener) :
         return SongViewHolder(viewSongItemHolder)
     }
 
-    /** It is called for each ViewHolder to bind it to the adapter &
+    /* It is called for each ViewHolder to bind it to the adapter &
      * This is where we pass data to ViewHolder
      * */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -50,7 +49,7 @@ internal class PlaylistAdapter(val mListener: OnPlaylistAdapterListener) :
         return songs[position]
     }
 
-    /**
+    /*
      * This method returns the size of collection that contains the items we want to display
      * */
     override fun getItemCount(): Int {
@@ -65,20 +64,11 @@ internal class PlaylistAdapter(val mListener: OnPlaylistAdapterListener) :
             itemView.music_item_name_text_view.text = song.title ?: ""
 
             song.clipArt?.let { nonNullImage ->
-                itemView.music_item__avatar_image_view.load(File(nonNullImage)) {
+                itemView.music_item_avatar_image_view.load(File(nonNullImage)) {
                     crossfade(true)
-                    placeholder(
-                        ContextCompat.getDrawable(
-                            itemView.context,
-                            R.drawable.placeholder
-                        )
-                    )
-                    error(
-                        ContextCompat.getDrawable(
-                            itemView.context,
-                            R.drawable.placeholder
-                        )
-                    )
+                    placeholder(R.drawable.placeholder)
+                    error(R.drawable.placeholder)
+                    CachePolicy.ENABLED
                 }
             }
 

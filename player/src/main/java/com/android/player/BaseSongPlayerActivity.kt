@@ -12,20 +12,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.android.player.PlayerViewModel.Companion.getPlayerViewModelInstance
 import com.android.player.model.ASong
-import com.android.player.service.OnPlayerServiceListener
+import com.android.player.service.OnPlayerServiceCallback
 import com.android.player.service.PlayerService
 
 
-open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
-    OnPlayerServiceListener {
+open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback {
 
 
     private var mService: PlayerService? = null
     private var mBound = false
-    val playerViewModel: PlayerViewModel = getPlayerViewModelInstance()
     private var mSong: ASong? = null
     private var mSongList: MutableList<ASong>? = null
     private var msg = 0
+    val playerViewModel: PlayerViewModel = getPlayerViewModelInstance()
 
 
     private val mHandler = object : Handler(Looper.getMainLooper()) {
@@ -65,20 +64,6 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
         }
     }
 
-
-    override fun onStart() {
-        super.onStart()
-        playerViewModel.setPlayer(this)
-    }
-
-    override fun setBufferingData(isBuffering: Boolean) {
-        playerViewModel.setBuffering(isBuffering)
-    }
-
-    override fun setVisibilityData(isVisibility: Boolean) {
-        playerViewModel.setVisibility(isVisibility)
-    }
-
     private fun bindPlayerService() {
         // Bind to PlayerService
         val intent = Intent(this, PlayerService::class.java)
@@ -86,16 +71,20 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
         if (!mBound) bindService(intent, mConnection, Context.BIND_AUTO_CREATE)
     }
 
-    override fun onDestroy() {
+    private fun unbindService(){
         // Unbind from the service
         if (mBound) {
             unbindService(mConnection)
             mBound = false
         }
+    }
+
+    override fun onDestroy() {
+        unbindService()
         super.onDestroy()
     }
 
-    override fun play(songList: MutableList<ASong>?, song: ASong) {
+    fun play(songList: MutableList<ASong>?, song: ASong) {
         msg = ACTION_PLAY_SONG_IN_LIST
         mSong = song
         mSongList = songList
@@ -103,50 +92,82 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
         else mHandler.sendEmptyMessage(msg)
     }
 
-    override fun play(songList: MutableList<ASong>) {
+    fun play(songList: MutableList<ASong>) {
         msg = ACTION_PLAY_LIST
         mSongList = songList
         if (mService == null) bindPlayerService()
         else mHandler.sendEmptyMessage(msg)
     }
 
-    override fun play(song: ASong) {
+    fun play(song: ASong) {
         msg = ACTION_PLAY_SONG
         mSong = song
         if (mService == null) bindPlayerService()
         else mHandler.sendEmptyMessage(msg)
     }
 
-    override fun pause() {
+    fun playOnCurrentPlaylist(song: ASong) {
+        mService?.playOnCurrentPlaylist(song)
+    }
+
+    fun pause() {
         msg = ACTION_PAUSE
         if (mService == null) bindPlayerService()
         else mHandler.sendEmptyMessage(msg)
+        playerViewModel.setPlayStatus(false)
     }
 
-    override fun stop() {
+    fun stop() {
         msg = ACTION_STOP
         if (mService == null) bindPlayerService()
         else mHandler.sendEmptyMessage(msg)
+        playerViewModel.stop()
     }
 
-    override fun clearAllItemsInQueue() {
-        mService?.clearQueue()
+    fun next() {
+        mService?.skipToNext()
     }
 
-    override fun addToQueue(songList: ArrayList<ASong>) {
-        mService?.addToQueue(songList)
+    fun previous() {
+        mService?.skipToPrevious()
     }
 
-    override fun shuffle(isShuffle: Boolean) {
-        mService?.onShuffle(isShuffle)
+    fun toggle() {
+        if (playerViewModel.isPlayData.value == true) {
+            pause()
+        } else {
+            playerViewModel.song?.let { it1 -> play(it1) }
+        }
     }
 
-    override fun repeatAll(isRepeatAll: Boolean) {
-        mService?.onRepeatAll(isRepeatAll)
+    fun seekTo(position: Long?) {
+        position?.let { nonNullPosition ->
+            playerViewModel.seekTo(nonNullPosition)
+            mService?.seekTo(nonNullPosition)
+        }
     }
 
-    override fun onRepeat(isRepeat: Boolean) {
-        mService?.onRepeat(isRepeat)
+    fun clearPlaylist() {
+        mService?.clearPlaylist()
+    }
+
+    fun addNewPlaylistToCurrent(songList: ArrayList<ASong>) {
+        mService?.addNewPlaylistToCurrent(songList)
+    }
+
+    fun shuffle() {
+        playerViewModel.shuffle()
+        mService?.onShuffle(playerViewModel.isShuffleData.value ?: false)
+    }
+
+    fun repeatAll() {
+        playerViewModel.repeatAll()
+        mService?.onRepeatAll(playerViewModel.isRepeatAllData.value ?: false)
+    }
+
+    fun repeat() {
+        playerViewModel.repeat()
+        mService?.onRepeat(playerViewModel.isRepeatData.value ?: false)
     }
 
     override fun updateSongData(song: ASong?) {
@@ -165,22 +186,12 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
         playerViewModel.onComplete()
     }
 
-    override fun playOnCurrentQueue(song: ASong) {
-        mService?.playOnCurrentQueue(song)
+    override fun setBufferingData(isBuffering: Boolean) {
+        playerViewModel.setBuffering(isBuffering)
     }
 
-    override fun skipToNext() {
-        mService?.skipToNext()
-    }
-
-    override fun skipToPrevious() {
-        mService?.skipToPrevious()
-    }
-
-    override fun seekTo(position: Long?) {
-        position?.let { nonNullPosition ->
-            mService?.seekTo(nonNullPosition)
-        }
+    override fun setVisibilityData(isVisibility: Boolean) {
+        playerViewModel.setVisibility(isVisibility)
     }
 
 
@@ -191,12 +202,12 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerActionCallback,
         private const val ACTION_PLAY_SONG = 1
         private const val ACTION_PLAY_LIST = 2
         private const val ACTION_PLAY_SONG_IN_LIST = 3
-        private const val ACTION_ADD_TO_QUEUE = 4
+        private const val ACTION_ADD_TO_PLAYLIST = 4
         private const val ACTION_PAUSE = 5
         private const val ACTION_STOP = 6
         private const val ACTION_SKIP_TO_NEXT = 7
         private const val ACTION_SKIP_TO_PREVIOUS = 8
         private const val ACTION_SEEK_TO = 9
-        private const val ACTION_PLAY_ON_CURRENT_QUEUE = 10
+        private const val ACTION_PLAY_ON_CURRENT_PLAYLIST = 10
     }
 }

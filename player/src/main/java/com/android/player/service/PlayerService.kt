@@ -18,9 +18,9 @@ class PlayerService : Service(), OnMediaControllerCallback {
 
 
     private var mMediaController: MediaController? = null
-    var mNotificationManager: MediaNotificationManager? = null
+    private var mNotificationManager: MediaNotificationManager? = null
     private val mMediaControllerCallbackHashSet = HashSet<OnMediaControllerCallback>()
-    var mListener: OnPlayerServiceListener? = null
+    var mCallback: OnPlayerServiceCallback? = null
     var command: String? = null
 
 
@@ -34,7 +34,7 @@ class PlayerService : Service(), OnMediaControllerCallback {
     }
 
     override fun onStartCommand(startIntent: Intent?, flags: Int, startId: Int): Int {
-        return START_STICKY
+        return START_NOT_STICKY
     }
 
     private fun registerMediaControllerCallbacks() {
@@ -52,8 +52,8 @@ class PlayerService : Service(), OnMediaControllerCallback {
         }
     }
 
-    fun addListener(listener: OnPlayerServiceListener) {
-        mListener = listener
+    fun addListener(callback: OnPlayerServiceCallback) {
+        mCallback = callback
     }
 
     fun getCurrentSong(): ASong? {
@@ -65,7 +65,7 @@ class PlayerService : Service(), OnMediaControllerCallback {
     }
 
     override fun onSongChanged() {
-        mListener?.updateSongData(getCurrentSong())
+        mCallback?.updateSongData(getCurrentSong())
         mNotificationManager?.notifyMediaNotification()
     }
 
@@ -76,31 +76,39 @@ class PlayerService : Service(), OnMediaControllerCallback {
     override fun onPlaybackStateChanged() {
         when (mMediaController?.getSongPlayingState()) {
             PlaybackState.STATE_BUFFERING -> {
-                mListener?.setBufferingData(true)
-                mListener?.setVisibilityData(true)
-                mListener?.setPlayStatus(true)
+                mCallback?.setBufferingData(true)
+                mCallback?.setVisibilityData(true)
+                mCallback?.setPlayStatus(true)
             }
 
             PlaybackState.STATE_PLAYING -> {
-                mListener?.setBufferingData(false)
-                mListener?.setVisibilityData(true)
-                mListener?.setPlayStatus(true)
+                mCallback?.setBufferingData(false)
+                mCallback?.setVisibilityData(true)
+                mCallback?.setPlayStatus(true)
             }
 
             PlaybackState.STATE_PAUSED -> {
-                mListener?.setBufferingData(false)
-                mListener?.setVisibilityData(true)
-                mListener?.setPlayStatus(false)
+                mCallback?.setBufferingData(false)
+                mCallback?.setVisibilityData(true)
+                mCallback?.setPlayStatus(false)
             }
 
             else -> {
-                mListener?.setBufferingData(false)
-                mListener?.setVisibilityData(false)
-                mListener?.setPlayStatus(false)
+                mCallback?.setBufferingData(false)
+                mCallback?.setVisibilityData(false)
+                mCallback?.setPlayStatus(false)
             }
         }
     }
 
+    override fun onBind(intent: Intent): IBinder? {
+        val action = intent.action
+        command = intent.getStringExtra(CMD_NAME)
+        if (ACTION_CMD == action && CMD_PAUSE == command) {
+            mMediaController?.pause()
+        }
+        return LocalBinder()
+    }
 
     override fun onShuffle(isShuffle: Boolean) {
         mMediaController?.shuffle(isShuffle)
@@ -126,12 +134,12 @@ class PlayerService : Service(), OnMediaControllerCallback {
         mMediaController?.play(songList, song)
     }
 
-    fun playOnCurrentQueue(song: ASong) {
-        mMediaController?.playOnCurrentQueue(song)
+    fun playOnCurrentPlaylist(song: ASong) {
+        mMediaController?.playOnCurrentPlaylist(song)
     }
 
-    override fun addToQueue(songList: ArrayList<ASong>) {
-        mMediaController?.addToCurrentQueue(songList)
+    override fun addNewPlaylistToCurrent(songList: ArrayList<ASong>) {
+        mMediaController?.addToCurrentPlaylist(songList)
     }
 
 
@@ -145,7 +153,7 @@ class PlayerService : Service(), OnMediaControllerCallback {
     }
 
     override fun setDuration(duration: Long, position: Long) {
-        mListener?.updateSongProgress(duration, position)
+        mCallback?.updateSongProgress(duration, position)
     }
 
     fun skipToNext() {
@@ -156,21 +164,12 @@ class PlayerService : Service(), OnMediaControllerCallback {
         mMediaController?.skipToPrevious()
     }
 
-    fun clearQueue() {
-        mMediaController?.clearQueue()
+    fun clearPlaylist() {
+        mMediaController?.clearPlaylist()
     }
 
     fun seekTo(position: Long) {
         mMediaController?.seekTo(position)
-    }
-
-    override fun onBind(intent: Intent): IBinder? {
-        val action = intent.action
-        command = intent.getStringExtra(CMD_NAME)
-        if (ACTION_CMD == action && CMD_PAUSE == command) {
-            mMediaController?.pause()
-        }
-        return LocalBinder()
     }
 
     override fun onNotificationRequired() {
@@ -178,19 +177,13 @@ class PlayerService : Service(), OnMediaControllerCallback {
     }
 
     override fun onSongComplete() {
-        mListener?.onSongEnded()
+        mCallback?.onSongEnded()
         //onServiceStop() //it`s optional
     }
 
     override fun onServiceStop() {
-        mNotificationManager?.stopServiceAndCancelNotification()
+        mNotificationManager?.stopForegroundPlayerService()
 
-    }
-
-    inner class LocalBinder : Binder() {
-        // Return this instance of PlayerService so clients can call public methods
-        val service: PlayerService
-            get() = this@PlayerService
     }
 
     override fun onDestroy() {
@@ -198,8 +191,16 @@ class PlayerService : Service(), OnMediaControllerCallback {
         Log.d(TAG, "onDestroy() called")
         unregisterAllControllerCallback()
         mMediaController?.stop()
-        mListener = null
+        mCallback = null
     }
+
+
+    inner class LocalBinder : Binder() {
+        // Return this instance of PlayerService so clients can call public methods
+        val service: PlayerService
+            get() = this@PlayerService
+    }
+
 
     companion object {
 

@@ -39,11 +39,10 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
     private val mNextIntent: PendingIntent
     private val mStopIntent: PendingIntent
     private val mStopCastIntent: PendingIntent
-    var mStarted = false //to check if notification manager is started or not!
     private var mCollapsedRemoteViews: RemoteViews? = null
     private var mExpandedRemoteViews: RemoteViews? = null
     private var notificationBuilder: NotificationCompat.Builder? = null
-
+    var mStarted = false //to check if notification manager is started or not!
 
     private fun getPackageName(): String {
         return mService.packageName
@@ -90,14 +89,16 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
         Log.i(TAG, "notifyMediaNotification called()")
         // The notification must be updated after setting started to true
         val notification = createNotification()
-        val filter = IntentFilter()
-        filter.addAction(ACTION_NEXT)
-        filter.addAction(ACTION_PAUSE)
-        filter.addAction(ACTION_PLAY)
-        filter.addAction(ACTION_PREV)
-        filter.addAction(ACTION_STOP)
-        filter.addAction(ACTION_STOP_CASTING)
+        val filter = IntentFilter().apply {
+            addAction(ACTION_NEXT)
+            addAction(ACTION_PAUSE)
+            addAction(ACTION_PLAY)
+            addAction(ACTION_PREV)
+            addAction(ACTION_STOP)
+            addAction(ACTION_STOP_CASTING)
+        }
         mService.registerReceiver(this, filter)
+
         if (!mStarted) {
             mStarted = true
             mService.startForeground(NOTIFICATION_ID, notification)
@@ -105,15 +106,13 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
     }
 
 
-    /**
+    /*
      * To stop notification and service
      */
-    fun stopServiceAndCancelNotification() {
+    fun stopForegroundPlayerService() {
         Log.i(TAG, "stopServiceAndCancelNotification called()")
         if (mStarted) {
             mStarted = false
-            mNotificationManager?.cancel(NOTIFICATION_ID)
-            mService.unregisterReceiver(this)
             mService.stopForeground(true)
         }
     }

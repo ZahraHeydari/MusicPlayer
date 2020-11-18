@@ -4,8 +4,7 @@ import com.android.player.model.ASong
 import java.util.ArrayList
 
 /**
- * To make an interaction between [ExoPlayerManager]
- * & [MediaController]
+ * To make an interaction between [ExoPlayerManager] & [MediaController]
  *
  * and to return result from [ExoPlayerManager]
  *
@@ -21,11 +20,11 @@ interface OnExoPlayerManagerCallback {
 
     fun getCurrentSong(): ASong?
 
+    fun updateLastKnownStreamPosition()
+
     fun start()
 
     fun stop()
-
-    fun updateLastKnownStreamPosition()
 
     fun play(aSong: ASong)
 
@@ -33,6 +32,7 @@ interface OnExoPlayerManagerCallback {
 
     fun seekTo(position: Long)
 
+    fun setCallback(callback: OnSongStateCallback)
 
     /**
      * This class gives the information about current song
@@ -59,9 +59,8 @@ interface OnExoPlayerManagerCallback {
 
         fun repeatAll(isRepeatAll: Boolean)
 
-        fun clearQueue()
+        fun clearPlaylist()
 
     }
 
-    fun setCallback(callback: OnSongStateCallback)
 }

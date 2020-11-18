@@ -23,7 +23,7 @@ interface OnMediaControllerCallback {
 
     fun setDuration(duration: Long, position: Long)
 
-    fun addToQueue(songList: ArrayList<ASong>)
+    fun addNewPlaylistToCurrent(songList: ArrayList<ASong>)
 
     fun getSongPlayingState(): Int
 

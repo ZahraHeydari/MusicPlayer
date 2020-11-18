@@ -11,7 +11,6 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.util.Log
-import com.android.player.BuildConfig
 import com.android.player.model.ASong
 import com.android.player.service.PlayerService
 import com.google.android.exoplayer2.*
@@ -22,7 +21,6 @@ import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
@@ -36,34 +34,16 @@ import com.google.android.exoplayer2.util.Util
  * */
 class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
 
-
-    private val BANDWIDTH_METER = DefaultBandwidthMeter()
-
-    // The volume we set the media player to when we lose audio focus, but are
-    // allowed to reduce the volume instead of stopping playback.
-    private val VOLUME_DUCK = 0.2f
-
-    // The volume we set the media player when we have audio focus.
-    private val VOLUME_NORMAL = 1.0f
-
-    // we don't have audio focus, and can't duck (play at a low volume)
-    private val AUDIO_NO_FOCUS_NO_DUCK = 0
-
-    // we don't have focus, but can duck (play at a low volume)
-    private val AUDIO_NO_FOCUS_CAN_DUCK = 1
-
-    // we have full audio focus
-    private val AUDIO_FOCUSED = 2
     private var mWifiLock: WifiManager.WifiLock? = null
     private var mAudioManager: AudioManager? = null
     private val mEventListener = ExoPlayerEventListener()
     private val mAudioNoisyIntentFilter = IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY)
-    private var mPlayOnFocusGain: Boolean = false
     private var mExoSongStateCallback: OnExoPlayerManagerCallback.OnSongStateCallback? = null
     private var mAudioNoisyReceiverRegistered: Boolean = false
     private var mCurrentSong: ASong? = null
     private var mCurrentAudioFocusState = AUDIO_NO_FOCUS_NO_DUCK
     private var mExoPlayer: SimpleExoPlayer? = null
+    private var mPlayOnFocusGain: Boolean = false
 
 
     private val mAudioNoisyReceiver = object : BroadcastReceiver() {
@@ -425,5 +405,22 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
 
         val TAG = ExoPlayerManager::class.java.name
         const val UPDATE_PROGRESS_DELAY = 500L
+        private val BANDWIDTH_METER = DefaultBandwidthMeter()
+
+        // The volume we set the media player to when we lose audio focus, but are
+        // allowed to reduce the volume instead of stopping playback.
+        private const val VOLUME_DUCK = 0.2f
+
+        // The volume we set the media player when we have audio focus.
+        private const val VOLUME_NORMAL = 1.0f
+
+        // we don't have audio focus, and can't duck (play at a low volume)
+        private const val AUDIO_NO_FOCUS_NO_DUCK = 0
+
+        // we don't have focus, but can duck (play at a low volume)
+        private const val AUDIO_NO_FOCUS_CAN_DUCK = 1
+
+        // we have full audio focus
+        private const val AUDIO_FOCUSED = 2
     }
 }
