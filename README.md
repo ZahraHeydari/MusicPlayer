@@ -9,7 +9,7 @@ to play (online/offline) songs by running a service in the background and displa
 
 <br>
 <p align="center">
-  <img src="https://github.com/ZahraHeydari/MusicPlayer/blob/master/diagram.png" width="600"/>
+  <img src="https://github.com/ZahraHeydari/MusicPlayer/blob/master/flow.png" width="600"/>
 </p>
 <br>
 
