@@ -12,17 +12,11 @@ import java.util.ArrayList
  * */
 interface OnExoPlayerManagerCallback {
 
-    fun getCurrentSongState(): Int
-
     fun isPlaying(): Boolean
 
     fun getCurrentStreamPosition(): Long
 
     fun getCurrentSong(): ASong?
-
-    fun updateLastKnownStreamPosition()
-
-    fun start()
 
     fun stop()
 
@@ -36,16 +30,14 @@ interface OnExoPlayerManagerCallback {
 
     /**
      * This class gives the information about current song
-     * (position, state of completion, when it`s changed, ...)
+     * (position, the state of completion, when it`s changed, ...)
      *
      * */
     interface OnSongStateCallback {
 
         fun onCompletion()
 
-        fun onPlaybackStatusChanged(state: Int)
-
-        fun onError(error: String)
+        fun onPlaybackStatusChanged(state : Int)
 
         fun setCurrentPosition(position: Long, duration: Long)
 

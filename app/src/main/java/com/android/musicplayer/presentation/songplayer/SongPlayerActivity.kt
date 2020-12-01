@@ -48,7 +48,7 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
 
         onNewIntent(intent)
 
-        with(playerViewModel) {
+        with(songPlayerViewModel) {
 
             songDurationData.observe(this@SongPlayerActivity, Observer {
                 song_player_progress_seek_bar.max = it

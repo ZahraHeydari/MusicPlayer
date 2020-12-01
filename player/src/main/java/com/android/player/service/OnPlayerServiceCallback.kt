@@ -9,7 +9,7 @@ import com.android.player.model.ASong
  * */
 interface OnPlayerServiceCallback {
 
-    fun updateSongData(song: ASong?)
+    fun updateSongData(song: ASong)
 
     fun updateSongProgress(duration: Long, position: Long)
 

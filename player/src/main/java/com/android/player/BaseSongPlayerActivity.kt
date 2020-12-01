@@ -10,7 +10,7 @@ import android.os.Looper
 import android.os.Message
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.android.player.PlayerViewModel.Companion.getPlayerViewModelInstance
+import com.android.player.SongPlayerViewModel.Companion.getPlayerViewModelInstance
 import com.android.player.model.ASong
 import com.android.player.service.OnPlayerServiceCallback
 import com.android.player.service.PlayerService
@@ -24,7 +24,7 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback
     private var mSong: ASong? = null
     private var mSongList: MutableList<ASong>? = null
     private var msg = 0
-    val playerViewModel: PlayerViewModel = getPlayerViewModelInstance()
+    val songPlayerViewModel: SongPlayerViewModel = getPlayerViewModelInstance()
 
 
     private val mHandler = object : Handler(Looper.getMainLooper()) {
@@ -38,7 +38,7 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback
                 ACTION_PLAY_SONG -> mSong?.let { mService?.play(it) }
                 ACTION_STOP -> {
                     mService?.stop()
-                    playerViewModel.stop()
+                    songPlayerViewModel.stop()
                 }
                 ACTION_PAUSE -> mService?.pause()
             }
@@ -114,14 +114,14 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback
         msg = ACTION_PAUSE
         if (mService == null) bindPlayerService()
         else mHandler.sendEmptyMessage(msg)
-        playerViewModel.setPlayStatus(false)
+        songPlayerViewModel.setPlayStatus(false)
     }
 
     fun stop() {
         msg = ACTION_STOP
         if (mService == null) bindPlayerService()
         else mHandler.sendEmptyMessage(msg)
-        playerViewModel.stop()
+        songPlayerViewModel.stop()
     }
 
     fun next() {
@@ -133,16 +133,16 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback
     }
 
     fun toggle() {
-        if (playerViewModel.isPlayData.value == true) {
+        if (songPlayerViewModel.isPlayData.value == true) {
             pause()
         } else {
-            playerViewModel.song?.let { it1 -> play(it1) }
+            songPlayerViewModel.playerData.value?.let { it1 -> play(it1) }
         }
     }
 
     fun seekTo(position: Long?) {
         position?.let { nonNullPosition ->
-            playerViewModel.seekTo(nonNullPosition)
+            songPlayerViewModel.seekTo(nonNullPosition)
             mService?.seekTo(nonNullPosition)
         }
     }
@@ -156,42 +156,42 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback
     }
 
     fun shuffle() {
-        playerViewModel.shuffle()
-        mService?.onShuffle(playerViewModel.isShuffleData.value ?: false)
+        songPlayerViewModel.shuffle()
+        mService?.onShuffle(songPlayerViewModel.isShuffleData.value ?: false)
     }
 
     fun repeatAll() {
-        playerViewModel.repeatAll()
-        mService?.onRepeatAll(playerViewModel.isRepeatAllData.value ?: false)
+        songPlayerViewModel.repeatAll()
+        mService?.onRepeatAll(songPlayerViewModel.isRepeatAllData.value ?: false)
     }
 
     fun repeat() {
-        playerViewModel.repeat()
-        mService?.onRepeat(playerViewModel.isRepeatData.value ?: false)
+        songPlayerViewModel.repeat()
+        mService?.onRepeat(songPlayerViewModel.isRepeatData.value ?: false)
     }
 
-    override fun updateSongData(song: ASong?) {
-        playerViewModel.setData(song)
+    override fun updateSongData(song: ASong) {
+        songPlayerViewModel.updateSong(song)
     }
 
     override fun setPlayStatus(isPlay: Boolean) {
-        playerViewModel.setPlayStatus(isPlay)
+        songPlayerViewModel.setPlayStatus(isPlay)
     }
 
     override fun updateSongProgress(duration: Long, position: Long) {
-        playerViewModel.setChangePosition(position, duration)
+        songPlayerViewModel.setChangePosition(position, duration)
     }
 
     override fun onSongEnded() {
-        playerViewModel.onComplete()
+        songPlayerViewModel.onComplete()
     }
 
     override fun setBufferingData(isBuffering: Boolean) {
-        playerViewModel.setBuffering(isBuffering)
+        songPlayerViewModel.setBuffering(isBuffering)
     }
 
     override fun setVisibilityData(isVisibility: Boolean) {
-        playerViewModel.setVisibility(isVisibility)
+        songPlayerViewModel.setVisibility(isVisibility)
     }
 
 

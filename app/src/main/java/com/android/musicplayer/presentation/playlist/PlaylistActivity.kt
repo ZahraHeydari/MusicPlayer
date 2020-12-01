@@ -143,7 +143,7 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
     }
 
     private fun removeMusicFromList(song: Song) {
-        playerViewModel.stop()
+        songPlayerViewModel.stop()
         viewModel.removeItemFromList(song)
     }
 

@@ -85,10 +85,10 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
     /**
      * To start notification and service
      */
-    fun notifyMediaNotification() {
+    fun createMediaNotification() {
         Log.i(TAG, "notifyMediaNotification called()")
         // The notification must be updated after setting started to true
-        val notification = createNotification()
+        val notification = generateNotification()
         val filter = IntentFilter().apply {
             addAction(ACTION_NEXT)
             addAction(ACTION_PAUSE)
@@ -142,7 +142,7 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
         }
     }
 
-    private fun createNotification(): Notification? {
+    fun generateNotification(): Notification? {
         if (notificationBuilder == null) {
             notificationBuilder = NotificationCompat.Builder(mService, CHANNEL_ID)
             notificationBuilder?.setSmallIcon(R.drawable.itunes)
@@ -167,13 +167,36 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
 
         mCollapsedRemoteViews = RemoteViews(getPackageName(), R.layout.player_collapsed_notification)
         notificationBuilder?.setCustomContentView(mCollapsedRemoteViews)
-
         mExpandedRemoteViews = RemoteViews(getPackageName(), R.layout.player_expanded_notification)
         notificationBuilder?.setCustomBigContentView(mExpandedRemoteViews)
 
         notificationBuilder?.setContentIntent(createContentIntent())
 
-        loadNotificationView()
+        // To make sure that the notification can be dismissed by the user when we are not playing.
+        notificationBuilder?.setOngoing(true)
+
+        mCollapsedRemoteViews?.let { createCollapsedRemoteViews(it) }
+        mExpandedRemoteViews?.let { createExpandedRemoteViews(it) }
+
+        mService.getCurrentSong()?.clipArt?.let { nonNullClipArt ->
+            Coil.load(mService, File(nonNullClipArt)) {
+                placeholder(R.drawable.placeholder)
+                error(R.drawable.placeholder)
+                target {
+                    mCollapsedRemoteViews?.setImageViewBitmap(
+                        R.id.collapsed_notification_image_view,
+                        it.toBitmap()
+                    )
+                    mExpandedRemoteViews?.setImageViewBitmap(
+                        R.id.expanded_notification_image_view,
+                        it.toBitmap()
+                    )
+                }
+            }
+        }
+
+        if (mService.getPlayState() == PlaybackState.STATE_PLAYING ||
+            mService.getPlayState() == PlaybackState.STATE_BUFFERING) showPauseIcon() else showPlayIcon()
 
         mNotificationManager?.notify(NOTIFICATION_ID, notificationBuilder?.build())
         return notificationBuilder?.build()
@@ -198,38 +221,6 @@ constructor(private val mService: PlayerService) : BroadcastReceiver() {
             // Get the PendingIntent containing the entire back stack
             getPendingIntent(NOTIFICATION_REQUEST_INTENT_CODE, PendingIntent.FLAG_UPDATE_CURRENT)
         }
-    }
-
-
-    private fun loadNotificationView() {
-        // To make sure that the notification can be dismissed by the user when we are not playing.
-        notificationBuilder?.setOngoing(mService.getSongPlayingState() == PlaybackState.STATE_PLAYING)
-
-        mCollapsedRemoteViews?.let { createCollapsedRemoteViews(it) }
-        mExpandedRemoteViews?.let { createExpandedRemoteViews(it) }
-
-        mService.getCurrentSong()?.clipArt?.let { nonNullClipArt ->
-            Coil.load(mService, File(nonNullClipArt)) {
-                placeholder(R.drawable.placeholder)
-                error(R.drawable.placeholder)
-                target {
-                    mCollapsedRemoteViews?.setImageViewBitmap(
-                        R.id.collapsed_notification_image_view,
-                        it.toBitmap()
-                    )
-                    mExpandedRemoteViews?.setImageViewBitmap(
-                        R.id.expanded_notification_image_view,
-                        it.toBitmap()
-                    )
-                }
-            }
-        }
-
-
-        if (mService.getSongPlayingState() == PlaybackState.STATE_PLAYING ||
-            mService.getSongPlayingState() == PlaybackState.STATE_BUFFERING
-        ) showPauseIcon() else showPlayIcon()
-
     }
 
     private fun showPlayIcon() {

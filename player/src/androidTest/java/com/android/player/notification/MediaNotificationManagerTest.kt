@@ -30,7 +30,7 @@ class MediaNotificationManagerTest {
 
     @Test
     fun testStartNotification() {
-        notificationManager.notifyMediaNotification()
+        notificationManager.createMediaNotification()
         assertTrue(notificationManager.mStarted)
     }
 

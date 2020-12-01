@@ -5,21 +5,20 @@ import android.content.Intent
 import android.media.session.PlaybackState
 import android.os.Binder
 import android.os.IBinder
-import android.util.Log
-import com.android.player.controller.MediaController
-import com.android.player.controller.OnMediaControllerCallback
+import com.android.player.media.MediaAdapter
+import com.android.player.media.OnMediaAdapterCallback
 import com.android.player.exo.ExoPlayerManager
 import com.android.player.model.ASong
 import com.android.player.notification.MediaNotificationManager
 import java.util.*
 
 
-class PlayerService : Service(), OnMediaControllerCallback {
+class PlayerService : Service(), OnMediaAdapterCallback {
 
 
-    private var mMediaController: MediaController? = null
+    private var mMediaAdapter: MediaAdapter? = null
     private var mNotificationManager: MediaNotificationManager? = null
-    private val mMediaControllerCallbackHashSet = HashSet<OnMediaControllerCallback>()
+    private var playState = 0
     var mCallback: OnPlayerServiceCallback? = null
     var command: String? = null
 
@@ -27,29 +26,13 @@ class PlayerService : Service(), OnMediaControllerCallback {
     override fun onCreate() {
         super.onCreate()
         val exoPlayerManager = ExoPlayerManager(this)
-        mMediaController = MediaController(exoPlayerManager, this)
+        mMediaAdapter = MediaAdapter(exoPlayerManager, this)
         mNotificationManager = MediaNotificationManager(this)
-        registerMediaControllerCallbacks()
-        onNotificationRequired()
+        mNotificationManager?.createMediaNotification()
     }
 
     override fun onStartCommand(startIntent: Intent?, flags: Int, startId: Int): Int {
         return START_NOT_STICKY
-    }
-
-    private fun registerMediaControllerCallbacks() {
-        mMediaController?.registerCallback(this)
-        for (callback in mMediaControllerCallbackHashSet) {
-            mMediaController?.registerCallback(callback)
-        }
-        mMediaControllerCallbackHashSet.clear()
-    }
-
-
-    private fun unregisterAllControllerCallback() {
-        for (callback in mMediaControllerCallbackHashSet) {
-            mMediaController?.unregisterCallback(callback)
-        }
     }
 
     fun addListener(callback: OnPlayerServiceCallback) {
@@ -57,24 +40,24 @@ class PlayerService : Service(), OnMediaControllerCallback {
     }
 
     fun getCurrentSong(): ASong? {
-        return mMediaController?.getCurrentSong()
+        return mMediaAdapter?.getCurrentSong()
+    }
+
+    fun getPlayState(): Int {
+        return playState
     }
 
     fun getCurrentSongList(): ArrayList<ASong>? {
-        return mMediaController?.getCurrentSongList()
+        return mMediaAdapter?.getCurrentSongList()
     }
 
-    override fun onSongChanged() {
-        mCallback?.updateSongData(getCurrentSong())
-        mNotificationManager?.notifyMediaNotification()
+    override fun onSongChanged(song : ASong) {
+        mCallback?.updateSongData(song)
     }
 
-    override fun getSongPlayingState(): Int {
-        return mMediaController?.getSongPlayingState() ?: 0
-    }
-
-    override fun onPlaybackStateChanged() {
-        when (mMediaController?.getSongPlayingState()) {
+    override fun onPlaybackStateChanged(state : Int) {
+        playState = state
+        when (state) {
             PlaybackState.STATE_BUFFERING -> {
                 mCallback?.setBufferingData(true)
                 mCallback?.setVisibilityData(true)
@@ -99,57 +82,56 @@ class PlayerService : Service(), OnMediaControllerCallback {
                 mCallback?.setPlayStatus(false)
             }
         }
+        mNotificationManager?.generateNotification()
     }
 
-    override fun onBind(intent: Intent): IBinder? {
+    override fun onBind(intent: Intent): IBinder{
         val action = intent.action
         command = intent.getStringExtra(CMD_NAME)
         if (ACTION_CMD == action && CMD_PAUSE == command) {
-            mMediaController?.pause()
+            mMediaAdapter?.pause()
         }
         return LocalBinder()
     }
 
     override fun onShuffle(isShuffle: Boolean) {
-        mMediaController?.shuffle(isShuffle)
+        mMediaAdapter?.shuffle(isShuffle)
     }
 
     override fun onRepeatAll(repeatAll: Boolean) {
-        mMediaController?.repeatAll(repeatAll)
+        mMediaAdapter?.repeatAll(repeatAll)
     }
 
     override fun onRepeat(isRepeat: Boolean) {
-        mMediaController?.repeat(isRepeat)
+        mMediaAdapter?.repeat(isRepeat)
     }
 
     fun play(song: ASong) {
-        mMediaController?.play(song)
+        mMediaAdapter?.play(song)
     }
 
     fun play(songList: MutableList<ASong>) {
-        mMediaController?.playSongs(songList)
+        mMediaAdapter?.playSongs(songList)
     }
 
     fun play(songList: MutableList<ASong>, song: ASong) {
-        mMediaController?.play(songList, song)
+        mMediaAdapter?.play(songList, song)
     }
 
     fun playOnCurrentPlaylist(song: ASong) {
-        mMediaController?.playOnCurrentPlaylist(song)
+        mMediaAdapter?.playOnCurrentPlaylist(song)
     }
 
     override fun addNewPlaylistToCurrent(songList: ArrayList<ASong>) {
-        mMediaController?.addToCurrentPlaylist(songList)
+        mMediaAdapter?.addToCurrentPlaylist(songList)
     }
 
-
     fun pause() {
-        mMediaController?.pause()
-        mNotificationManager?.notifyMediaNotification()
+        mMediaAdapter?.pause()
     }
 
     fun stop() {
-        mMediaController?.stop()
+        mMediaAdapter?.stop()
     }
 
     override fun setDuration(duration: Long, position: Long) {
@@ -157,23 +139,19 @@ class PlayerService : Service(), OnMediaControllerCallback {
     }
 
     fun skipToNext() {
-        mMediaController?.skipToNext()
+        mMediaAdapter?.skipToNext()
     }
 
     fun skipToPrevious() {
-        mMediaController?.skipToPrevious()
+        mMediaAdapter?.skipToPrevious()
     }
 
     fun clearPlaylist() {
-        mMediaController?.clearPlaylist()
+        mMediaAdapter?.clearPlaylist()
     }
 
     fun seekTo(position: Long) {
-        mMediaController?.seekTo(position)
-    }
-
-    override fun onNotificationRequired() {
-        mNotificationManager?.notifyMediaNotification()
+        mMediaAdapter?.seekTo(position)
     }
 
     override fun onSongComplete() {
@@ -181,17 +159,10 @@ class PlayerService : Service(), OnMediaControllerCallback {
         //onServiceStop() //it`s optional
     }
 
-    override fun onServiceStop() {
-        mNotificationManager?.stopForegroundPlayerService()
-
-    }
-
     override fun onDestroy() {
-        super.onDestroy()
-        Log.d(TAG, "onDestroy() called")
-        unregisterAllControllerCallback()
-        mMediaController?.stop()
+        mMediaAdapter?.stop()
         mCallback = null
+        super.onDestroy()
     }
 
 

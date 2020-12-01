@@ -107,38 +107,35 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
         mExoSongStateCallback?.setCurrentPosition(position, duration)
     }
 
-    override fun start() {
-        // Nothing to do
-    }
-
     override fun stop() {
         giveUpAudioFocus()
         unregisterAudioNoisyReceiver()
         releaseResources(true)
     }
 
-    override fun getCurrentSongState(): Int {
+    fun setCurrentSongState() {
+        var state = 0
         if (mExoPlayer == null) {
-            return if (mExoPlayerIsStopped) {
+             if (mExoPlayerIsStopped) {
                 mCurrentSong?.isPlay = false
-                PlaybackState.STATE_STOPPED
+                state = PlaybackState.STATE_STOPPED
             } else {
                 mCurrentSong?.isPlay = false
-                PlaybackState.STATE_NONE
+                state = PlaybackState.STATE_NONE
             }
         }
         when (mExoPlayer?.playbackState) {
             Player.STATE_IDLE -> {
                 mCurrentSong?.isPlay = false
-                return PlaybackState.STATE_PAUSED
+                state =  PlaybackState.STATE_PAUSED
 
             }
             Player.STATE_BUFFERING -> {
                 mCurrentSong?.isPlay = true
-                return PlaybackState.STATE_BUFFERING
+                state =  PlaybackState.STATE_BUFFERING
             }
             Player.STATE_READY -> {
-                return if (mExoPlayer?.playWhenReady == true) {
+                state = if (mExoPlayer?.playWhenReady == true) {
                     mCurrentSong?.isPlay = true
                     PlaybackState.STATE_PLAYING
                 } else {
@@ -148,13 +145,14 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
             }
             Player.STATE_ENDED -> {
                 mCurrentSong?.isPlay = false
-                return PlaybackState.STATE_STOPPED
+                state =  PlaybackState.STATE_STOPPED
             }
             else -> {
                 mCurrentSong?.isPlay = false
-                return PlaybackState.STATE_NONE
+                state =  PlaybackState.STATE_NONE
             }
         }
+        mExoSongStateCallback?.onPlaybackStatusChanged(state)
     }
 
     override fun isPlaying(): Boolean {
@@ -165,9 +163,6 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
         return mExoPlayer?.currentPosition ?: 0
     }
 
-    override fun updateLastKnownStreamPosition() {
-        // Nothing to do. Position maintained by ExoPlayer.
-    }
 
     override fun play(aSong: ASong) {
         mPlayOnFocusGain = true
@@ -363,8 +358,8 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
             when (playbackState) {
                 Player.STATE_IDLE, Player.STATE_BUFFERING, Player.STATE_READY -> {
                     //mUpdateProgressHandler.removeMessages(0)
+                    setCurrentSongState()
                     mUpdateProgressHandler.sendEmptyMessage(0)
-                    mExoSongStateCallback?.onPlaybackStatusChanged(getCurrentSongState())
                 }
                 Player.STATE_ENDED -> {
                     // The media player finished playing the current song.
@@ -381,7 +376,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
                 ExoPlaybackException.TYPE_UNEXPECTED -> error.unexpectedException.message ?: ""
                 else -> "onPlayerError: $error"
             }
-            mExoSongStateCallback?.onError("ExoPlayer error $what")
+            Log.e(TAG, "onPlayerError: $what")
         }
 
         override fun onPositionDiscontinuity(reason: Int) {
