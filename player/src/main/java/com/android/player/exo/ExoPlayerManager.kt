@@ -12,7 +12,7 @@ import android.os.Looper
 import android.os.Message
 import android.util.Log
 import com.android.player.model.ASong
-import com.android.player.service.PlayerService
+import com.android.player.service.SongPlayerService
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.C.CONTENT_TYPE_MUSIC
 import com.google.android.exoplayer2.C.USAGE_MEDIA
@@ -51,9 +51,9 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
             if (AudioManager.ACTION_AUDIO_BECOMING_NOISY == intent.action) {
                 Log.d(TAG, "Headphones disconnected.")
                 if (isPlaying()) {
-                    val i = Intent(context, PlayerService::class.java)
-                    i.action = PlayerService.ACTION_CMD
-                    i.putExtra(PlayerService.CMD_NAME, PlayerService.CMD_PAUSE)
+                    val i = Intent(context, SongPlayerService::class.java)
+                    i.action = SongPlayerService.ACTION_CMD
+                    i.putExtra(SongPlayerService.CMD_NAME, SongPlayerService.CMD_PAUSE)
                     context.applicationContext.startService(i)
                 }
             }
@@ -71,8 +71,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
 
     // Whether to return STATE_NONE or STATE_STOPPED when mExoPlayer is null;
     private var mExoPlayerIsStopped = false
-    private val mOnAudioFocusChangeListener =
-        AudioManager.OnAudioFocusChangeListener { focusChange ->
+    private val mOnAudioFocusChangeListener = AudioManager.OnAudioFocusChangeListener { focusChange ->
             //Log.d(TAG, "onAudioFocusChange. focusChange= $focusChange")
             when (focusChange) {
                 AudioManager.AUDIOFOCUS_GAIN -> mCurrentAudioFocusState = AUDIO_FOCUSED
@@ -111,6 +110,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
         giveUpAudioFocus()
         unregisterAudioNoisyReceiver()
         releaseResources(true)
+        setCurrentSongState()
     }
 
     fun setCurrentSongState() {
@@ -123,6 +123,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
                 mCurrentSong?.isPlay = false
                 state = PlaybackState.STATE_NONE
             }
+            mExoSongStateCallback?.onPlaybackStatusChanged(state)
         }
         when (mExoPlayer?.playbackState) {
             Player.STATE_IDLE -> {
@@ -357,7 +358,6 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
         override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
             when (playbackState) {
                 Player.STATE_IDLE, Player.STATE_BUFFERING, Player.STATE_READY -> {
-                    //mUpdateProgressHandler.removeMessages(0)
                     setCurrentSongState()
                     mUpdateProgressHandler.sendEmptyMessage(0)
                 }

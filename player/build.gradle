@@ -3,12 +3,12 @@ apply plugin: 'kotlin-android'
 
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 103
         versionName "1.0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -37,7 +37,7 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer:2.11.4'
 
     //Image loader
-    implementation("io.coil-kt:coil:0.8.0")
+    api("io.coil-kt:coil:0.8.0")
 
     //Test libs
     testImplementation 'junit:junit:4.12'

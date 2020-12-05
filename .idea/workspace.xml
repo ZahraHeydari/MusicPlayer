@@ -6,7 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="notify" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
@@ -19,33 +19,34 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/player/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player/src/androidTest/java/com/android/player/notification/MediaNotificationManagerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/androidTest/java/com/android/player/notification/MediaNotificationManagerTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/androidTest/java/com/android/player/service/PlayerServiceTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/androidTest/java/com/android/player/service/SongPlayerServiceTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/PlayerViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/SongPlayerViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/controller/MediaController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/media/MediaAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/controller/OnMediaControllerCallback.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/media/OnMediaAdapterCallback.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/ExoPlayerManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/ExoPlayerManager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/OnExoPlayerManagerCallback.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/OnExoPlayerManagerCallback.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/media/MediaAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/media/MediaAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/media/OnMediaAdapterCallback.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/media/OnMediaAdapterCallback.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/playlist/PlaylistManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/playlist/PlaylistManager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/OnPlayerServiceCallback.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/OnPlayerServiceCallback.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/PlayerService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/PlayerService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/test/java/com/android/player/controller/MediaControllerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/test/java/com/android/player/media/MediaAdapterTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/PlayerService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/SongPlayerService.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_XL_API_26]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -270,43 +271,60 @@
     </state>
     <state x="675" y="258" key="#com.intellij.ide.util.MemberChooser/0.23.1792.1024@0.23.1792.1024" timestamp="1605710032223" />
     <state x="675" y="258" key="#com.intellij.ide.util.MemberChooser/0.23.1792.1026@0.23.1792.1026" timestamp="1606836488175" />
-    <state x="560" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1606836613211">
+    <state x="560" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1607167632124">
       <screen x="0" y="23" width="1792" height="1026" />
     </state>
     <state x="560" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1792.1024@0.23.1792.1024" timestamp="1606829366944" />
-    <state x="560" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1792.1026@0.23.1792.1026" timestamp="1606836613211" />
+    <state x="560" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1792.1026@0.23.1792.1026" timestamp="1607167632124" />
     <state x="634" y="289" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1605710056790">
       <screen x="0" y="23" width="1792" height="1024" />
     </state>
     <state x="634" y="289" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1792.1024@0.23.1792.1024" timestamp="1605710056790" />
-    <state x="100" y="123" width="1592" height="824" key="DiffContextDialog" timestamp="1606834621447">
+    <state x="100" y="123" width="1592" height="824" key="DiffContextDialog" timestamp="1607169673688">
       <screen x="0" y="23" width="1792" height="1026" />
     </state>
-    <state x="100" y="123" width="1592" height="824" key="DiffContextDialog/0.23.1792.1026@0.23.1792.1026" timestamp="1606834621447" />
-    <state width="1750" height="279" key="GridCell.Tab.0.bottom" timestamp="1605719046593">
-      <screen x="0" y="23" width="1792" height="1024" />
+    <state x="100" y="123" width="1592" height="824" key="DiffContextDialog/0.23.1792.1026@0.23.1792.1026" timestamp="1607169673688" />
+    <state x="100" y="123" width="1592" height="826" key="DiffContextDialog/0.23.1792.1028@0.23.1792.1028" timestamp="1606839148559" />
+    <state width="1750" height="344" key="GridCell.Tab.0.bottom" timestamp="1607169664901">
+      <screen x="0" y="23" width="1792" height="1026" />
     </state>
     <state width="1750" height="279" key="GridCell.Tab.0.bottom/0.23.1792.1024@0.23.1792.1024" timestamp="1605719046593" />
-    <state width="1750" height="279" key="GridCell.Tab.0.bottom/0.23.1792.1026@0.23.1792.1026" timestamp="1605714611296" />
-    <state width="1750" height="279" key="GridCell.Tab.0.bottom/0.23.1792.1028@0.23.1792.1028" timestamp="1605714415395" />
-    <state width="1750" height="279" key="GridCell.Tab.0.center" timestamp="1605719046592">
-      <screen x="0" y="23" width="1792" height="1024" />
+    <state width="1750" height="344" key="GridCell.Tab.0.bottom/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664901" />
+    <state width="1750" height="287" key="GridCell.Tab.0.bottom/0.23.1792.1028@0.23.1792.1028" timestamp="1606841990566" />
+    <state width="1750" height="344" key="GridCell.Tab.0.center" timestamp="1607169664900">
+      <screen x="0" y="23" width="1792" height="1026" />
     </state>
     <state width="1750" height="279" key="GridCell.Tab.0.center/0.23.1792.1024@0.23.1792.1024" timestamp="1605719046592" />
-    <state width="1750" height="279" key="GridCell.Tab.0.center/0.23.1792.1026@0.23.1792.1026" timestamp="1605714611296" />
-    <state width="1750" height="279" key="GridCell.Tab.0.center/0.23.1792.1028@0.23.1792.1028" timestamp="1605714415394" />
-    <state width="1750" height="279" key="GridCell.Tab.0.left" timestamp="1605719046592">
-      <screen x="0" y="23" width="1792" height="1024" />
+    <state width="1750" height="344" key="GridCell.Tab.0.center/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664900" />
+    <state width="1750" height="287" key="GridCell.Tab.0.center/0.23.1792.1028@0.23.1792.1028" timestamp="1606841990566" />
+    <state width="1750" height="344" key="GridCell.Tab.0.left" timestamp="1607169664900">
+      <screen x="0" y="23" width="1792" height="1026" />
     </state>
     <state width="1750" height="279" key="GridCell.Tab.0.left/0.23.1792.1024@0.23.1792.1024" timestamp="1605719046592" />
-    <state width="1750" height="279" key="GridCell.Tab.0.left/0.23.1792.1026@0.23.1792.1026" timestamp="1605714611295" />
-    <state width="1750" height="279" key="GridCell.Tab.0.left/0.23.1792.1028@0.23.1792.1028" timestamp="1605714415394" />
-    <state width="1750" height="279" key="GridCell.Tab.0.right" timestamp="1605719046593">
-      <screen x="0" y="23" width="1792" height="1024" />
+    <state width="1750" height="344" key="GridCell.Tab.0.left/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664900" />
+    <state width="1750" height="287" key="GridCell.Tab.0.left/0.23.1792.1028@0.23.1792.1028" timestamp="1606841990565" />
+    <state width="1750" height="344" key="GridCell.Tab.0.right" timestamp="1607169664901">
+      <screen x="0" y="23" width="1792" height="1026" />
     </state>
     <state width="1750" height="279" key="GridCell.Tab.0.right/0.23.1792.1024@0.23.1792.1024" timestamp="1605719046593" />
-    <state width="1750" height="279" key="GridCell.Tab.0.right/0.23.1792.1026@0.23.1792.1026" timestamp="1605714611296" />
-    <state width="1750" height="279" key="GridCell.Tab.0.right/0.23.1792.1028@0.23.1792.1028" timestamp="1605714415395" />
+    <state width="1750" height="344" key="GridCell.Tab.0.right/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664901" />
+    <state width="1750" height="287" key="GridCell.Tab.0.right/0.23.1792.1028@0.23.1792.1028" timestamp="1606841990566" />
+    <state width="1750" height="344" key="GridCell.Tab.1.bottom" timestamp="1607169664902">
+      <screen x="0" y="23" width="1792" height="1026" />
+    </state>
+    <state width="1750" height="344" key="GridCell.Tab.1.bottom/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664902" />
+    <state width="1750" height="344" key="GridCell.Tab.1.center" timestamp="1607169664902">
+      <screen x="0" y="23" width="1792" height="1026" />
+    </state>
+    <state width="1750" height="344" key="GridCell.Tab.1.center/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664902" />
+    <state width="1750" height="344" key="GridCell.Tab.1.left" timestamp="1607169664901">
+      <screen x="0" y="23" width="1792" height="1026" />
+    </state>
+    <state width="1750" height="344" key="GridCell.Tab.1.left/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664901" />
+    <state width="1750" height="344" key="GridCell.Tab.1.right" timestamp="1607169664902">
+      <screen x="0" y="23" width="1792" height="1026" />
+    </state>
+    <state width="1750" height="344" key="GridCell.Tab.1.right/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664902" />
     <state x="548" y="292" width="758" height="486" key="find.popup" timestamp="1605713832067">
       <screen x="0" y="23" width="1792" height="1026" />
     </state>
@@ -315,10 +333,45 @@
       <screen x="0" y="23" width="1792" height="1028" />
     </state>
     <state x="561" y="247" key="run.anything.popup/0.23.1792.1028@0.23.1792.1028" timestamp="1605711640898" />
-    <state x="561" y="250" width="670" height="675" key="search.everywhere.popup" timestamp="1606835239652">
-      <screen x="0" y="23" width="1792" height="1026" />
+    <state x="561" y="249" width="670" height="674" key="search.everywhere.popup" timestamp="1607166463907">
+      <screen x="0" y="23" width="1792" height="1024" />
     </state>
+    <state x="561" y="249" width="670" height="674" key="search.everywhere.popup/0.23.1792.1024@0.23.1792.1024" timestamp="1607166463907" />
     <state x="561" y="250" width="670" height="675" key="search.everywhere.popup/0.23.1792.1026@0.23.1792.1026" timestamp="1606835239652" />
-    <state x="561" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1792.1028@0.23.1792.1028" timestamp="1605712471157" />
+    <state x="561" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1792.1028@0.23.1792.1028" timestamp="1606841880552" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt</url>
+          <line>91</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt</url>
+          <line>35</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt</url>
+          <line>36</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt</url>
+          <line>37</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt</url>
+          <line>34</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

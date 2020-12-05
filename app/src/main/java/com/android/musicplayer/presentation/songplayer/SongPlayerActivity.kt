@@ -33,7 +33,7 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
             if (containsKey(ASong::class.java.name)) {
                 mSong = getParcelable<ASong>(ASong::class.java.name) as Song
                 mSong?.let {
-                    play(mSongList, it)
+                    mSongList?.let { it1 -> play(it1, it) }
                     loadInitialData(it)
                 }
             }

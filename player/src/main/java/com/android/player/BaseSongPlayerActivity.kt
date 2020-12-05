@@ -13,13 +13,13 @@ import androidx.core.content.ContextCompat
 import com.android.player.SongPlayerViewModel.Companion.getPlayerViewModelInstance
 import com.android.player.model.ASong
 import com.android.player.service.OnPlayerServiceCallback
-import com.android.player.service.PlayerService
+import com.android.player.service.SongPlayerService
 
 
 open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback {
 
 
-    private var mService: PlayerService? = null
+    private var mService: SongPlayerService? = null
     private var mBound = false
     private var mSong: ASong? = null
     private var mSongList: MutableList<ASong>? = null
@@ -52,7 +52,7 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback
 
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             // We've bound to PlayerService, cast the IBinder and get PlayerService instance
-            val binder = service as PlayerService.LocalBinder
+            val binder = service as SongPlayerService.LocalBinder
             mService = binder.service
             mBound = true
             mHandler.sendEmptyMessage(msg)
@@ -66,7 +66,7 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback
 
     private fun bindPlayerService() {
         // Bind to PlayerService
-        val intent = Intent(this, PlayerService::class.java)
+        val intent = Intent(this, SongPlayerService::class.java)
         ContextCompat.startForegroundService(this, intent)
         if (!mBound) bindService(intent, mConnection, Context.BIND_AUTO_CREATE)
     }
@@ -145,10 +145,6 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback
             songPlayerViewModel.seekTo(nonNullPosition)
             mService?.seekTo(nonNullPosition)
         }
-    }
-
-    fun clearPlaylist() {
-        mService?.clearPlaylist()
     }
 
     fun addNewPlaylistToCurrent(songList: ArrayList<ASong>) {

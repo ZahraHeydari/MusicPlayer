@@ -8,7 +8,7 @@
 
         <activity android:name=".BaseSongPlayerActivity" />
 
-        <service android:name=".service.PlayerService" />
+        <service android:name=".service.SongPlayerService" />
 
     </application>
 

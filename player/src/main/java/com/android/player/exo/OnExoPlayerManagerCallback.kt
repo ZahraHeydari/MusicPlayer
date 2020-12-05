@@ -51,8 +51,6 @@ interface OnExoPlayerManagerCallback {
 
         fun repeatAll(isRepeatAll: Boolean)
 
-        fun clearPlaylist()
-
     }
 
 }

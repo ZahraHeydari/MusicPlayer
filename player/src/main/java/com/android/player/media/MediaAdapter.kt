@@ -70,11 +70,11 @@ class MediaAdapter(
     }
 
     fun skipToNext() {
-        this.playlistManager?.skipPosition(1)
+        playlistManager?.skipPosition(1)
     }
 
     fun skipToPrevious() {
-        this.playlistManager?.skipPosition(-1)
+        playlistManager?.skipPosition(-1)
     }
 
     fun addToCurrentPlaylist(songList: ArrayList<ASong>) {
@@ -140,11 +140,6 @@ class MediaAdapter(
 
         this.onExoPlayerManagerCallback.stop()
         mediaAdapterCallback.onSongComplete()
-    }
-
-
-    override fun clearPlaylist() {
-        playlistManager?.clearPlaylist()
     }
 
 

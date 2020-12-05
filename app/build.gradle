@@ -78,5 +78,10 @@ dependencies {
     //testImplementation "io.mockk:mockk:1.9.3"
     testImplementation 'org.mockito:mockito-core:2.23.0'
 
+    // debugImplementation because LeakCanary should only run in debug builds.
+    debugImplementation('com.squareup.leakcanary:leakcanary-android:2.5'){
+        because("debugImplementation because LeakCanary should only run in debug builds.")
+    }
+
 
 }

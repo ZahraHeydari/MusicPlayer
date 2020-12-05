@@ -5,6 +5,8 @@ import android.content.Intent
 import android.media.session.PlaybackState
 import android.os.Binder
 import android.os.IBinder
+import android.util.Log
+import androidx.core.content.ContextCompat
 import com.android.player.media.MediaAdapter
 import com.android.player.media.OnMediaAdapterCallback
 import com.android.player.exo.ExoPlayerManager
@@ -13,8 +15,7 @@ import com.android.player.notification.MediaNotificationManager
 import java.util.*
 
 
-class PlayerService : Service(), OnMediaAdapterCallback {
-
+class SongPlayerService : Service(), OnMediaAdapterCallback {
 
     private var mMediaAdapter: MediaAdapter? = null
     private var mNotificationManager: MediaNotificationManager? = null
@@ -31,8 +32,18 @@ class PlayerService : Service(), OnMediaAdapterCallback {
         mNotificationManager?.createMediaNotification()
     }
 
-    override fun onStartCommand(startIntent: Intent?, flags: Int, startId: Int): Int {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        Log.d(TAG, "onStartCommand() called with: intent = $intent, flags = $flags, startId = $startId")
         return START_NOT_STICKY
+    }
+
+    fun subscribeToSongPlayerUpdates(){
+        Log.d(TAG, "subscribeToSongPlayerUpdates() called")
+
+        /* Binding to this service doesn't actually trigger onStartCommand(). That is needed to
+        * ensure this Service can be promoted to a foreground service.
+        * */
+        ContextCompat.startForegroundService(applicationContext, Intent(this, SongPlayerService::class.java))
     }
 
     fun addListener(callback: OnPlayerServiceCallback) {
@@ -85,15 +96,6 @@ class PlayerService : Service(), OnMediaAdapterCallback {
         mNotificationManager?.generateNotification()
     }
 
-    override fun onBind(intent: Intent): IBinder{
-        val action = intent.action
-        command = intent.getStringExtra(CMD_NAME)
-        if (ACTION_CMD == action && CMD_PAUSE == command) {
-            mMediaAdapter?.pause()
-        }
-        return LocalBinder()
-    }
-
     override fun onShuffle(isShuffle: Boolean) {
         mMediaAdapter?.shuffle(isShuffle)
     }
@@ -104,6 +106,10 @@ class PlayerService : Service(), OnMediaAdapterCallback {
 
     override fun onRepeat(isRepeat: Boolean) {
         mMediaAdapter?.repeat(isRepeat)
+    }
+
+    fun playCurrentSong(){
+        getCurrentSong()?.let { play(it) }
     }
 
     fun play(song: ASong) {
@@ -132,6 +138,8 @@ class PlayerService : Service(), OnMediaAdapterCallback {
 
     fun stop() {
         mMediaAdapter?.stop()
+        stopForeground(true)
+        stopSelf()
     }
 
     override fun setDuration(duration: Long, position: Long) {
@@ -146,39 +154,45 @@ class PlayerService : Service(), OnMediaAdapterCallback {
         mMediaAdapter?.skipToPrevious()
     }
 
-    fun clearPlaylist() {
-        mMediaAdapter?.clearPlaylist()
-    }
-
     fun seekTo(position: Long) {
         mMediaAdapter?.seekTo(position)
     }
 
     override fun onSongComplete() {
         mCallback?.onSongEnded()
-        //onServiceStop() //it`s optional
+    }
+
+    private fun unsubscribeToSongPlayerUpdates(){
+        Log.d(TAG, "unsubscribeToSongPlayerUpdates() called")
+        mCallback = null
     }
 
     override fun onDestroy() {
-        mMediaAdapter?.stop()
-        mCallback = null
+        unsubscribeToSongPlayerUpdates()
         super.onDestroy()
     }
 
+    override fun onBind(intent: Intent): IBinder{
+        val action = intent.action
+        command = intent.getStringExtra(CMD_NAME)
+        if (ACTION_CMD == action && CMD_PAUSE == command) {
+            mMediaAdapter?.pause()
+        }
+        return LocalBinder()
+    }
 
     inner class LocalBinder : Binder() {
         // Return this instance of PlayerService so clients can call public methods
-        val service: PlayerService
-            get() = this@PlayerService
+        val service: SongPlayerService
+            get() = this@SongPlayerService
     }
 
 
     companion object {
 
-        private val TAG = PlayerService::class.java.name
+        private val TAG = SongPlayerService::class.java.name
         const val ACTION_CMD = "app.ACTION_CMD"
         const val CMD_NAME = "CMD_NAME"
-        const val CMD_STOP_CASTING = "CMD_STOP_CASTING"
         const val CMD_PAUSE = "CMD_PAUSE"
     }
 }

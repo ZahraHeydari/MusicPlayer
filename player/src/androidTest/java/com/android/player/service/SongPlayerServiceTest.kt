@@ -8,7 +8,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ServiceTestRule
-import com.android.player.service.PlayerService.LocalBinder
+import com.android.player.service.SongPlayerService.LocalBinder
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.Before
 import org.junit.Rule
@@ -18,7 +18,7 @@ import java.util.concurrent.TimeoutException
 
 @MediumTest
 @RunWith(AndroidJUnit4::class)
-class PlayerServiceTest {
+class SongPlayerServiceTest {
 
     @get:Rule
     val mServiceRule: ServiceTestRule = ServiceTestRule()
@@ -38,40 +38,40 @@ class PlayerServiceTest {
         // Create the service Intent.
         val intent = Intent(
             getApplicationContext<Context>(),
-            PlayerService::class.java
+            SongPlayerService::class.java
         ).apply {
             // Data can be passed to the service via the Intent.
-            putExtra(PlayerService.CMD_NAME, PlayerService.CMD_PAUSE)
+            putExtra(SongPlayerService.CMD_NAME, SongPlayerService.CMD_PAUSE)
         }
 
         // Bind the service and grab a reference to the binder.
         val binder = mServiceRule.bindService(intent)
 
         // Get the reference to the service, or you can call public methods on the binder directly.
-        val service: PlayerService = (binder as LocalBinder).service
+        val serviceSong: SongPlayerService = (binder as LocalBinder).serviceSong
 
         // Verify that the service is working correctly.
-        assertThat(service.command, `is`(PlayerService.CMD_PAUSE))
+        assertThat(serviceSong.command, `is`(SongPlayerService.CMD_PAUSE))
     }
 
     @Test
     @Throws(Exception::class)
     fun testOnCreate() {
-        val intent = Intent(getApplicationContext<Context>(), PlayerService::class.java)
+        val intent = Intent(getApplicationContext<Context>(), SongPlayerService::class.java)
         val binder = mServiceRule.bindService(intent)
-        val service: PlayerService = (binder as LocalBinder).service
-        service.onCreate()
-        assert(service.mCallback != null) // Verify that the service is created.
+        val serviceSong: SongPlayerService = (binder as LocalBinder).serviceSong
+        serviceSong.onCreate()
+        assert(serviceSong.mCallback != null) // Verify that the service is created.
     }
 
 
     @Test
     @Throws(Exception::class)
     fun testOnDestroy() {
-        val intent = Intent(getApplicationContext<Context>(), PlayerService::class.java)
+        val intent = Intent(getApplicationContext<Context>(), SongPlayerService::class.java)
         val binder = mServiceRule.bindService(intent)
-        val service: PlayerService = (binder as LocalBinder).service
-        service.onDestroy()
-        assert(service.mCallback == null) // Verify that the service is destroyed.
+        val serviceSong: SongPlayerService = (binder as LocalBinder).serviceSong
+        serviceSong.onDestroy()
+        assert(serviceSong.mCallback == null) // Verify that the service is destroyed.
     }
 }

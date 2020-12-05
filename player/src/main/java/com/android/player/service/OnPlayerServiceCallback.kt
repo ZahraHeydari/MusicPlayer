@@ -3,7 +3,7 @@ package com.android.player.service
 import com.android.player.model.ASong
 
 /**
- * To make an interaction between [PlayerService] & [BaseSongPlayerActivity]
+ * To make an interaction between [SongPlayerService] & [BaseSongPlayerActivity]
  *
  * @author ZARA
  * */

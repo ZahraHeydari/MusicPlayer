@@ -82,10 +82,6 @@ class PlaylistManager(private val mListener: OnSongUpdateListener) {
         }
     }
 
-    fun clearPlaylist() {
-        playlist?.clearList()
-    }
-
     fun setCurrentPlaylist(newPlaylist: MutableList<ASong>, initialSong: ASong? = null) {
         setCurrentPlaylist(Playlist().setList(newPlaylist), initialSong)
     }
@@ -149,7 +145,7 @@ class PlaylistManager(private val mListener: OnSongUpdateListener) {
     fun getRandomIndex(list: List<ASong>) = Random().nextInt(list.size)
 
 
-    /*
+    /**
      * Determine if two playlists contain identical song id's in order.
      *
      * @param list1 containing [ASong]'s
