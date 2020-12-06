@@ -68,12 +68,6 @@ class MediaAdapterTest {
     }
 
     @Test
-    fun testGetSongPlayingState_firstCallTest() {
-        val state = onExoPlayerManagerCallback.getCurrentSongState()
-        assertEquals(PlaybackState.STATE_NONE,state)
-    }
-
-    @Test
     fun testGetCurrentSong_whenNotPlayingTest() {
         val currentSong = onExoPlayerManagerCallback.getCurrentSong()
         assertNull(currentSong)

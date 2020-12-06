@@ -34,7 +34,7 @@ class SongPlayerService : Service(), OnMediaAdapterCallback {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d(TAG, "onStartCommand() called with: intent = $intent, flags = $flags, startId = $startId")
-        return START_STICKY
+        return START_NOT_STICKY
     }
 
     fun subscribeToSongPlayerUpdates(){

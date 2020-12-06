@@ -63,7 +63,6 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback
         override fun onServiceDisconnected(classname: ComponentName) {
             mBound = false
             mService = null
-            mService?.removeListener()
         }
     }
 
@@ -188,6 +187,7 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback
 
     override fun onDestroy() {
         unbindService()
+        stopService()
         super.onDestroy()
     }
 
