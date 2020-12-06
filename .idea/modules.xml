@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidStudioProjects-MusicPlayer.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidStudioProjects-MusicPlayer.iml" group="MusicPlayer" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/MusicPlayer.iml" filepath="$PROJECT_DIR$/.idea/modules/MusicPlayer.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MusicPlayer.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MusicPlayer.app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/player/MusicPlayer.player.iml" filepath="$PROJECT_DIR$/.idea/modules/player/MusicPlayer.player.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="MusicPlayer/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/player/player.iml" filepath="$PROJECT_DIR$/.idea/modules/player/player.iml" group="MusicPlayer/player" />
     </modules>
   </component>
 </project>

@@ -51,37 +51,36 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback
     private val mConnection = object : ServiceConnection {
 
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
-            // We've bound to PlayerService, cast the IBinder and get PlayerService instance
+            // We've bound to SongPlayerService, cast the IBinder and get SongPlayerService instance
             val binder = service as SongPlayerService.LocalBinder
             mService = binder.service
             mBound = true
+            mService?.subscribeToSongPlayerUpdates()
             mHandler.sendEmptyMessage(msg)
             mService?.addListener(this@BaseSongPlayerActivity)
         }
 
         override fun onServiceDisconnected(classname: ComponentName) {
             mBound = false
+            mService = null
+            mService?.removeListener()
         }
     }
 
     private fun bindPlayerService() {
-        // Bind to PlayerService
-        val intent = Intent(this, SongPlayerService::class.java)
-        ContextCompat.startForegroundService(this, intent)
-        if (!mBound) bindService(intent, mConnection, Context.BIND_AUTO_CREATE)
+        if (!mBound) bindService(Intent(this, SongPlayerService::class.java), mConnection, Context.BIND_AUTO_CREATE)
     }
 
     private fun unbindService(){
-        // Unbind from the service
         if (mBound) {
             unbindService(mConnection)
             mBound = false
         }
     }
 
-    override fun onDestroy() {
+    override fun stopService(){
         unbindService()
-        super.onDestroy()
+        mService = null
     }
 
     fun play(songList: MutableList<ASong>?, song: ASong) {
@@ -133,11 +132,8 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback
     }
 
     fun toggle() {
-        if (songPlayerViewModel.isPlayData.value == true) {
-            pause()
-        } else {
-            songPlayerViewModel.playerData.value?.let { it1 -> play(it1) }
-        }
+        if (songPlayerViewModel.isPlayData.value == true) pause()
+        else songPlayerViewModel.playerData.value?.let { it1 -> play(it1) }
     }
 
     fun seekTo(position: Long?) {
@@ -188,6 +184,11 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback
 
     override fun setVisibilityData(isVisibility: Boolean) {
         songPlayerViewModel.setVisibility(isVisibility)
+    }
+
+    override fun onDestroy() {
+        unbindService()
+        super.onDestroy()
     }
 
 

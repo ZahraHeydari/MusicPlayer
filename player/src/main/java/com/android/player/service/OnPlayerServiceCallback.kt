@@ -21,4 +21,5 @@ interface OnPlayerServiceCallback {
 
     fun onSongEnded()
 
+    fun stopService()
 }

@@ -23,30 +23,22 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/player/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/androidTest/java/com/android/player/notification/MediaNotificationManagerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/androidTest/java/com/android/player/notification/MediaNotificationManagerTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/androidTest/java/com/android/player/service/PlayerServiceTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/androidTest/java/com/android/player/service/SongPlayerServiceTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/ExoPlayerManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/ExoPlayerManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/OnExoPlayerManagerCallback.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/OnExoPlayerManagerCallback.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/media/MediaAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/media/MediaAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/media/OnMediaAdapterCallback.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/media/OnMediaAdapterCallback.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/playlist/PlaylistManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/playlist/PlaylistManager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/OnPlayerServiceCallback.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/OnPlayerServiceCallback.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/PlayerService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/SongPlayerService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/SongPlayerService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/SongPlayerService.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_XL_API_26]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_XL_API_29" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -68,8 +60,8 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_XL_API_26" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-11-25T16:45:58.702Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_2_API_28" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-12-06T06:38:52.792Z" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -122,7 +114,6 @@
       <option name="DEPLOY_AS_INSTANT" value="false" />
       <option name="ARTIFACT_NAME" value="" />
       <option name="PM_INSTALL_OPTIONS" value="" />
-      <option name="ALL_USERS" value="false" />
       <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
@@ -158,28 +149,22 @@
       </Native>
       <Profilers>
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
-        <option name="STARTUP_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
-        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
-        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
       </Profilers>
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
-      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
-      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
       <method v="2">
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
-      <module name="MusicPlayer.app" />
+      <module name="app" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
       <option name="DEPLOY_AS_INSTANT" value="false" />
       <option name="ARTIFACT_NAME" value="" />
       <option name="PM_INSTALL_OPTIONS" value="" />
-      <option name="ALL_USERS" value="false" />
       <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
@@ -215,16 +200,11 @@
       </Native>
       <Profilers>
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
-        <option name="STARTUP_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
-        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
-        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
       </Profilers>
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
-      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
-      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
       <method v="2">
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
@@ -254,21 +234,23 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="589" y="174" key="#app" timestamp="1605714263441">
       <screen x="0" y="23" width="1792" height="1026" />
     </state>
     <state x="589" y="174" key="#app/0.23.1792.1026@0.23.1792.1026" timestamp="1605714263441" />
-    <state x="675" y="258" key="#com.intellij.ide.util.MemberChooser" timestamp="1606836488175">
-      <screen x="0" y="23" width="1792" height="1026" />
+    <state x="603" y="200" width="407" height="560" key="#com.intellij.ide.util.MemberChooser" timestamp="1607238601869">
+      <screen x="0" y="0" width="1600" height="873" />
     </state>
+    <state x="603" y="200" width="407" height="560" key="#com.intellij.ide.util.MemberChooser/0.0.1600.873@0.0.1600.873" timestamp="1607238601869" />
     <state x="675" y="258" key="#com.intellij.ide.util.MemberChooser/0.23.1792.1024@0.23.1792.1024" timestamp="1605710032223" />
     <state x="675" y="258" key="#com.intellij.ide.util.MemberChooser/0.23.1792.1026@0.23.1792.1026" timestamp="1606836488175" />
     <state x="560" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1607167632124">
@@ -285,45 +267,53 @@
     </state>
     <state x="100" y="123" width="1592" height="824" key="DiffContextDialog/0.23.1792.1026@0.23.1792.1026" timestamp="1607169673688" />
     <state x="100" y="123" width="1592" height="826" key="DiffContextDialog/0.23.1792.1028@0.23.1792.1028" timestamp="1606839148559" />
-    <state width="1750" height="344" key="GridCell.Tab.0.bottom" timestamp="1607169664901">
-      <screen x="0" y="23" width="1792" height="1026" />
+    <state width="1554" height="82" key="GridCell.Tab.0.bottom" timestamp="1607240434362">
+      <screen x="0" y="0" width="1600" height="873" />
     </state>
+    <state width="1554" height="82" key="GridCell.Tab.0.bottom/0.0.1600.873@0.0.1600.873" timestamp="1607240434362" />
     <state width="1750" height="279" key="GridCell.Tab.0.bottom/0.23.1792.1024@0.23.1792.1024" timestamp="1605719046593" />
     <state width="1750" height="344" key="GridCell.Tab.0.bottom/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664901" />
     <state width="1750" height="287" key="GridCell.Tab.0.bottom/0.23.1792.1028@0.23.1792.1028" timestamp="1606841990566" />
-    <state width="1750" height="344" key="GridCell.Tab.0.center" timestamp="1607169664900">
-      <screen x="0" y="23" width="1792" height="1026" />
+    <state width="1554" height="82" key="GridCell.Tab.0.center" timestamp="1607240434361">
+      <screen x="0" y="0" width="1600" height="873" />
     </state>
+    <state width="1554" height="82" key="GridCell.Tab.0.center/0.0.1600.873@0.0.1600.873" timestamp="1607240434361" />
     <state width="1750" height="279" key="GridCell.Tab.0.center/0.23.1792.1024@0.23.1792.1024" timestamp="1605719046592" />
     <state width="1750" height="344" key="GridCell.Tab.0.center/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664900" />
     <state width="1750" height="287" key="GridCell.Tab.0.center/0.23.1792.1028@0.23.1792.1028" timestamp="1606841990566" />
-    <state width="1750" height="344" key="GridCell.Tab.0.left" timestamp="1607169664900">
-      <screen x="0" y="23" width="1792" height="1026" />
+    <state width="1554" height="82" key="GridCell.Tab.0.left" timestamp="1607240434361">
+      <screen x="0" y="0" width="1600" height="873" />
     </state>
+    <state width="1554" height="82" key="GridCell.Tab.0.left/0.0.1600.873@0.0.1600.873" timestamp="1607240434361" />
     <state width="1750" height="279" key="GridCell.Tab.0.left/0.23.1792.1024@0.23.1792.1024" timestamp="1605719046592" />
     <state width="1750" height="344" key="GridCell.Tab.0.left/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664900" />
     <state width="1750" height="287" key="GridCell.Tab.0.left/0.23.1792.1028@0.23.1792.1028" timestamp="1606841990565" />
-    <state width="1750" height="344" key="GridCell.Tab.0.right" timestamp="1607169664901">
-      <screen x="0" y="23" width="1792" height="1026" />
+    <state width="1554" height="82" key="GridCell.Tab.0.right" timestamp="1607240434362">
+      <screen x="0" y="0" width="1600" height="873" />
     </state>
+    <state width="1554" height="82" key="GridCell.Tab.0.right/0.0.1600.873@0.0.1600.873" timestamp="1607240434362" />
     <state width="1750" height="279" key="GridCell.Tab.0.right/0.23.1792.1024@0.23.1792.1024" timestamp="1605719046593" />
     <state width="1750" height="344" key="GridCell.Tab.0.right/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664901" />
     <state width="1750" height="287" key="GridCell.Tab.0.right/0.23.1792.1028@0.23.1792.1028" timestamp="1606841990566" />
-    <state width="1750" height="344" key="GridCell.Tab.1.bottom" timestamp="1607169664902">
-      <screen x="0" y="23" width="1792" height="1026" />
+    <state width="1554" height="82" key="GridCell.Tab.1.bottom" timestamp="1607240434362">
+      <screen x="0" y="0" width="1600" height="873" />
     </state>
+    <state width="1554" height="82" key="GridCell.Tab.1.bottom/0.0.1600.873@0.0.1600.873" timestamp="1607240434362" />
     <state width="1750" height="344" key="GridCell.Tab.1.bottom/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664902" />
-    <state width="1750" height="344" key="GridCell.Tab.1.center" timestamp="1607169664902">
-      <screen x="0" y="23" width="1792" height="1026" />
+    <state width="1554" height="82" key="GridCell.Tab.1.center" timestamp="1607240434362">
+      <screen x="0" y="0" width="1600" height="873" />
     </state>
+    <state width="1554" height="82" key="GridCell.Tab.1.center/0.0.1600.873@0.0.1600.873" timestamp="1607240434362" />
     <state width="1750" height="344" key="GridCell.Tab.1.center/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664902" />
-    <state width="1750" height="344" key="GridCell.Tab.1.left" timestamp="1607169664901">
-      <screen x="0" y="23" width="1792" height="1026" />
+    <state width="1554" height="82" key="GridCell.Tab.1.left" timestamp="1607240434362">
+      <screen x="0" y="0" width="1600" height="873" />
     </state>
+    <state width="1554" height="82" key="GridCell.Tab.1.left/0.0.1600.873@0.0.1600.873" timestamp="1607240434362" />
     <state width="1750" height="344" key="GridCell.Tab.1.left/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664901" />
-    <state width="1750" height="344" key="GridCell.Tab.1.right" timestamp="1607169664902">
-      <screen x="0" y="23" width="1792" height="1026" />
+    <state width="1554" height="82" key="GridCell.Tab.1.right" timestamp="1607240434362">
+      <screen x="0" y="0" width="1600" height="873" />
     </state>
+    <state width="1554" height="82" key="GridCell.Tab.1.right/0.0.1600.873@0.0.1600.873" timestamp="1607240434362" />
     <state width="1750" height="344" key="GridCell.Tab.1.right/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664902" />
     <state x="548" y="292" width="758" height="486" key="find.popup" timestamp="1605713832067">
       <screen x="0" y="23" width="1792" height="1026" />
@@ -344,32 +334,117 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt</url>
-          <line>91</line>
-          <option name="timeStamp" value="1" />
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt</url>
+          <line>85</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt</url>
-          <line>35</line>
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt</url>
+          <line>92</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt</url>
+          <line>109</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt</url>
+          <line>110</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt</url>
+          <line>96</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt</url>
+          <line>95</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt</url>
+          <line>94</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt</url>
+          <line>57</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt</url>
+          <line>88</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt</url>
+          <line>87</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt</url>
+          <line>58</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt</url>
+          <line>37</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
-          <option name="timeStamp" value="3" />
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt</url>
-          <line>36</line>
-          <option name="timeStamp" value="4" />
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt</url>
+          <line>59</line>
+          <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt</url>
-          <line>37</line>
-          <option name="timeStamp" value="5" />
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/service/SongPlayerService.kt</url>
+          <line>119</line>
+          <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt</url>
-          <line>34</line>
-          <option name="timeStamp" value="6" />
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt</url>
+          <line>54</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt</url>
+          <line>55</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt</url>
+          <line>56</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt</url>
+          <line>63</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt</url>
+          <line>64</line>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt</url>
+          <line>65</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/service/SongPlayerService.kt</url>
+          <line>31</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/service/SongPlayerService.kt</url>
+          <line>99</line>
+          <option name="timeStamp" value="49" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -34,7 +34,7 @@ class SongPlayerService : Service(), OnMediaAdapterCallback {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d(TAG, "onStartCommand() called with: intent = $intent, flags = $flags, startId = $startId")
-        return START_NOT_STICKY
+        return START_STICKY
     }
 
     fun subscribeToSongPlayerUpdates(){
@@ -48,6 +48,10 @@ class SongPlayerService : Service(), OnMediaAdapterCallback {
 
     fun addListener(callback: OnPlayerServiceCallback) {
         mCallback = callback
+    }
+
+    fun removeListener(){
+        mCallback = null
     }
 
     fun getCurrentSong(): ASong? {
@@ -139,7 +143,9 @@ class SongPlayerService : Service(), OnMediaAdapterCallback {
     fun stop() {
         mMediaAdapter?.stop()
         stopForeground(true)
+        mNotificationManager = null
         stopSelf()
+        mCallback?.stopService()
     }
 
     override fun setDuration(duration: Long, position: Long) {
