@@ -12,18 +12,20 @@
   <component name="ChangeListManager">
     <list default="true" id="782b9082-73b6-4021-8074-8d5c40168852" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/player/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/SongPlayerViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/SongPlayerViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/ExoPlayerManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/ExoPlayerManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/OnExoPlayerManagerCallback.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/OnExoPlayerManagerCallback.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/media/MediaAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/media/MediaAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/media/OnMediaAdapterCallback.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/media/OnMediaAdapterCallback.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/model/ASong.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/model/ASong.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/playlist/Playlist.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/playlist/Playlist.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/playlist/PlaylistManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/playlist/PlaylistManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/OnPlayerServiceCallback.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/OnPlayerServiceCallback.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/SongPlayerService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/SongPlayerService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/test/java/com/android/player/media/MediaAdapterTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/test/java/com/android/player/media/MediaAdapterTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -270,39 +272,39 @@
       <screen x="0" y="23" width="1792" height="1024" />
     </state>
     <state x="634" y="289" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1792.1024@0.23.1792.1024" timestamp="1605710056790" />
-    <state x="100" y="123" width="1592" height="823" key="DiffContextDialog" timestamp="1607341456016">
-      <screen x="0" y="23" width="1792" height="1024" />
+    <state x="100" y="123" width="1592" height="824" key="DiffContextDialog" timestamp="1607343980391">
+      <screen x="0" y="23" width="1792" height="1026" />
     </state>
     <state x="100" y="123" width="1592" height="823" key="DiffContextDialog/0.23.1792.1024@0.23.1792.1024" timestamp="1607341456016" />
-    <state x="100" y="123" width="1592" height="824" key="DiffContextDialog/0.23.1792.1026@0.23.1792.1026" timestamp="1607169673688" />
+    <state x="100" y="123" width="1592" height="824" key="DiffContextDialog/0.23.1792.1026@0.23.1792.1026" timestamp="1607343980391" />
     <state x="100" y="123" width="1592" height="826" key="DiffContextDialog/0.23.1792.1028@0.23.1792.1028" timestamp="1606839148559" />
-    <state width="1554" height="82" key="GridCell.Tab.0.bottom" timestamp="1607240434362">
-      <screen x="0" y="0" width="1600" height="873" />
+    <state width="1750" height="279" key="GridCell.Tab.0.bottom" timestamp="1607343009163">
+      <screen x="0" y="23" width="1792" height="1026" />
     </state>
     <state width="1554" height="82" key="GridCell.Tab.0.bottom/0.0.1600.873@0.0.1600.873" timestamp="1607240434362" />
-    <state width="1750" height="279" key="GridCell.Tab.0.bottom/0.23.1792.1024@0.23.1792.1024" timestamp="1605719046593" />
-    <state width="1750" height="344" key="GridCell.Tab.0.bottom/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664901" />
+    <state width="1750" height="279" key="GridCell.Tab.0.bottom/0.23.1792.1024@0.23.1792.1024" timestamp="1607342383022" />
+    <state width="1750" height="279" key="GridCell.Tab.0.bottom/0.23.1792.1026@0.23.1792.1026" timestamp="1607343009163" />
     <state width="1750" height="287" key="GridCell.Tab.0.bottom/0.23.1792.1028@0.23.1792.1028" timestamp="1606841990566" />
-    <state width="1554" height="82" key="GridCell.Tab.0.center" timestamp="1607240434361">
-      <screen x="0" y="0" width="1600" height="873" />
+    <state width="1750" height="279" key="GridCell.Tab.0.center" timestamp="1607343009163">
+      <screen x="0" y="23" width="1792" height="1026" />
     </state>
     <state width="1554" height="82" key="GridCell.Tab.0.center/0.0.1600.873@0.0.1600.873" timestamp="1607240434361" />
-    <state width="1750" height="279" key="GridCell.Tab.0.center/0.23.1792.1024@0.23.1792.1024" timestamp="1605719046592" />
-    <state width="1750" height="344" key="GridCell.Tab.0.center/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664900" />
+    <state width="1750" height="279" key="GridCell.Tab.0.center/0.23.1792.1024@0.23.1792.1024" timestamp="1607342383021" />
+    <state width="1750" height="279" key="GridCell.Tab.0.center/0.23.1792.1026@0.23.1792.1026" timestamp="1607343009163" />
     <state width="1750" height="287" key="GridCell.Tab.0.center/0.23.1792.1028@0.23.1792.1028" timestamp="1606841990566" />
-    <state width="1554" height="82" key="GridCell.Tab.0.left" timestamp="1607240434361">
-      <screen x="0" y="0" width="1600" height="873" />
+    <state width="1750" height="279" key="GridCell.Tab.0.left" timestamp="1607343009162">
+      <screen x="0" y="23" width="1792" height="1026" />
     </state>
     <state width="1554" height="82" key="GridCell.Tab.0.left/0.0.1600.873@0.0.1600.873" timestamp="1607240434361" />
-    <state width="1750" height="279" key="GridCell.Tab.0.left/0.23.1792.1024@0.23.1792.1024" timestamp="1605719046592" />
-    <state width="1750" height="344" key="GridCell.Tab.0.left/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664900" />
+    <state width="1750" height="279" key="GridCell.Tab.0.left/0.23.1792.1024@0.23.1792.1024" timestamp="1607342383021" />
+    <state width="1750" height="279" key="GridCell.Tab.0.left/0.23.1792.1026@0.23.1792.1026" timestamp="1607343009162" />
     <state width="1750" height="287" key="GridCell.Tab.0.left/0.23.1792.1028@0.23.1792.1028" timestamp="1606841990565" />
-    <state width="1554" height="82" key="GridCell.Tab.0.right" timestamp="1607240434362">
-      <screen x="0" y="0" width="1600" height="873" />
+    <state width="1750" height="279" key="GridCell.Tab.0.right" timestamp="1607343009163">
+      <screen x="0" y="23" width="1792" height="1026" />
     </state>
     <state width="1554" height="82" key="GridCell.Tab.0.right/0.0.1600.873@0.0.1600.873" timestamp="1607240434362" />
-    <state width="1750" height="279" key="GridCell.Tab.0.right/0.23.1792.1024@0.23.1792.1024" timestamp="1605719046593" />
-    <state width="1750" height="344" key="GridCell.Tab.0.right/0.23.1792.1026@0.23.1792.1026" timestamp="1607169664901" />
+    <state width="1750" height="279" key="GridCell.Tab.0.right/0.23.1792.1024@0.23.1792.1024" timestamp="1607342383022" />
+    <state width="1750" height="279" key="GridCell.Tab.0.right/0.23.1792.1026@0.23.1792.1026" timestamp="1607343009163" />
     <state width="1750" height="287" key="GridCell.Tab.0.right/0.23.1792.1028@0.23.1792.1028" timestamp="1606841990566" />
     <state width="1554" height="82" key="GridCell.Tab.1.bottom" timestamp="1607240434362">
       <screen x="0" y="0" width="1600" height="873" />
@@ -332,11 +334,11 @@
       <screen x="0" y="23" width="1792" height="1028" />
     </state>
     <state x="561" y="247" key="run.anything.popup/0.23.1792.1028@0.23.1792.1028" timestamp="1605711640898" />
-    <state x="561" y="249" width="670" height="674" key="search.everywhere.popup" timestamp="1607166463907">
-      <screen x="0" y="23" width="1792" height="1024" />
+    <state x="561" y="250" width="670" height="675" key="search.everywhere.popup" timestamp="1607348947333">
+      <screen x="0" y="23" width="1792" height="1026" />
     </state>
     <state x="561" y="249" width="670" height="674" key="search.everywhere.popup/0.23.1792.1024@0.23.1792.1024" timestamp="1607166463907" />
-    <state x="561" y="250" width="670" height="675" key="search.everywhere.popup/0.23.1792.1026@0.23.1792.1026" timestamp="1606835239652" />
+    <state x="561" y="250" width="670" height="675" key="search.everywhere.popup/0.23.1792.1026@0.23.1792.1026" timestamp="1607348947333" />
     <state x="561" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1792.1028@0.23.1792.1028" timestamp="1606841880552" />
   </component>
   <component name="XDebuggerManager">

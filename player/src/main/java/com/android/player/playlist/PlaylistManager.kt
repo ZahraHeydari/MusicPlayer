@@ -22,55 +22,35 @@ class PlaylistManager(private val mListener: OnSongUpdateListener) {
         mCurrentIndex = 0
     }
 
-    private fun getCurrentSong(): ASong? {
-        return if (mCurrentIndex >= getCurrentPlaylistSize()) null
-        else playlist?.getShuffleOrNormalList()?.get(mCurrentIndex)
+    fun getCurrentSong(): ASong? {
+        return playlist?.getItem(mCurrentIndex)
     }
 
-    private fun getCurrentPlaylistSize(): Int {
-        return if (playlist == null) 0 else playlist?.getShuffleOrNormalList()?.size ?: 0
+    fun getCurrentSongList(): java.util.ArrayList<ASong> {
+        return playlist?.getShuffleOrNormalList() as java.util.ArrayList<ASong>
     }
-
-    fun setRepeat(isRepeat: Boolean) {
-        playlist?.isRepeat = isRepeat
-    }
-
-    fun isRepeat(): Boolean {
-        return playlist?.isRepeat ?: false
-    }
-
-    fun isRepeatAll(): Boolean = playlist?.isRepeatAll ?: false
-
 
     private fun setCurrentPlaylistIndex(index: Int) {
         if (index >= 0 && index < playlist?.getShuffleOrNormalList()?.size ?: 0) {
             mCurrentIndex = index
-            mListener.onCurrentPlaylistIndexUpdate(mCurrentIndex)
+            //mListener.onUpdatePlaylistIndex(mCurrentIndex)
         }
         updateSong()
     }
 
-    fun setSongIndexOnCurrentPlaylist(song: ASong?): Boolean {
-        if (song == null) return false
-        val index = getSongIndexOnPlaylist(playlist?.getShuffleOrNormalList() as ArrayList<ASong>, song)
-        setCurrentPlaylistIndex(index)
-        return index >= 0
-    }
-
-    fun hasNext(): Boolean = mCurrentIndex < getCurrentPlaylistSize() - 1
-
+    fun hasNext(): Boolean = mCurrentIndex < (playlist?.getCurrentPlaylistSize()?.minus(1) ?: 0)
 
     fun skipPosition(amount: Int): Boolean {
         var index = mCurrentIndex + amount
-        if (playlist?.getShuffleOrNormalList()?.size == 0 || index >= playlist?.getShuffleOrNormalList()?.size ?: 0) return false
+        val currentPlayListSize = playlist?.getCurrentPlaylistSize() ?: 0
+
+        if (currentPlayListSize == 0 || index >= currentPlayListSize) return false
         if (index < 0) {
             // skip backwards before the first song will keep you on the first song
-            index = if (isRepeatAll()) playlist?.getShuffleOrNormalList()?.size ?: 0 else 0
+            index = if (isRepeatAll()) currentPlayListSize else 0
         } else {
             // skip forwards when in last song will cycle back to start of the playlist
-            if (playlist?.getShuffleOrNormalList()?.size != 0) {
-                index %= playlist?.getShuffleOrNormalList()?.size ?: 0
-            }
+            if (currentPlayListSize != 0) index %= currentPlayListSize
         }
         return if (mCurrentIndex == index) {
             setCurrentPlaylistIndex(mCurrentIndex)
@@ -83,11 +63,7 @@ class PlaylistManager(private val mListener: OnSongUpdateListener) {
     }
 
     fun setCurrentPlaylist(newPlaylist: MutableList<ASong>, initialSong: ASong? = null) {
-        setCurrentPlaylist(Playlist().setList(newPlaylist), initialSong)
-    }
-
-    fun setCurrentPlaylist(newPlaylist: Playlist, initialSong: ASong?) {
-        playlist = newPlaylist
+        playlist = Playlist().setList(newPlaylist)
         var index = 0
         initialSong?.let {
             index = getSongIndexOnPlaylist(playlist?.getShuffleOrNormalList() as Iterable<ASong>, it)
@@ -95,6 +71,7 @@ class PlaylistManager(private val mListener: OnSongUpdateListener) {
         mCurrentIndex = max(index, 0)
         setCurrentPlaylistIndex(index)
     }
+
 
     private fun updateSong() {
         val currentSong = getCurrentSong()
@@ -113,16 +90,22 @@ class PlaylistManager(private val mListener: OnSongUpdateListener) {
         playlist?.addItem(song)
     }
 
+    fun setRepeat(isRepeat: Boolean) {
+        playlist?.isRepeat = isRepeat
+    }
+
+    fun isRepeat(): Boolean {
+        return playlist?.isRepeat ?: false
+    }
+
+    fun isRepeatAll(): Boolean = playlist?.isRepeatAll ?: false
+
     fun repeat(): Boolean {
         if (playlist?.isRepeat == true) {
             setCurrentPlaylistIndex(mCurrentIndex)
             return true
         }
         return false
-    }
-
-    fun getCurrentSongList(): ArrayList<ASong> {
-        return playlist?.getShuffleOrNormalList() as ArrayList<ASong>
     }
 
     fun setShuffle(isShuffle: Boolean) {
@@ -181,9 +164,6 @@ class PlaylistManager(private val mListener: OnSongUpdateListener) {
 
         fun onSongRetrieveError()
 
-        fun onCurrentPlaylistIndexUpdate(index: Int)
-
-        fun onPlaylistUpdate(newPlaylist: Playlist)
     }
 
 

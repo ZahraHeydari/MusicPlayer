@@ -50,10 +50,11 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
         override fun onReceive(context: Context, intent: Intent) {
             if (AudioManager.ACTION_AUDIO_BECOMING_NOISY == intent.action) {
                 Log.d(TAG, "Headphones disconnected.")
-                if (isPlaying()) {
-                    val i = Intent(context, SongPlayerService::class.java)
-                    i.action = SongPlayerService.ACTION_CMD
-                    i.putExtra(SongPlayerService.CMD_NAME, SongPlayerService.CMD_PAUSE)
+                if (mPlayOnFocusGain || mExoPlayer != null && mExoPlayer?.playWhenReady == true) {
+                    val i = Intent(context, SongPlayerService::class.java).apply {
+                        action = SongPlayerService.ACTION_CMD
+                        putExtra(SongPlayerService.CMD_NAME, SongPlayerService.CMD_PAUSE)
+                    }
                     context.applicationContext.startService(i)
                 }
             }
@@ -101,80 +102,48 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
                 .createWifiLock(WifiManager.WIFI_MODE_FULL, "app_lock")
     }
 
+    override fun setCallback(callback: OnExoPlayerManagerCallback.OnSongStateCallback) {
+        mExoSongStateCallback = callback
+    }
+
     private fun onUpdateProgress(position: Long, duration: Long) {
-        //Log.i(TAG, "onUpdateProgress: position: $position duration: $duration")
+        Log.d(TAG, "onUpdateProgress() called with: position = $position, duration = $duration")
         mExoSongStateCallback?.setCurrentPosition(position, duration)
     }
 
-    override fun stop() {
-        giveUpAudioFocus()
-        unregisterAudioNoisyReceiver()
-        releaseResources(true)
-        setCurrentSongState()
-    }
 
-    fun setCurrentSongState() {
+    private fun setCurrentSongState() {
         var state = 0
         if (mExoPlayer == null) {
-             if (mExoPlayerIsStopped) {
-                mCurrentSong?.isPlay = false
-                state = PlaybackState.STATE_STOPPED
-            } else {
-                mCurrentSong?.isPlay = false
-                state = PlaybackState.STATE_NONE
-            }
+            state = if (mExoPlayerIsStopped) PlaybackState.STATE_STOPPED
+            else PlaybackState.STATE_NONE
             mExoSongStateCallback?.onPlaybackStatusChanged(state)
         }
-        when (mExoPlayer?.playbackState) {
-            Player.STATE_IDLE -> {
-                mCurrentSong?.isPlay = false
-                state =  PlaybackState.STATE_PAUSED
-
-            }
-            Player.STATE_BUFFERING -> {
-                mCurrentSong?.isPlay = true
-                state =  PlaybackState.STATE_BUFFERING
-            }
+        state = when (mExoPlayer?.playbackState) {
+            Player.STATE_IDLE -> PlaybackState.STATE_PAUSED
+            Player.STATE_BUFFERING -> PlaybackState.STATE_BUFFERING
             Player.STATE_READY -> {
-                state = if (mExoPlayer?.playWhenReady == true) {
-                    mCurrentSong?.isPlay = true
-                    PlaybackState.STATE_PLAYING
-                } else {
-                    mCurrentSong?.isPlay = false
-                    PlaybackState.STATE_PAUSED
-                }
+                if (mExoPlayer?.playWhenReady == true) PlaybackState.STATE_PLAYING
+                else PlaybackState.STATE_PAUSED
             }
-            Player.STATE_ENDED -> {
-                mCurrentSong?.isPlay = false
-                state =  PlaybackState.STATE_STOPPED
-            }
-            else -> {
-                mCurrentSong?.isPlay = false
-                state =  PlaybackState.STATE_NONE
-            }
+            Player.STATE_ENDED -> PlaybackState.STATE_STOPPED
+            else -> PlaybackState.STATE_NONE
         }
         mExoSongStateCallback?.onPlaybackStatusChanged(state)
     }
 
-    override fun isPlaying(): Boolean {
-        return mPlayOnFocusGain || mExoPlayer != null && mExoPlayer?.playWhenReady == true
-    }
 
     override fun getCurrentStreamPosition(): Long {
         return mExoPlayer?.currentPosition ?: 0
     }
 
-
     override fun play(aSong: ASong) {
         mPlayOnFocusGain = true
         tryToGetAudioFocus()
         registerAudioNoisyReceiver()
-        val songId = aSong.songId
-        val songHasChanged: Boolean
-        songHasChanged = songId != mCurrentSong?.songId
-        //if (songHasChanged) {
-        mCurrentSong = aSong
-        // }
+
+        val songHasChanged = aSong.songId != mCurrentSong?.songId
+        if (songHasChanged) mCurrentSong = aSong
 
         if (songHasChanged || mExoPlayer == null) {
             releaseResources(false) // release everything except the player
@@ -202,7 +171,6 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
             // The MediaSource represents the media to be played.
             val extractorMediaFactory = ExtractorMediaSource.Factory(dataSourceFactory)
             extractorMediaFactory.setExtractorsFactory(extractorsFactory)
-            //MediaSource mediaSource = extractorMediaFactory.createMediaSource(Uri.parse(source));
 
             val mediaSource: MediaSource
             mediaSource = when (mCurrentSong?.songType) {
@@ -236,25 +204,25 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
     }
 
     override fun pause() {
-        // Pause player and cancel the 'foreground service' state.
+        Log.d(TAG, "pause() called")
         mExoPlayer?.playWhenReady = false
         // While paused, retain the player instance, but give up audio focus.
         releaseResources(false)
         unregisterAudioNoisyReceiver()
     }
 
+    override fun stop() {
+        Log.d(TAG, "stop() called")
+        giveUpAudioFocus()
+        releaseResources(true)
+        unregisterAudioNoisyReceiver()
+        setCurrentSongState()
+    }
+
     override fun seekTo(position: Long) {
-        //Log.d(TAG, "seekTo called with: $position")
+        Log.d(TAG, "seekTo() called with: position = $position")
         registerAudioNoisyReceiver()
         mExoPlayer?.seekTo(position)
-    }
-
-    override fun setCallback(callback: OnExoPlayerManagerCallback.OnSongStateCallback) {
-        this.mExoSongStateCallback = callback
-    }
-
-    override fun getCurrentSong(): ASong? {
-        return mCurrentSong
     }
 
     private fun tryToGetAudioFocus() {
@@ -398,7 +366,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
 
     companion object {
 
-        val TAG = ExoPlayerManager::class.java.name
+        private val TAG = ExoPlayerManager::class.java.name
         const val UPDATE_PROGRESS_DELAY = 500L
         private val BANDWIDTH_METER = DefaultBandwidthMeter()
 

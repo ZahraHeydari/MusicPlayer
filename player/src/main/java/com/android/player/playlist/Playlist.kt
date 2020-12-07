@@ -15,7 +15,10 @@ class Playlist {
         return if (isShuffle) shuffleList else list
     }
 
+    fun getCurrentPlaylistSize(): Int = getShuffleOrNormalList().size
+
     fun setList(list: MutableList<ASong>): Playlist {
+        clearList()
         this.list = list
         list.shuffle()
         this.shuffleList = ArrayList(list)
@@ -24,7 +27,7 @@ class Playlist {
 
     fun addItems(songList: ArrayList<ASong>) {
         this.list.addAll(songList)
-        songList.shuffled()
+        songList.shuffle()
         this.shuffleList.addAll(songList)
     }
 
@@ -33,7 +36,12 @@ class Playlist {
         this.shuffleList.add(song)
     }
 
-    fun clearList() {
+    fun getItem(index : Int): ASong?{
+        if (index >= getCurrentPlaylistSize()) return null
+        return getShuffleOrNormalList()[index]
+    }
+
+    private fun clearList() {
         this.list.clear()
         this.shuffleList.clear()
     }

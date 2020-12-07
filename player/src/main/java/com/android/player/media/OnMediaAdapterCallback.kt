@@ -21,13 +21,10 @@ interface OnMediaAdapterCallback {
 
     fun addNewPlaylistToCurrent(songList: ArrayList<ASong>)
 
-    fun onSongComplete()
-
     fun onShuffle(isShuffle: Boolean)
 
     fun onRepeat(isRepeat: Boolean)
 
     fun onRepeatAll(repeatAll: Boolean)
-
 
 }

@@ -11,43 +11,28 @@ class SongPlayerViewModel : ViewModel() {
 
     private val _playerData = MutableLiveData<ASong>()
     val playerData: LiveData<ASong> = _playerData
-
     private val _isVisibleData = MutableLiveData<Boolean>()
     val isVisibleData: LiveData<Boolean> = _isVisibleData
-
     private val _isBufferingData = MutableLiveData<Boolean>()
     val isBufferingData: LiveData<Boolean> = _isBufferingData
-
     private val _isPlayData = MutableLiveData<Boolean>()
     val isPlayData: LiveData<Boolean> = _isPlayData
-
     private val _playingPercentData = MutableLiveData<Int>()
     val playingPercentData: LiveData<Int> = _playingPercentData
-
     private val _songDurationTextData = MutableLiveData<String>()
     val songDurationTextData: LiveData<String> = _songDurationTextData
-
     private val _songPositionTextData = MutableLiveData<String>()
     val songPositionTextData: LiveData<String> = _songPositionTextData
-
     private val _songDurationData = MutableLiveData<Int>()
     val songDurationData: LiveData<Int> = _songDurationData
-
     private val _songPositionData = MutableLiveData<Int>()
     val songPositionData: LiveData<Int> = _songPositionData
-
     private val _isShuffleData = MutableLiveData<Boolean>()
     val isShuffleData: LiveData<Boolean> = _isShuffleData
-
     private val _isRepeatAllData = MutableLiveData<Boolean>()
     val isRepeatAllData: LiveData<Boolean> = _isRepeatAllData
-
     private val _isRepeatData = MutableLiveData<Boolean>()
     val isRepeatData: LiveData<Boolean> = _isRepeatData
-
-    private val _isCompletedData = MutableLiveData<Boolean>()
-    val isCompletedData: LiveData<Boolean> = _isCompletedData
-
 
     val song: ASong?
         get() = _playerData.value
@@ -93,7 +78,6 @@ class SongPlayerViewModel : ViewModel() {
     }
 
     fun setPlayStatus(playStatus : Boolean){
-        playerData.value?.isPlay = playStatus
         _isPlayData.value = playStatus
     }
 
@@ -126,10 +110,6 @@ class SongPlayerViewModel : ViewModel() {
         }
     }
 
-    fun onComplete() {
-        _songPositionTextData.value = _songDurationTextData.value
-        _isCompletedData.value = true
-    }
 
     companion object {
 

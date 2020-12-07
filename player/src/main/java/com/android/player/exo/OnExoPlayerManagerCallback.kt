@@ -12,11 +12,7 @@ import java.util.ArrayList
  * */
 interface OnExoPlayerManagerCallback {
 
-    fun isPlaying(): Boolean
-
     fun getCurrentStreamPosition(): Long
-
-    fun getCurrentSong(): ASong?
 
     fun stop()
 

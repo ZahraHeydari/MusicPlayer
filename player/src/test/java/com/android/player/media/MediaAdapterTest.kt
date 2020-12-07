@@ -61,16 +61,10 @@ class MediaAdapterTest {
 
     @Test
     fun testPlaySongs(){
-        mMediaAdapter.playSongs(songList)
+        mMediaAdapter.play(songList , song)
         val currentSongList = mMediaAdapter.getCurrentSongList()
         assertNotNull(currentSongList)
-        assertTrue(currentSongList.size != 0)
-    }
-
-    @Test
-    fun testGetCurrentSong_whenNotPlayingTest() {
-        val currentSong = onExoPlayerManagerCallback.getCurrentSong()
-        assertNull(currentSong)
+        assertTrue(currentSongList?.size != 0)
     }
 
 }

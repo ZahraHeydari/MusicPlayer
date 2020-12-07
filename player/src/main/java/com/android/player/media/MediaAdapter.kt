@@ -29,30 +29,6 @@ class MediaAdapter(
         onExoPlayerManagerCallback.play(song)
     }
 
-    fun playSongs(songList: MutableList<ASong>) {
-        playlistManager?.setCurrentPlaylist(songList)
-    }
-
-    override fun shuffle(isShuffle: Boolean) {
-        playlistManager?.setShuffle(isShuffle)
-    }
-
-    override fun repeatAll(isRepeatAll: Boolean) {
-        playlistManager?.setRepeatAll(isRepeatAll)
-    }
-
-    override fun repeat(isRepeat: Boolean) {
-        playlistManager?.setRepeat(isRepeat)
-    }
-
-    fun play(playlist: Playlist, song: ASong) {
-        playlistManager?.setCurrentPlaylist(playlist, song)
-    }
-
-    fun playOnCurrentPlaylist(song: ASong) {
-        playlistManager?.setSongIndexOnCurrentPlaylist(song)
-    }
-
     fun play(songList: MutableList<ASong>, song: ASong) {
         playlistManager?.setCurrentPlaylist(songList, song)
     }
@@ -87,6 +63,19 @@ class MediaAdapter(
         playlistManager?.addToPlaylist(song)
     }
 
+    override fun shuffle(isShuffle: Boolean) {
+        playlistManager?.setShuffle(isShuffle)
+    }
+
+    override fun repeatAll(isRepeatAll: Boolean) {
+        playlistManager?.setRepeatAll(isRepeatAll)
+    }
+
+    override fun repeat(isRepeat: Boolean) {
+        playlistManager?.setRepeat(isRepeat)
+    }
+
+
     override fun onSongChanged(song: ASong) {
         play(song)
         mediaAdapterCallback.onSongChanged(song)
@@ -96,24 +85,16 @@ class MediaAdapter(
         //Log.d(TAG, "onSongRetrieveError() called")
     }
 
-    override fun onCurrentPlaylistIndexUpdate(index: Int) {
-        //Log.d(TAG, "onCurrentPlaylistIndexUpdate() called with: index = $index")
-    }
-
-    override fun onPlaylistUpdate(newPlaylist: Playlist) {
-        //Log.d(TAG, "onPlaylistUpdate() called with: newPlaylist = $newPlaylist")
-    }
-
     override fun onPlaybackStatusChanged(state: Int) {
         mediaAdapterCallback.onPlaybackStateChanged(state)
     }
 
-    override fun getCurrentSongList(): ArrayList<ASong>{
-        return playlistManager?.getCurrentSongList() as ArrayList<ASong>
+    override fun getCurrentSongList(): ArrayList<ASong>?{
+        return playlistManager?.getCurrentSongList()
     }
 
     override fun getCurrentSong(): ASong? {
-        return onExoPlayerManagerCallback.getCurrentSong()
+        return playlistManager?.getCurrentSong()
     }
 
     override fun setCurrentPosition(position: Long, duration: Long) {
@@ -122,24 +103,23 @@ class MediaAdapter(
 
 
     override fun onCompletion() {
-        if (this.playlistManager?.isRepeat() == true) {
-            this.onExoPlayerManagerCallback.stop()
-            this.playlistManager?.repeat()
+        if (playlistManager?.isRepeat() == true) {
+            onExoPlayerManagerCallback.stop()
+            playlistManager?.repeat()
             return
         }
 
-        if (this.playlistManager?.hasNext() == true) {
-            this.playlistManager?.skipPosition(1)
+        if (playlistManager?.hasNext() == true) {
+            playlistManager?.skipPosition(1)
             return
         }
 
-        if (this.playlistManager?.isRepeatAll() == true) {
-            this.playlistManager?.skipPosition(-1)
+        if (playlistManager?.isRepeatAll() == true) {
+            playlistManager?.skipPosition(-1)
             return
         }
 
-        this.onExoPlayerManagerCallback.stop()
-        mediaAdapterCallback.onSongComplete()
+        onExoPlayerManagerCallback.stop()
     }
 
 

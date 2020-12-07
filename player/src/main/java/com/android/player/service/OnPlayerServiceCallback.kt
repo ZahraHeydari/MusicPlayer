@@ -19,7 +19,5 @@ interface OnPlayerServiceCallback {
 
     fun setPlayStatus(isPlay: Boolean)
 
-    fun onSongEnded()
-
     fun stopService()
 }
