@@ -57,8 +57,10 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$arch_version"
 
     //Room libs
-    implementation "android.arch.persistence.room:runtime:$room_version"
-    kapt "android.arch.persistence.room:compiler:$room_version"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$room_version"
 
     //Koin Libs
     implementation "org.koin:koin-core:$koin_version"
