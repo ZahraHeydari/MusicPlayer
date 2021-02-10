@@ -54,6 +54,9 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
         viewModel.getSongsFromDb()
     }
 
+    override fun onBackPressed() {
+        supportFinishAfterTransition()
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
