@@ -69,6 +69,9 @@ dependencies {
     implementation "org.koin:koin-android-architecture:$koin_architecture_version"
     testImplementation "org.koin:koin-test:$koin_version"
 
+    //Image loader
+    implementation 'io.coil-kt:coil:1.0.0'
+
     //Test libs
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

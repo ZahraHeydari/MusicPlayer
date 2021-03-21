@@ -56,29 +56,29 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
             songPositionTextData.observe(this@SongPlayerActivity,
                 Observer { t -> song_player_passed_time_text_view.text = t })
 
-            songPositionData.observe(this@SongPlayerActivity, Observer {
+            songPositionData.observe(this@SongPlayerActivity, {
                 song_player_progress_seek_bar.progress = it
             })
 
-            isRepeatData.observe(this@SongPlayerActivity, Observer {
+            isRepeatData.observe(this@SongPlayerActivity, {
                 song_player_repeat_image_view.setImageResource(
                     if (it) R.drawable.ic_repeat_one_color_primary_vector
                     else R.drawable.ic_repeat_one_black_vector
                 )
             })
 
-            isShuffleData.observe(this@SongPlayerActivity, Observer {
+            isShuffleData.observe(this@SongPlayerActivity, {
                 song_player_shuffle_image_view.setImageResource(
                     if (it) R.drawable.ic_shuffle_color_primary_vector
                     else R.drawable.ic_shuffle_black_vector
                 )
             })
 
-            isPlayData.observe(this@SongPlayerActivity, Observer {
+            isPlayData.observe(this@SongPlayerActivity, {
                 song_player_toggle_image_view.setImageResource(if (it) R.drawable.ic_pause_vector else R.drawable.ic_play_vector)
             })
 
-            playerData.observe(this@SongPlayerActivity, Observer {
+            playerData.observe(this@SongPlayerActivity, {
                 loadInitialData(it)
             })
         }
@@ -95,7 +95,8 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
             }
         })
 
-        song_player_progress_seek_bar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        song_player_progress_seek_bar.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 if (p2) seekTo(p1.toLong())
             }
@@ -105,7 +106,7 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
             }
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
-               //Nothing to do here
+                //Nothing to do here
             }
 
         })
@@ -134,11 +135,12 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
     private fun loadInitialData(aSong: ASong) {
         song_player_title_text_view.text = aSong.title
         song_player_singer_name_text_view.text = aSong.artist
-        song_player_total_time_text_view.text = formatTimeInMillisToString(aSong.length?.toLong()?:0L)
+        song_player_total_time_text_view.text =
+            formatTimeInMillisToString(aSong.length?.toLong() ?: 0L)
 
+        if (aSong.clipArt.isNullOrEmpty()) song_player_image_view.setImageResource(R.drawable.placeholder)
         aSong.clipArt?.let {
             song_player_image_view.load(File(it)) {
-                crossfade(true)
                 CachePolicy.ENABLED
             }
         }

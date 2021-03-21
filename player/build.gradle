@@ -35,9 +35,6 @@ dependencies {
     //Player
     implementation 'com.google.android.exoplayer:exoplayer:2.13.2'
 
-    //Image loader
-    api 'io.coil-kt:coil:1.0.0'
-
     //Test libs
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
