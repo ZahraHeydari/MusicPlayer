@@ -10,7 +10,6 @@ import android.net.wifi.WifiManager
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
-import android.util.Log
 import com.android.player.model.ASong
 import com.android.player.service.SongPlayerService
 import com.google.android.exoplayer2.*
@@ -19,7 +18,6 @@ import com.google.android.exoplayer2.C.USAGE_MEDIA
 import com.google.android.exoplayer2.audio.AudioAttributes
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
 import com.google.android.exoplayer2.source.ExtractorMediaSource
-import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
@@ -44,12 +42,12 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
     private var mCurrentAudioFocusState = AUDIO_NO_FOCUS_NO_DUCK
     private var mExoPlayer: SimpleExoPlayer? = null
     private var mPlayOnFocusGain: Boolean = false
+    private val bandwidthMeter = DefaultBandwidthMeter()
 
 
     private val mAudioNoisyReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             if (AudioManager.ACTION_AUDIO_BECOMING_NOISY == intent.action) {
-                Log.d(TAG, "Headphones disconnected.")
                 if (mPlayOnFocusGain || mExoPlayer != null && mExoPlayer?.playWhenReady == true) {
                     val i = Intent(context, SongPlayerService::class.java).apply {
                         action = SongPlayerService.ACTION_CMD
@@ -72,7 +70,8 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
 
     // Whether to return STATE_NONE or STATE_STOPPED when mExoPlayer is null;
     private var mExoPlayerIsStopped = false
-    private val mOnAudioFocusChangeListener = AudioManager.OnAudioFocusChangeListener { focusChange ->
+    private val mOnAudioFocusChangeListener =
+        AudioManager.OnAudioFocusChangeListener { focusChange ->
             //Log.d(TAG, "onAudioFocusChange. focusChange= $focusChange")
             when (focusChange) {
                 AudioManager.AUDIOFOCUS_GAIN -> mCurrentAudioFocusState = AUDIO_FOCUSED
@@ -107,7 +106,6 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
     }
 
     private fun onUpdateProgress(position: Long, duration: Long) {
-        Log.d(TAG, "onUpdateProgress() called with: position = $position, duration = $duration")
         mExoSongStateCallback?.setCurrentPosition(position, duration)
     }
 
@@ -162,7 +160,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
                 .setContentType(CONTENT_TYPE_MUSIC)
                 .setUsage(USAGE_MEDIA)
                 .build()
-            mExoPlayer?.audioAttributes = audioAttributes
+            mExoPlayer?.setAudioAttributes(audioAttributes, false)
 
             // Produces DataSource instances through which media data is loaded.
             val dataSourceFactory = buildDataSourceFactory(context)
@@ -172,8 +170,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
             val extractorMediaFactory = ExtractorMediaSource.Factory(dataSourceFactory)
             extractorMediaFactory.setExtractorsFactory(extractorsFactory)
 
-            val mediaSource: MediaSource
-            mediaSource = when (mCurrentSong?.songType) {
+            val mediaSource = when (mCurrentSong?.songType) {
                 C.TYPE_OTHER ->
                     ExtractorMediaSource.Factory(dataSourceFactory)
                         .createMediaSource(Uri.parse(source))
@@ -198,13 +195,12 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
         val dataSourceFactory = DefaultDataSourceFactory(
             context,
             Util.getUserAgent(context, BuildConfig.APPLICATION_ID),
-            BANDWIDTH_METER
+            bandwidthMeter
         )
-        return DefaultDataSourceFactory(context, BANDWIDTH_METER, dataSourceFactory)
+        return DefaultDataSourceFactory(context, bandwidthMeter, dataSourceFactory)
     }
 
     override fun pause() {
-        Log.d(TAG, "pause() called")
         mExoPlayer?.playWhenReady = false
         // While paused, retain the player instance, but give up audio focus.
         releaseResources(false)
@@ -212,7 +208,6 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
     }
 
     override fun stop() {
-        Log.d(TAG, "stop() called")
         giveUpAudioFocus()
         releaseResources(true)
         unregisterAudioNoisyReceiver()
@@ -220,13 +215,11 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
     }
 
     override fun seekTo(position: Long) {
-        Log.d(TAG, "seekTo() called with: position = $position")
         registerAudioNoisyReceiver()
         mExoPlayer?.seekTo(position)
     }
 
     private fun tryToGetAudioFocus() {
-        Log.d(TAG, "tryToGetAudioFocus")
         val result = mAudioManager?.requestAudioFocus(
             mOnAudioFocusChangeListener,
             AudioManager.STREAM_MUSIC,
@@ -240,7 +233,6 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
     }
 
     private fun giveUpAudioFocus() {
-        Log.d(TAG, "giveUpAudioFocus")
         if (mAudioManager?.abandonAudioFocus(mOnAudioFocusChangeListener) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
             mCurrentAudioFocusState = AUDIO_NO_FOCUS_NO_DUCK
         }
@@ -254,7 +246,6 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
      * settings.
      */
     private fun configurePlayerState() {
-        Log.d(TAG, "configurePlayerState. mCurrentAudioFocusState= $mCurrentAudioFocusState")
         if (mCurrentAudioFocusState == AUDIO_NO_FOCUS_NO_DUCK) {
             // We don't have audio focus and can't duck, so we have to pause
             pause()
@@ -283,8 +274,6 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
      * @param releasePlayer Indicates whether the player should also be released
      */
     private fun releaseResources(releasePlayer: Boolean) {
-        Log.d(TAG, "releaseResources. releasePlayer= $releasePlayer")
-
         // Stops and releases player (if requested and available).
         if (releasePlayer) {
             mUpdateProgressHandler.removeMessages(0)
@@ -344,7 +333,6 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
                 ExoPlaybackException.TYPE_UNEXPECTED -> error.unexpectedException.message ?: ""
                 else -> "onPlayerError: $error"
             }
-            Log.e(TAG, "onPlayerError: $what")
         }
 
         override fun onPositionDiscontinuity(reason: Int) {
@@ -368,7 +356,6 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
 
         private val TAG = ExoPlayerManager::class.java.name
         const val UPDATE_PROGRESS_DELAY = 500L
-        private val BANDWIDTH_METER = DefaultBandwidthMeter()
 
         // The volume we set the media player to when we lose audio focus, but are
         // allowed to reduce the volume instead of stopping playback.
