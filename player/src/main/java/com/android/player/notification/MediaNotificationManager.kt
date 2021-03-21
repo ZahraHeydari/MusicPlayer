@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.RemoteException
@@ -14,9 +15,9 @@ import android.view.View
 import android.widget.RemoteViews
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import androidx.core.graphics.drawable.toBitmap
-import coil.Coil
-import coil.api.load
+import coil.ImageLoader
+import coil.request.Disposable
+import coil.request.ImageRequest
 import com.android.player.BaseSongPlayerActivity
 import com.android.player.R
 import com.android.player.exo.PlaybackState
@@ -42,12 +43,14 @@ constructor(private val mService: SongPlayerService) : BroadcastReceiver() {
     private var mCollapsedRemoteViews: RemoteViews? = null
     private var mExpandedRemoteViews: RemoteViews? = null
     private var notificationBuilder: NotificationCompat.Builder? = null
+    private var disposable : Disposable ?= null
     var mStarted = false //To check if notification manager is started or not!
 
 
     private fun getPackageName(): String {
         return mService.packageName
     }
+
 
     init {
         mNotificationManager = mService.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -109,7 +112,7 @@ constructor(private val mService: SongPlayerService) : BroadcastReceiver() {
                 mService.run {
                     unregisterReceiver(this@MediaNotificationManager)
                     stop()
-
+                    disposable?.dispose()
                 }
             }
             else -> Log.w(TAG, "Unknown intent ignored.")
@@ -139,7 +142,6 @@ constructor(private val mService: SongPlayerService) : BroadcastReceiver() {
         notificationBuilder?.setCustomContentView(mCollapsedRemoteViews)
         mExpandedRemoteViews = RemoteViews(getPackageName(), R.layout.player_expanded_notification)
         notificationBuilder?.setCustomBigContentView(mExpandedRemoteViews)
-
         notificationBuilder?.setContentIntent(createContentIntent())
 
         // To make sure that the notification can be dismissed by the user when we are not playing.
@@ -148,22 +150,27 @@ constructor(private val mService: SongPlayerService) : BroadcastReceiver() {
         mCollapsedRemoteViews?.let { createCollapsedRemoteViews(it) }
         mExpandedRemoteViews?.let { createExpandedRemoteViews(it) }
 
-        mService.getCurrentSong()?.clipArt?.let { nonNullClipArt ->
-            Coil.load(mService, File(nonNullClipArt)) {
-                placeholder(R.drawable.placeholder)
-                error(R.drawable.placeholder)
-                target {
+
+        mService.getCurrentSong()?.clipArt?.let {
+            val request = ImageRequest.Builder(mService)
+                .data(File(it))
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .target { drawable ->
+                    // Handle the result.
                     mCollapsedRemoteViews?.setImageViewBitmap(
                         R.id.collapsed_notification_image_view,
-                        it.toBitmap()
+                        (drawable as BitmapDrawable).bitmap
                     )
                     mExpandedRemoteViews?.setImageViewBitmap(
                         R.id.expanded_notification_image_view,
-                        it.toBitmap()
+                        (drawable as BitmapDrawable).bitmap
                     )
                 }
-            }
+                .build()
+            disposable = ImageLoader(mService).enqueue(request)
         }
+
 
         if (mService.getPlayState() == PlaybackState.STATE_PLAYING ||
             mService.getPlayState() == PlaybackState.STATE_BUFFERING) showPauseIcon() else showPlayIcon()

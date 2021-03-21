@@ -1,11 +1,10 @@
 package com.android.musicplayer.presentation.playlist
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
+import coil.load
 import coil.request.CachePolicy
 import com.android.musicplayer.R
 import com.android.musicplayer.data.model.Song
@@ -60,10 +59,10 @@ internal class PlaylistAdapter(val mListener: OnPlaylistAdapterListener) :
 
 
         fun onBind(song: Song) {
-            Log.i(TAG, "SongViewHolder onBind: $song")
             itemView.music_item_name_text_view.text = song.title ?: ""
 
             song.clipArt?.let { nonNullImage ->
+
                 itemView.music_item_avatar_image_view.load(File(nonNullImage)) {
                     crossfade(true)
                     placeholder(R.drawable.placeholder)
@@ -82,10 +81,6 @@ internal class PlaylistAdapter(val mListener: OnPlaylistAdapterListener) :
             }
 
         }
-    }
-
-    companion object {
-        private val TAG = PlaylistAdapter::class.java.name
     }
 
 }

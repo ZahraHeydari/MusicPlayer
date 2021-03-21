@@ -3,10 +3,9 @@ package com.android.musicplayer.presentation.songplayer
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.SeekBar
 import androidx.lifecycle.Observer
-import coil.api.load
+import coil.load
 import coil.request.CachePolicy
 import com.android.musicplayer.R
 import com.android.musicplayer.data.model.Song
@@ -98,17 +97,15 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
 
         song_player_progress_seek_bar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                Log.i(TAG, "onProgressChanged: p0: $p0 p1: $p1, p2: $p2")
                 if (p2) seekTo(p1.toLong())
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
-                Log.i(TAG, "onStartTrackingTouch: p0: $p0")
+                //Nothing to do here
             }
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
-                Log.i(TAG, "onStopTrackingTouch: p0: $p0")
-
+               //Nothing to do here
             }
 
         })
@@ -150,7 +147,6 @@ class SongPlayerActivity : BaseSongPlayerActivity() {
     companion object {
 
         private val TAG = SongPlayerActivity::class.java.name
-
 
         fun start(context: Context, song: Song, songList: ArrayList<Song>) {
             val intent = Intent(context, SongPlayerActivity::class.java).apply {
