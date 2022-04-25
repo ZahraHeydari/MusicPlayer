@@ -32,21 +32,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="782b9082-73b6-4021-8074-8d5c40168852" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/player/src/test/java/com/android/player/exo/ExoPlayerManagerTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/player/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/androidTest/java/com/android/player/exo/ExoPlayerManagerTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/androidTest/java/com/android/player/helper/ResourceHelperTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/androidTest/java/com/android/player/notification/MediaNotificationManagerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/androidTest/java/com/android/player/notification/MediaNotificationManagerTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/androidTest/java/com/android/player/service/SongPlayerServiceTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/androidTest/java/com/android/player/service/SongPlayerServiceTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/ExoPlayerManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/ExoPlayerManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/model/ASong.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/model/ASong.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/SongPlayerService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/SongPlayerService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/test/java/com/android/player/media/MediaAdapterTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/test/java/com/android/player/media/MediaAdapterTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/test/java/com/android/player/playlist/PlaylistManagerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/test/java/com/android/player/playlist/PlaylistManagerTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player/src/test/java/com/android/player/playlist/PlaylistTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/test/java/com/android/player/playlist/PlaylistTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,6 +50,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand />
@@ -116,40 +106,8 @@
       <recent name="com.android.player" />
     </key>
   </component>
-  <component name="RunManager" selected="Android Instrumented Tests.Tests in 'com.android.player'">
+  <component name="RunManager" selected="Android Instrumented Tests.SongPlayerServiceTest">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
-      <option name="TEST_OBJECT" value="class" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <method v="2">
-        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MediaAdapterTest" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
-      <module name="MusicPlayer.player" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.android.player.media.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.android.player.media" />
-      <option name="MAIN_CLASS_NAME" value="com.android.player.media.MediaAdapterTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <method v="2">
-        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PlaylistManagerTest" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
-      <module name="MusicPlayer-player" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.android.player.playlist.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.android.player.playlist" />
-      <option name="MAIN_CLASS_NAME" value="com.android.player.playlist.PlaylistManagerTest" />
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -272,12 +230,12 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tests in 'com.android.player'" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
+    <configuration name="SongPlayerServiceTest" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
       <module name="MusicPlayer.player" />
-      <option name="TESTING_TYPE" value="1" />
+      <option name="TESTING_TYPE" value="2" />
       <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="PACKAGE_NAME" value="com.android.player" />
+      <option name="CLASS_NAME" value="com.android.player.service.SongPlayerServiceTest" />
+      <option name="PACKAGE_NAME" value="" />
       <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
       <option name="EXTRA_OPTIONS" value="" />
       <option name="INCLUDE_GRADLE_EXTRA_OPTIONS" value="true" />
@@ -323,12 +281,12 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExoPlayerManagerTest.testSeekTo" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ExoPlayerManagerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.android.player.exo.ExoPlayerManagerTest.testSeekTo&quot;" />
+        <option name="scriptParameters" value="--tests &quot;com.android.player.exo.ExoPlayerManagerTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -345,19 +303,79 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="player in MusicPlayer.player" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="MusicPlayer.player" />
-      <option name="TEST_OBJECT" value="directory" />
-      <dir value="$PROJECT_DIR$/player/src/test/java/com/android/player" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="MediaAdapterTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.android.player.media.MediaAdapterTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":player:cleanTestDebugUnitTest" />
+            <option value=":player:testDebugUnitTest" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="PlaylistManagerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.android.player.playlist.PlaylistManagerTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":player:cleanTestDebugUnitTest" />
+            <option value=":player:testDebugUnitTest" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="PlaylistTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.android.player.playlist.PlaylistTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":player:cleanTestDebugUnitTest" />
+            <option value=":player:testDebugUnitTest" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Android Instrumented Tests.Tests in 'com.android.player'" />
-        <item itemvalue="Gradle.ExoPlayerManagerTest.testSeekTo" />
-        <item itemvalue="JUnit.player in MusicPlayer.player" />
+        <item itemvalue="Android Instrumented Tests.SongPlayerServiceTest" />
+        <item itemvalue="Gradle.ExoPlayerManagerTest" />
+        <item itemvalue="Gradle.MediaAdapterTest" />
+        <item itemvalue="Gradle.PlaylistManagerTest" />
+        <item itemvalue="Gradle.PlaylistTest" />
       </list>
     </recent_temporary>
   </component>
@@ -385,5 +403,19 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-function">
+          <url>file://$PROJECT_DIR$/player/src/test/java/com/android/player/playlist/PlaylistTest.kt</url>
+          <line>13</line>
+          <properties class="com.android.player.playlist.PlaylistTest" method="&lt;init&gt;">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

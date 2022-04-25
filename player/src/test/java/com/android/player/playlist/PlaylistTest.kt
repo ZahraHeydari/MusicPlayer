@@ -77,8 +77,9 @@ class PlaylistTest {
         mockedPlaylist.addItems(songs)
         val result = mockedPlaylist.getShuffleOrNormalList()
         assertEquals(
-            "Received result ${mockedPlaylist.getShuffleOrNormalList()} & mocked $songs must be matches on each other!",
-            songs, result
+            "Received result ${mockedPlaylist.getShuffleOrNormalList()} " +
+                    "& mocked $songs must be matches on each other!",
+            songs.size, result.size
         )
     }
 
