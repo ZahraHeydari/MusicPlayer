@@ -24,5 +24,4 @@ abstract class ASong(
     private fun calculatePlayingPercent(): Int {
         return if (currentPosition == 0L || totalDuration == 0L) 0 else (currentPosition * 100 / totalDuration).toInt()
     }
-
 }

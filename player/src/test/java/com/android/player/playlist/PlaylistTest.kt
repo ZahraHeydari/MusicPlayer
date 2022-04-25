@@ -1,6 +1,5 @@
 package com.android.player.playlist
 
-
 import com.android.player.model.ASong
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -15,7 +14,6 @@ import org.mockito.junit.MockitoJUnitRunner
 class PlaylistTest {
 
     private val mockedPlaylist = Playlist()
-
 
     @Before
     fun setup() {
@@ -70,7 +68,6 @@ class PlaylistTest {
         val result = mockedPlaylist.getShuffleOrNormalList()
         assertNotNull(result)
     }
-
 
     @Test
     fun addItemsTest() {

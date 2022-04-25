@@ -6,20 +6,16 @@ import org.junit.Test
 
 import org.junit.Assert.*
 import org.junit.runner.RunWith
-import org.mockito.Mockito
 import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
-
 @RunWith(MockitoJUnitRunner::class)
 class PlaylistManagerTest {
-
 
     lateinit var playlistManager: PlaylistManager
     private val mListener = mock(PlaylistManager.OnSongUpdateListener::class.java)
     private var playlist = Playlist()
-    private var mCurrentIndex: Int = 0
 
     @Before
     fun setUp() {
@@ -41,7 +37,6 @@ class PlaylistManagerTest {
         assertTrue(playlist.isRepeatAll)
     }
 
-
     @Test
     fun hasNext_firstCallTest() {
         val hasNext = playlistManager.hasNext()
@@ -59,11 +54,9 @@ class PlaylistManagerTest {
         assertFalse(hasNext)
     }
 
-
-
     @Test
     fun getCurrentSongList() {
-        val song = Mockito.mock(ASong::class.java)
+        val song = mock(ASong::class.java)
         playlistManager.addToPlaylist(song)
 
         assertEquals(1, playlistManager.getCurrentSongList().size)

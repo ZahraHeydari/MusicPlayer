@@ -1,14 +1,12 @@
 package com.android.player.media
 
 import com.android.player.exo.OnExoPlayerManagerCallback
-import com.android.player.exo.PlaybackState
 import com.android.player.model.ASong
 import com.android.player.playlist.PlaylistManager
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
 import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
@@ -23,7 +21,6 @@ class MediaAdapterTest {
     private val mediaControllerCallback = mock(OnMediaAdapterCallback::class.java)
     private val song = mock(ASong::class.java)
     private val songList = arrayListOf<ASong>(song)
-
 
     @Before
     fun setup() {
@@ -45,7 +42,6 @@ class MediaAdapterTest {
         assertEquals(1, playlistManager.getCurrentSongList().size)
     }
 
-
     @Test
     fun testAddSongListToPlaylist() {
         playlistManager.addToPlaylist(songList)
@@ -57,7 +53,6 @@ class MediaAdapterTest {
         )
         assertEquals(1, playlistManager.getCurrentSongList().size)
     }
-
 
     @Test
     fun testPlaySongs(){

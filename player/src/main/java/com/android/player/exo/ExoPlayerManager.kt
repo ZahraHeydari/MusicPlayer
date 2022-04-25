@@ -38,7 +38,7 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
     private val mAudioNoisyIntentFilter = IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY)
     private var mExoSongStateCallback: OnExoPlayerManagerCallback.OnSongStateCallback? = null
     private var mAudioNoisyReceiverRegistered: Boolean = false
-    private var mCurrentSong: ASong? = null
+    var mCurrentSong: ASong? = null
     private var mCurrentAudioFocusState = AUDIO_NO_FOCUS_NO_DUCK
     private var mExoPlayer: SimpleExoPlayer? = null
     private var mPlayOnFocusGain: Boolean = false
@@ -327,11 +327,13 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
         }
 
         override fun onPlayerError(error: ExoPlaybackException) {
-            val what: String = when (error.type) {
-                ExoPlaybackException.TYPE_SOURCE -> error.sourceException.message ?: ""
-                ExoPlaybackException.TYPE_RENDERER -> error.rendererException.message ?: ""
-                ExoPlaybackException.TYPE_UNEXPECTED -> error.unexpectedException.message ?: ""
-                else -> "onPlayerError: $error"
+            when (error.type) {
+                ExoPlaybackException.TYPE_SOURCE -> error.sourceException.message
+                ExoPlaybackException.TYPE_RENDERER -> error.rendererException.message
+                ExoPlaybackException.TYPE_UNEXPECTED -> error.unexpectedException.message
+                ExoPlaybackException.TYPE_REMOTE -> {
+                    print("onPlayerError: $error")
+                }
             }
         }
 
@@ -353,7 +355,6 @@ class ExoPlayerManager(val context: Context) : OnExoPlayerManagerCallback {
     }
 
     companion object {
-
         private val TAG = ExoPlayerManager::class.java.name
         const val UPDATE_PROGRESS_DELAY = 500L
 

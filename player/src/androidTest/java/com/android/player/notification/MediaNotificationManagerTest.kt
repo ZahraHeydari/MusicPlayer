@@ -1,6 +1,5 @@
 package com.android.player.notification
 
-import android.content.Context
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -8,7 +7,6 @@ import androidx.test.rule.ServiceTestRule
 import com.android.player.service.SongPlayerService
 import org.junit.Before
 import org.junit.Test
-
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.runner.RunWith
@@ -22,9 +20,9 @@ class MediaNotificationManagerTest {
 
     @Before
     fun setUp() {
-        val intent = Intent(ApplicationProvider.getApplicationContext<Context>(), SongPlayerService::class.java)
+        val intent = Intent(ApplicationProvider.getApplicationContext(), SongPlayerService::class.java)
         val binder = mServiceRule.bindService(intent)
-        val serviceSong: SongPlayerService = (binder as SongPlayerService.LocalBinder).serviceSong
+        val serviceSong: SongPlayerService = (binder as SongPlayerService.LocalBinder).service
         notificationManager = MediaNotificationManager(serviceSong)
     }
 

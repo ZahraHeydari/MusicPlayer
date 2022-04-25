@@ -14,7 +14,6 @@ import com.android.player.model.ASong
 import com.android.player.notification.MediaNotificationManager
 import java.util.*
 
-
 class SongPlayerService : Service(), OnMediaAdapterCallback {
 
     private var mMediaAdapter: MediaAdapter? = null
@@ -23,7 +22,6 @@ class SongPlayerService : Service(), OnMediaAdapterCallback {
     private var playState = 0
     var mCallback: OnPlayerServiceCallback? = null
     var command: String? = null
-
 
     override fun onCreate() {
         super.onCreate()
@@ -127,7 +125,6 @@ class SongPlayerService : Service(), OnMediaAdapterCallback {
         mMediaAdapter?.seekTo(position)
     }
 
-
     override fun onPlaybackStateChanged(state : Int) {
         playState = state
         when (state) {
@@ -136,19 +133,16 @@ class SongPlayerService : Service(), OnMediaAdapterCallback {
                 mCallback?.setVisibilityData(true)
                 mCallback?.setPlayStatus(true)
             }
-
             PlaybackState.STATE_PLAYING -> {
                 mCallback?.setBufferingData(false)
                 mCallback?.setVisibilityData(true)
                 mCallback?.setPlayStatus(true)
             }
-
             PlaybackState.STATE_PAUSED -> {
                 mCallback?.setBufferingData(false)
                 mCallback?.setVisibilityData(true)
                 mCallback?.setPlayStatus(false)
             }
-
             else -> {
                 mCallback?.setBufferingData(false)
                 mCallback?.setVisibilityData(false)
@@ -183,9 +177,7 @@ class SongPlayerService : Service(), OnMediaAdapterCallback {
             get() = this@SongPlayerService
     }
 
-
     companion object {
-
         private val TAG = SongPlayerService::class.java.name
         const val ACTION_CMD = "app.ACTION_CMD"
         const val CMD_NAME = "CMD_NAME"
