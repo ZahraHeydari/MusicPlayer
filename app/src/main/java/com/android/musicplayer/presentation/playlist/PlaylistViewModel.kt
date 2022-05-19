@@ -13,7 +13,6 @@ class PlaylistViewModel(
     private val deleteSongUseCase: DeleteSongUseCase
 ) : ViewModel() {
 
-
     val playlistData = MutableLiveData<List<Song>>()
 
     fun saveSongData(song: Song) {

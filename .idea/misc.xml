@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable-nodpi/ic_repeat_one_black_vector.xml" value="0.196875" />
+        <entry key="app/src/main/res/drawable/ic_baseline_repeat_24.xml" value="0.196875" />
+        <entry key="app/src/main/res/layout/activity_song_player.xml" value="0.13120567375886524" />
+        <entry key="player/src/main/res/layout/player_expanded_notification.xml" value="0.18072916666666666" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

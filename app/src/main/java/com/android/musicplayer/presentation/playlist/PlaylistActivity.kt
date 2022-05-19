@@ -10,6 +10,7 @@ import android.provider.MediaStore
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.lifecycle.Observer
 import com.android.musicplayer.R
 import com.android.musicplayer.data.model.Song
@@ -18,7 +19,8 @@ import com.android.player.BaseSongPlayerActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_playlist.*
 import kotlinx.android.synthetic.main.content_main.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
 
 class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
 
@@ -33,7 +35,6 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
         adapter = PlaylistAdapter(this)
         playlist_recycler_view.adapter = adapter
 
-
         fab.setOnClickListener { view ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (isReadPhoneStatePermissionGranted()) openMusicList()
@@ -44,7 +45,7 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
             } else openMusicList()
         }
 
-        viewModel.playlistData.observe(this, Observer {
+        viewModel.playlistData.observe(this, {
             adapter?.songs = it
         })
     }
@@ -68,7 +69,6 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
     }
 
     private fun addSong(musicData: Uri) {
-        /*    val cursor = activity?.contentResolver?.query(musicData, null,null, null, null)*/
         val cursor = contentResolver?.query(
             musicData,
             arrayOf(
@@ -102,19 +102,16 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
             }
 
             val song = Song(
-                id.toInt(),
+                id,
                 title.toString(),
-                path.toString(),
                 artist,
+                path,
                 albumArt,
-                duration,
-                AUDIO_TYPE
             )
             viewModel.saveSongData(song)
         }
         cursor?.close()
     }
-
 
     private fun isReadPhoneStatePermissionGranted(): Boolean {
         val firstPermissionResult = ContextCompat.checkSelfPermission(
@@ -150,7 +147,6 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
         viewModel.removeItemFromList(song)
     }
 
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         @NonNull permissions: Array<String>,
@@ -177,17 +173,12 @@ class PlaylistActivity : BaseSongPlayerActivity(), OnPlaylistAdapterListener {
         startActivityForResult(intent, PICK_AUDIO_KEY)
     }
 
-
     override fun playSong(song: Song, songs: ArrayList<Song>) {
         SongPlayerActivity.start(this, song, songs)
     }
 
-
     companion object {
-
-        private val TAG = PlaylistActivity::class.java.name
         const val REQUEST_PERMISSION_READ_EXTERNAL_STORAGE_CODE = 7031
         const val PICK_AUDIO_KEY = 2017
-        const val AUDIO_TYPE = 3
     }
 }

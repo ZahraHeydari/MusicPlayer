@@ -10,26 +10,24 @@ import android.os.Looper
 import android.os.Message
 import androidx.appcompat.app.AppCompatActivity
 import com.android.player.SongPlayerViewModel.Companion.getPlayerViewModelInstance
-import com.android.player.model.ASong
 import com.android.player.service.OnPlayerServiceCallback
 import com.android.player.service.SongPlayerService
-
+import com.android.player.util.orFalse
+import com.google.android.exoplayer2.MediaItem
 
 open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback {
 
-
     private var mService: SongPlayerService? = null
     private var mBound = false
-    private var mSong: ASong? = null
-    private var mSongList: MutableList<ASong>? = null
+    private var mMediaItem: MediaItem? = null
+    private var mMediaItems: ArrayList<MediaItem>? = null
     private var msg = 0
     val songPlayerViewModel: SongPlayerViewModel = getPlayerViewModelInstance()
-
 
     private val mHandler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             when (msg.what) {
-                ACTION_PLAY_SONG_IN_LIST -> mService?.play(mSongList, mSong)
+                ACTION_PLAY_SONG_IN_LIST -> mService?.play(mMediaItems, mMediaItem)
                 ACTION_PAUSE -> mService?.pause()
                 ACTION_STOP -> {
                     mService?.stop()
@@ -43,7 +41,6 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback
      * Defines callbacks for service binding, passed to bindService()
      */
     private val mConnection = object : ServiceConnection {
-
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             // We've bound to SongPlayerService, cast the IBinder and get SongPlayerService instance
             val binder = service as SongPlayerService.LocalBinder
@@ -62,29 +59,28 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback
     }
 
     private fun bindPlayerService() {
-        if (!mBound) bindService(Intent(this, SongPlayerService::class.java), mConnection, Context.BIND_AUTO_CREATE)
+        if (!mBound) bindService(
+            Intent(this, SongPlayerService::class.java),
+            mConnection, Context.BIND_AUTO_CREATE
+        )
     }
 
-
-    fun play(songList: MutableList<ASong>?, song: ASong) {
+    fun play(mediaItems: ArrayList<MediaItem>, song: MediaItem?) {
         msg = ACTION_PLAY_SONG_IN_LIST
-        mSong = song
-        mSongList = songList
-        songPlayerViewModel.setPlayStatus(true)
+        mMediaItem = song
+        mMediaItems = mediaItems
         if (mService == null) bindPlayerService()
         else mHandler.sendEmptyMessage(msg)
     }
 
-    private fun pause() {
+    fun pause() {
         msg = ACTION_PAUSE
-        songPlayerViewModel.setPlayStatus(false)
         if (mService == null) bindPlayerService()
         else mHandler.sendEmptyMessage(msg)
     }
 
     fun stop() {
         msg = ACTION_STOP
-        songPlayerViewModel.setPlayStatus(false)
         if (mService == null) bindPlayerService()
         else mHandler.sendEmptyMessage(msg)
     }
@@ -98,78 +94,57 @@ open class BaseSongPlayerActivity : AppCompatActivity(), OnPlayerServiceCallback
     }
 
     fun toggle() {
-        if (songPlayerViewModel.isPlayData.value == true) pause()
-        else songPlayerViewModel.playerData.value?.let { it1 -> play(mSongList, it1) }
+        mService?.toggle()
     }
 
     fun seekTo(position: Long?) {
         position?.let { nonNullPosition ->
-            songPlayerViewModel.seekTo(nonNullPosition)
             mService?.seekTo(nonNullPosition)
         }
     }
 
-    fun addNewPlaylistToCurrent(songList: ArrayList<ASong>) {
-        mService?.addNewPlaylistToCurrent(songList)
-    }
-
     fun shuffle() {
-        mService?.onShuffle(songPlayerViewModel.isShuffleData.value ?: false)
+        mService?.onShuffle(songPlayerViewModel.isShuffleData.value.orFalse())
         songPlayerViewModel.shuffle()
     }
 
-    fun repeatAll() {
-        mService?.onRepeatAll(songPlayerViewModel.isRepeatAllData.value ?: false)
-        songPlayerViewModel.repeatAll()
-    }
-
     fun repeat() {
-        mService?.onRepeat(songPlayerViewModel.isRepeatData.value ?: false)
+        mService?.onRepeat(songPlayerViewModel.isRepeatData.value.orFalse())
         songPlayerViewModel.repeat()
     }
 
-    override fun updateSongData(song: ASong) {
-        songPlayerViewModel.updateSong(song)
+    override fun updateSongData(mediaItem: MediaItem) {
+        songPlayerViewModel.updateMediaItem(mediaItem)
     }
 
-    override fun setPlayStatus(isPlay: Boolean) {
-        songPlayerViewModel.setPlayStatus(isPlay)
+    override fun onIsPlayingChanged(isPlaying: Boolean) {
+        songPlayerViewModel.setPlayingStatus(isPlaying)
     }
 
     override fun updateSongProgress(duration: Long, position: Long) {
         songPlayerViewModel.setChangePosition(position, duration)
     }
 
-    override fun setBufferingData(isBuffering: Boolean) {
-        songPlayerViewModel.setBuffering(isBuffering)
+    override fun updateUiForPlayingMediaItem(mediaItem: MediaItem?) {
+        songPlayerViewModel.updateMediaItem(mediaItem)
     }
 
-    override fun setVisibilityData(isVisibility: Boolean) {
-        songPlayerViewModel.setVisibility(isVisibility)
-    }
-
-    private fun unbindService(){
+    private fun unbindService() {
         if (mBound) {
             unbindService(mConnection)
             mBound = false
         }
     }
 
-    override fun stopService(){
+    override fun onDestroy() {
         unbindService()
         mService = null
-    }
-
-    override fun onDestroy() {
-        stopService()
         super.onDestroy()
     }
 
-
     companion object {
-
-        private val TAG = BaseSongPlayerActivity::class.java.name
-        const val SONG_LIST_KEY = "SONG_LIST_KEY"
+        const val PLAY_LIST_KEY = "PLAY_LIST_KEY"
+        const val MEDIA_ITEM_KEY = "MEDIA_ITEM_KEY"
         private const val ACTION_PLAY_SONG_IN_LIST = 1
         private const val ACTION_PAUSE = 2
         private const val ACTION_STOP = 3

@@ -10,7 +10,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
+    <option name="autoReloadType" value="NONE" />
   </component>
   <component name="BranchesTreeState">
     <expand>
@@ -32,16 +32,60 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="782b9082-73b6-4021-8074-8d5c40168852" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_repeat_24.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/util/Extensions.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/src/test/java/com/android/player/playlist/PlaylistTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/test/java/com/android/player/playlist/PlaylistTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/MainApplication.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/MainApplication.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/data/model/Song.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/data/model/Song.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/data/repository/PlaylistRepositoryImp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/data/repository/PlaylistRepositoryImp.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/data/source/local/dao/SongDao.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/data/source/local/dao/SongDao.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/di/module/AppModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/di/module/AppModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/di/module/DatabaseModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/di/module/DatabaseModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/domain/repository/PlaylistRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/domain/repository/PlaylistRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/domain/usecase/SaveSongDataUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/domain/usecase/SaveSongDataUseCase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/OnPlaylistAdapterListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/OnPlaylistAdapterListener.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/playlist/PlaylistViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/musicplayer/presentation/songplayer/SongPlayerActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flow.png" beforeDir="false" afterPath="$PROJECT_DIR$/flow.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/player/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/androidTest/java/com/android/player/notification/MediaNotificationManagerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/androidTest/java/com/android/player/notification/PlayerNotificationManagerTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/BaseSongPlayerActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/SongPlayerViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/SongPlayerViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/ExoPlayerManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/ExoPlayerManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/OnExoPlayerManagerCallback.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/OnExoPlayerManagerCallback.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/exo/PlaybackState.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/media/MediaAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/media/OnMediaAdapterCallback.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/model/ASong.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/notification/MediaNotificationManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/notification/PlayerNotificationManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/playlist/Playlist.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/playlist/PlaylistManager.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/OnPlayerServiceCallback.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/OnPlayerServiceCallback.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/SongPlayerService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/service/SongPlayerService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/util/OnSwipeTouchListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/util/OnSwipeTouchListener.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/java/com/android/player/util/Utils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/java/com/android/player/util/Utils.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/main/res/layout/player_expanded_notification.xml" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/main/res/layout/player_expanded_notification.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/test/java/com/android/player/exo/ExoPlayerManagerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/player/src/test/java/com/android/player/exo/ExoPlayerManagerTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/test/java/com/android/player/media/MediaAdapterTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/test/java/com/android/player/playlist/PlaylistManagerTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/src/test/java/com/android/player/playlist/PlaylistTest.kt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/zara/.android/avd/Pixel_2_XL_API_29.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/zara/.android/avd/Pixel_XL_API_26.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -61,6 +105,14 @@
         </projects_view>
       </state>
     </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Data Class" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -87,7 +139,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DEBUGGABLE_DEVICE" value="emulator-5554" />
+    <property name="DEBUGGABLE_DEVICE" value="Pixel_XL_API_26 [emulator-5554]" />
     <property name="DEBUGGABLE_PROCESS" value="com.android.musicplayer" />
     <property name="DEBUGGER_ID" value="Auto" />
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_XL_API_26" />
@@ -106,7 +158,7 @@
       <recent name="com.android.player" />
     </key>
   </component>
-  <component name="RunManager" selected="Android Instrumented Tests.SongPlayerServiceTest">
+  <component name="RunManager" selected="Android App.app">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -230,6 +282,57 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PlayerNotificationMa..." type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
+      <module name="MusicPlayer.player" />
+      <option name="TESTING_TYPE" value="2" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="com.android.player.notification.PlayerNotificationManagerTest" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="INCLUDE_GRADLE_EXTRA_OPTIONS" value="true" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SongPlayerServiceTest" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
       <module name="MusicPlayer.player" />
       <option name="TESTING_TYPE" value="2" />
@@ -347,38 +450,17 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="PlaylistTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.android.player.playlist.PlaylistTest&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":player:cleanTestDebugUnitTest" />
-            <option value=":player:testDebugUnitTest" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Android Instrumented Tests.PlayerNotificationMa..." />
         <item itemvalue="Android Instrumented Tests.SongPlayerServiceTest" />
         <item itemvalue="Gradle.ExoPlayerManagerTest" />
         <item itemvalue="Gradle.MediaAdapterTest" />
         <item itemvalue="Gradle.PlaylistManagerTest" />
-        <item itemvalue="Gradle.PlaylistTest" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -414,6 +496,11 @@
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/player/src/main/java/com/android/player/media/MediaAdapter.kt</url>
+          <line>34</line>
+          <option name="timeStamp" value="62" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -11,9 +11,8 @@ import org.koin.dsl.module
 val DatabaseModule = module {
 
     single { createAppDatabase(get()) }
-
     single { createSongDao(get()) }
-
+    single { createPlaylistRepository(get()) }
 }
 
 internal fun createAppDatabase(application: Application): AppDatabase {
@@ -27,11 +26,9 @@ internal fun createAppDatabase(application: Application): AppDatabase {
         .build()
 }
 
-
 fun createSongDao(appDatabase: AppDatabase): SongDao {
     return appDatabase.songDao
 }
-
 
 fun createPlaylistRepository(appDatabase: AppDatabase): PlaylistRepository {
     return PlaylistRepositoryImp(appDatabase)

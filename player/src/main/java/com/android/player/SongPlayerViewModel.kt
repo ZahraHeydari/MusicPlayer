@@ -3,30 +3,23 @@ package com.android.player
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.android.player.model.ASong
 import com.android.player.util.formatTimeInMillisToString
-
+import com.google.android.exoplayer2.MediaItem
 
 class SongPlayerViewModel : ViewModel() {
 
-    private val _playerData = MutableLiveData<ASong>()
-    val playerData: LiveData<ASong> = _playerData
-    private val _isVisibleData = MutableLiveData<Boolean>()
-    val isVisibleData: LiveData<Boolean> = _isVisibleData
-    private val _isBufferingData = MutableLiveData<Boolean>()
-    val isBufferingData: LiveData<Boolean> = _isBufferingData
-    private val _isPlayData = MutableLiveData<Boolean>()
-    val isPlayData: LiveData<Boolean> = _isPlayData
-    private val _playingPercentData = MutableLiveData<Int>()
-    val playingPercentData: LiveData<Int> = _playingPercentData
+    private val _mediaItemData = MutableLiveData<MediaItem>()
+    val mediaItemData: LiveData<MediaItem> = _mediaItemData
+    private val _isPlayingData = MutableLiveData<Boolean>()
+    val isPlayingData: LiveData<Boolean> = _isPlayingData
     private val _songDurationTextData = MutableLiveData<String>()
     val songDurationTextData: LiveData<String> = _songDurationTextData
-    private val _songPositionTextData = MutableLiveData<String>()
-    val songPositionTextData: LiveData<String> = _songPositionTextData
     private val _songDurationData = MutableLiveData<Int>()
     val songDurationData: LiveData<Int> = _songDurationData
-    private val _songPositionData = MutableLiveData<Int>()
-    val songPositionData: LiveData<Int> = _songPositionData
+    private val _songPositionTextData = MutableLiveData<String>()
+    val songPositionTextData: LiveData<String> = _songPositionTextData
+    private val _songPositionData = MutableLiveData<Long>()
+    val songPositionData: LiveData<Long> = _songPositionData
     private val _isShuffleData = MutableLiveData<Boolean>()
     val isShuffleData: LiveData<Boolean> = _isShuffleData
     private val _isRepeatAllData = MutableLiveData<Boolean>()
@@ -34,27 +27,8 @@ class SongPlayerViewModel : ViewModel() {
     private val _isRepeatData = MutableLiveData<Boolean>()
     val isRepeatData: LiveData<Boolean> = _isRepeatData
 
-    val song: ASong?
-        get() = _playerData.value
-
-    init {
-        _isPlayData.value = false
-        _isRepeatData.value = false
-        _isVisibleData.value = false
-    }
-
-    fun updateSong(song : ASong){
-        _playerData.value = song
-    }
-
-    fun setData(song: ASong?) {
-        if (song == _playerData.value) return
-        this._playerData.value = song
-        this._isRepeatData.value = false
-        _songPositionTextData.value = formatTimeInMillisToString(0)
-        _songPositionData.value = 0
-        _songDurationTextData.value = formatTimeInMillisToString(0)
-        _songDurationData.value = 0
+    fun updateMediaItem(mediaItem: MediaItem?){
+        _mediaItemData.value = mediaItem
     }
 
     fun shuffle() {
@@ -69,51 +43,26 @@ class SongPlayerViewModel : ViewModel() {
         _isRepeatData.value = _isRepeatData.value != true
     }
 
-    fun setVisibility(isVisible: Boolean) {
-        this._isVisibleData.value = isVisible
-    }
-
-    fun setBuffering(isBuffering: Boolean) {
-        this._isBufferingData.value = isBuffering
-    }
-
-    fun setPlayStatus(playStatus : Boolean){
-        _isPlayData.value = playStatus
-    }
-
-    fun seekTo(position: Long) {
-        _songPositionTextData.value = formatTimeInMillisToString(position)
-        _songPositionData.value = position.toInt()
+    fun setPlayingStatus(playStatus : Boolean){
+        _isPlayingData.value = playStatus
     }
 
     fun stop() {
-        setPlayStatus(false)
         _songPositionData.value = 0
         _songPositionTextData.value = formatTimeInMillisToString(_songPositionData.value?.toLong() ?: 0)
-        _isVisibleData.value = false
-    }
-
-    fun setPlayingPercent(playingPercent: Int) {
-        if (this._playingPercentData.value == 100) return
-        this._playingPercentData.value = playingPercent
     }
 
     fun setChangePosition(currentPosition: Long, duration: Long) {
-        if (currentPosition > duration) return
         _songPositionTextData.value = formatTimeInMillisToString(currentPosition)
-        _songPositionData.value = currentPosition.toInt()
+        _songPositionData.value = currentPosition
 
-        val durationText = formatTimeInMillisToString(duration)
-        if (!_songDurationTextData.value.equals(durationText)) {
-            _songDurationTextData.value = durationText
+        if(_songDurationTextData.value != formatTimeInMillisToString(duration)) {
+            _songDurationTextData.value = formatTimeInMillisToString(duration)
             _songDurationData.value = duration.toInt()
         }
     }
 
-
     companion object {
-
-        private val TAG = SongPlayerViewModel::class.java.name
         private var mInstance: SongPlayerViewModel? = null
 
         @Synchronized
@@ -124,5 +73,4 @@ class SongPlayerViewModel : ViewModel() {
             return mInstance as SongPlayerViewModel
         }
     }
-
 }

@@ -26,7 +26,6 @@ internal class PlaylistAdapter(val mListener: OnPlaylistAdapterListener) :
         notifyDataSetChanged()
     }
 
-
     /*
      * This method is called right when adapter is created &
      * is used to initialize ViewHolders
@@ -57,12 +56,10 @@ internal class PlaylistAdapter(val mListener: OnPlaylistAdapterListener) :
 
     inner class SongViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-
         fun onBind(song: Song) {
             itemView.music_item_name_text_view.text = song.title ?: ""
 
-            song.clipArt?.let { nonNullImage ->
-
+            song.albumArt?.let { nonNullImage ->
                 itemView.music_item_avatar_image_view.load(File(nonNullImage)) {
                     crossfade(true)
                     placeholder(R.drawable.placeholder)
@@ -79,8 +76,6 @@ internal class PlaylistAdapter(val mListener: OnPlaylistAdapterListener) :
             itemView.setOnClickListener {
                 mListener.playSong(song, songs as ArrayList<Song>)
             }
-
         }
     }
-
 }

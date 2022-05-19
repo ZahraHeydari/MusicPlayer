@@ -12,18 +12,18 @@ import org.junit.Rule
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class MediaNotificationManagerTest {
+class PlayerNotificationManagerTest {
 
     @get:Rule
     val mServiceRule: ServiceTestRule = ServiceTestRule()
-    lateinit var notificationManager: MediaNotificationManager
+    lateinit var notificationManager: PlayerNotificationManager
 
     @Before
     fun setUp() {
         val intent = Intent(ApplicationProvider.getApplicationContext(), SongPlayerService::class.java)
         val binder = mServiceRule.bindService(intent)
         val serviceSong: SongPlayerService = (binder as SongPlayerService.LocalBinder).service
-        notificationManager = MediaNotificationManager(serviceSong)
+        notificationManager = PlayerNotificationManager(serviceSong)
     }
 
     @Test

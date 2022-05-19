@@ -12,8 +12,8 @@ class ExoPlayerManagerTest {
     private var exoPlayerManager = mock(ExoPlayerManager::class.java)
 
     @Test
-    fun testGetCurrentStreamPosition_forFirstCall() {
-        val currentStreamPosition = exoPlayerManager.getCurrentStreamPosition()
-        assertTrue(currentStreamPosition == 0L)
+    fun testGetCurrentMediaItem_forFirstCall() {
+        val currentMediaItem = exoPlayerManager.getCurrentMediaItem()
+        assertTrue(currentMediaItem == null)
     }
 }

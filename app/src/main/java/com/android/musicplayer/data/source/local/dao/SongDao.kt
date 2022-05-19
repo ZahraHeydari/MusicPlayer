@@ -29,5 +29,4 @@ interface SongDao {
 
     @Update
     fun update(song: Song)
-
 }

@@ -1,6 +1,6 @@
 package com.android.player.service
 
-import com.android.player.model.ASong
+import com.google.android.exoplayer2.MediaItem
 
 /**
  * To make an interaction between [SongPlayerService] & [BaseSongPlayerActivity]
@@ -8,16 +8,8 @@ import com.android.player.model.ASong
  * @author ZARA
  * */
 interface OnPlayerServiceCallback {
-
-    fun updateSongData(song: ASong)
-
+    fun updateSongData(mediaItem: MediaItem)
     fun updateSongProgress(duration: Long, position: Long)
-
-    fun setBufferingData(isBuffering: Boolean)
-
-    fun setVisibilityData(isVisibility: Boolean)
-
-    fun setPlayStatus(isPlay: Boolean)
-
-    fun stopService()
+    fun onIsPlayingChanged(isPlaying: Boolean)
+    fun updateUiForPlayingMediaItem(mediaItem: MediaItem?)
 }

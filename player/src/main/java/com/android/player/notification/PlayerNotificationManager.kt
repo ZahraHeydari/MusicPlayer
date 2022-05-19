@@ -6,18 +6,15 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Build
 import android.os.RemoteException
 import android.view.View
 import android.widget.RemoteViews
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import com.android.player.BaseSongPlayerActivity
 import com.android.player.R
-import com.android.player.exo.PlaybackState
-import com.android.player.model.ASong
 import com.android.player.service.SongPlayerService
+import com.google.android.exoplayer2.MediaItem
 import java.io.File
 
 /**
@@ -25,26 +22,24 @@ import java.io.File
  *
  * @author ZARA
  * */
-class MediaNotificationManager @Throws(RemoteException::class)
+class PlayerNotificationManager @Throws(RemoteException::class)
 constructor(private val mService: SongPlayerService) : BroadcastReceiver() {
 
-
-    private var mNotificationManager: NotificationManager? = null
     private val mPlayIntent: PendingIntent
     private val mPauseIntent: PendingIntent
     private val mPreviousIntent: PendingIntent
     private val mNextIntent: PendingIntent
     private val mStopIntent: PendingIntent
-    private var mCollapsedRemoteViews: RemoteViews? = null
-    private var mExpandedRemoteViews: RemoteViews? = null
+    private var mRemoteViews: RemoteViews? = null
     private var notificationBuilder: NotificationCompat.Builder? = null
+    private var mNotificationManager: NotificationManager? = null
     var mStarted = false //To check if notification manager is started or not!
-
+    private val mediaItem: MediaItem?
+        get() = mService.getCurrentMediaItem()
 
     private fun getPackageName(): String {
         return mService.packageName
     }
-
 
     init {
         mNotificationManager =
@@ -95,24 +90,22 @@ constructor(private val mService: SongPlayerService) : BroadcastReceiver() {
         }
     }
 
-
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {
             ACTION_PAUSE -> mService.pause()
-            ACTION_PLAY -> mService.playCurrentSong()
+            ACTION_PLAY -> mService.play()
             ACTION_NEXT -> mService.skipToNext()
             ACTION_PREV -> mService.skipToPrevious()
             ACTION_STOP -> {
                 mService.run {
-                    unregisterReceiver(this@MediaNotificationManager)
+                    unregisterReceiver(this@PlayerNotificationManager)
                     stop()
                 }
             }
         }
     }
 
-
-    fun generateNotification(): Notification? {
+    fun generateNotification(isPlaying: Boolean? = null): Notification? {
         if (notificationBuilder == null) {
             notificationBuilder = NotificationCompat.Builder(mService, CHANNEL_ID)
             notificationBuilder?.setSmallIcon(R.drawable.itunes)
@@ -130,189 +123,64 @@ constructor(private val mService: SongPlayerService) : BroadcastReceiver() {
             }
         }
 
-        mCollapsedRemoteViews =
-            RemoteViews(getPackageName(), R.layout.player_collapsed_notification)
-        notificationBuilder?.setCustomContentView(mCollapsedRemoteViews)
-        mExpandedRemoteViews = RemoteViews(getPackageName(), R.layout.player_expanded_notification)
-        notificationBuilder?.setCustomBigContentView(mExpandedRemoteViews)
-        notificationBuilder?.setContentIntent(createContentIntent())
-
+        mRemoteViews = RemoteViews(getPackageName(), R.layout.player_notification_view)
+        notificationBuilder?.setCustomContentView(mRemoteViews)
         // To make sure that the notification can be dismissed by the user when we are not playing.
         notificationBuilder?.setOngoing(true)
+        mRemoteViews?.let { createRemoteViews(it) }
 
-        mCollapsedRemoteViews?.let { createCollapsedRemoteViews(it) }
-        mExpandedRemoteViews?.let { createExpandedRemoteViews(it) }
-
-
-
-        mService.getCurrentSong()?.clipArt?.let {
-            val bitmap = BitmapFactory.decodeFile(File(it).path)
-            mCollapsedRemoteViews?.setImageViewBitmap(R.id.collapsed_notification_image_view, bitmap)
-            mExpandedRemoteViews?.setImageViewBitmap(R.id.expanded_notification_image_view, bitmap)
+        mService.getCurrentMediaItem()?.mediaMetadata?.artworkUri?.let {
+            val bitmap = BitmapFactory.decodeFile(File(it.path.toString()).path)
+            mRemoteViews?.setImageViewBitmap(R.id.notification_image_view, bitmap)
+        } ?: run {
+            val bitmap = BitmapFactory.decodeResource(mService.resources, R.drawable.placeholder)
+            mRemoteViews?.setImageViewBitmap(R.id.notification_image_view, bitmap)
         }
-
-
-        if (mService.getPlayState() == PlaybackState.STATE_PLAYING ||
-            mService.getPlayState() == PlaybackState.STATE_BUFFERING
-        ) showPauseIcon() else showPlayIcon()
-
+        if (isPlaying == true) showPauseIcon() else showPlayIcon()
         mNotificationManager?.notify(NOTIFICATION_ID, notificationBuilder?.build())
         return notificationBuilder?.build()
     }
 
-
-    private fun createContentIntent(): PendingIntent {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("player://")).apply {
-            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-            mService.getCurrentSong()?.let {
-                putExtra(ASong::class.java.name, it)
-            }
-            mService.getCurrentSongList()?.let {
-                putExtra(BaseSongPlayerActivity.SONG_LIST_KEY, it)
-            }
-        }
-
-        return TaskStackBuilder.create(mService).run {
-            // Add the intent, which inflates the back stack
-            addNextIntentWithParentStack(intent)
-            // Get the PendingIntent containing the entire back stack
-            getPendingIntent(NOTIFICATION_REQUEST_INTENT_CODE, PendingIntent.FLAG_UPDATE_CURRENT)
-        }
-    }
-
     private fun showPlayIcon() {
-        mCollapsedRemoteViews?.setViewVisibility(
-            R.id.collapsed_notification_pause_image_view,
-            View.GONE
-        )
-        mCollapsedRemoteViews?.setViewVisibility(
-            R.id.collapsed_notification_play_image_view,
-            View.VISIBLE
-        )
-        mExpandedRemoteViews?.setViewVisibility(
+        mRemoteViews?.setViewVisibility(
             R.id.expanded_notification_pause_image_view,
             View.GONE
         )
-        mExpandedRemoteViews?.setViewVisibility(
+        mRemoteViews?.setViewVisibility(
             R.id.expanded_notification_play_image_view,
             View.VISIBLE
         )
     }
 
     private fun showPauseIcon() {
-        mCollapsedRemoteViews?.setViewVisibility(
-            R.id.collapsed_notification_pause_image_view,
-            View.VISIBLE
-        )
-        mCollapsedRemoteViews?.setViewVisibility(
-            R.id.collapsed_notification_play_image_view,
-            View.GONE
-        )
-        mExpandedRemoteViews?.setViewVisibility(
+        mRemoteViews?.setViewVisibility(
             R.id.expanded_notification_pause_image_view,
             View.VISIBLE
         )
-        mExpandedRemoteViews?.setViewVisibility(
+        mRemoteViews?.setViewVisibility(
             R.id.expanded_notification_play_image_view,
             View.GONE
         )
     }
 
-    private fun createExpandedRemoteViews(expandedRemoteViews: RemoteViews) {
-        if (isSupportExpand) {
-            expandedRemoteViews.setOnClickPendingIntent(
-                R.id.expanded_notification_skip_back_image_view,
-                mPreviousIntent
-            )
-            expandedRemoteViews.setOnClickPendingIntent(
-                R.id.expanded_notification_clear_image_view,
-                mStopIntent
-            )
-            expandedRemoteViews.setOnClickPendingIntent(
-                R.id.expanded_notification_pause_image_view,
-                mPauseIntent
-            )
-            expandedRemoteViews.setOnClickPendingIntent(
-                R.id.expanded_notification_skip_next_image_view,
-                mNextIntent
-            )
-            expandedRemoteViews.setOnClickPendingIntent(
-                R.id.expanded_notification_play_image_view,
-                mPlayIntent
-            )
-
-            // use a placeholder art while the remote art is being downloaded
-            expandedRemoteViews.setImageViewResource(
-                R.id.expanded_notification_image_view,
-                R.drawable.placeholder
-            )
-        }
-
-        expandedRemoteViews.setViewVisibility(
+    private fun createRemoteViews(remoteViews: RemoteViews) {
+        remoteViews.setViewVisibility(
             R.id.expanded_notification_skip_next_image_view,
             View.VISIBLE
         )
-        expandedRemoteViews.setViewVisibility(
+        remoteViews.setViewVisibility(
             R.id.expanded_notification_skip_back_image_view,
             View.VISIBLE
         )
-        expandedRemoteViews.setTextViewText(
+        remoteViews.setTextViewText(
             R.id.expanded_notification_song_name_text_view,
-            mService.getCurrentSong()?.title
+            mediaItem?.mediaMetadata?.albumTitle
         )
-        expandedRemoteViews.setTextViewText(
+        remoteViews.setTextViewText(
             R.id.expanded_notification_singer_name_text_view,
-            mService.getCurrentSong()?.artist
-        )
-
-    }
-
-    private fun createCollapsedRemoteViews(collapsedRemoteViews: RemoteViews) {
-
-        collapsedRemoteViews.setOnClickPendingIntent(
-            R.id.collapsed_notification_skip_back_image_view,
-            mPreviousIntent
-        )
-        collapsedRemoteViews.setOnClickPendingIntent(
-            R.id.collapsed_notification_clear_image_view,
-            mStopIntent
-        )
-        collapsedRemoteViews.setOnClickPendingIntent(
-            R.id.collapsed_notification_pause_image_view,
-            mPauseIntent
-        )
-        collapsedRemoteViews.setOnClickPendingIntent(
-            R.id.collapsed_notification_skip_next_image_view,
-            mNextIntent
-        )
-        collapsedRemoteViews.setOnClickPendingIntent(
-            R.id.collapsed_notification_play_image_view,
-            mPlayIntent
-        )
-
-        // use a placeholder art while the remote art is being downloaded
-        collapsedRemoteViews.setImageViewResource(
-            R.id.collapsed_notification_image_view,
-            R.drawable.placeholder
-        )
-        collapsedRemoteViews.setViewVisibility(
-            R.id.collapsed_notification_skip_next_image_view,
-            View.VISIBLE
-        )
-        collapsedRemoteViews.setViewVisibility(
-            R.id.collapsed_notification_skip_back_image_view,
-            View.VISIBLE
-        )
-        collapsedRemoteViews.setTextViewText(
-            R.id.collapsed_notification_song_name_text_view,
-            mService.getCurrentSong()?.title
-        )
-        collapsedRemoteViews.setTextViewText(
-            R.id.collapsed_notification_singer_name_text_view,
-            mService.getCurrentSong()?.artist
+            mediaItem?.mediaMetadata?.albumArtist
         )
     }
-
 
     /**
      * Creates Notification Channel. This is required in Android O+ to display notifications.
@@ -332,9 +200,6 @@ constructor(private val mService: SongPlayerService) : BroadcastReceiver() {
     }
 
     companion object {
-
-        private val TAG = MediaNotificationManager::class.java.name
-        private val isSupportExpand = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
         private const val ACTION_PAUSE = "app.pause"
         private const val ACTION_PLAY = "app.play"
         private const val ACTION_PREV = "app.prev"
@@ -343,7 +208,6 @@ constructor(private val mService: SongPlayerService) : BroadcastReceiver() {
         private const val CHANNEL_ID = "app.MUSIC_CHANNEL_ID"
         private const val NOTIFICATION_ID = 412
         private const val NOTIFICATION_REQUEST_CODE = 100
-        private const val NOTIFICATION_REQUEST_INTENT_CODE = 125245
     }
 }
 

@@ -8,7 +8,6 @@ import android.view.View
 import android.view.View.OnTouchListener
 import kotlin.math.abs
 
-
 abstract class OnSwipeTouchListener(context: Context?) : OnTouchListener {
 
     private val gestureDetector: GestureDetector
@@ -60,5 +59,4 @@ abstract class OnSwipeTouchListener(context: Context?) : OnTouchListener {
 
     abstract fun onSwipeRight()
     abstract fun onSwipeLeft()
-
 }
